@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarMain"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_gravity="top"
+        android:background="@drawable/icon_shape_botum"
+        android:backgroundTint="#C6E9E9"
+        android:gravity="center"
+        android:padding="30dp"
+        app:contentScrim="?attr/colorPrimary"
+        app:elevation="6dp"
+        app:layout_collapseMode="pin"
+        app:titleTextColor="#fff"
+
+
+        />
+
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+android:layout_marginTop="2.5dp"
+
+
+            android:orientation="horizontal">
+
+            <com.fangxu.allangleexpandablebutton.AllAngleExpandableButton
+                android:id="@+id/button_expandable_110_250"
+                android:layout_marginLeft="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:aebAnimDurationMillis="175"
+                app:aebButtonElevation="4dp"
+                app:aebButtonGapDp="20dp"
+                app:aebEndAngleDegree="290"
+                app:aebStartAngleDegree="180"
+                app:aebIsSelectionMode="false"
+                app:aebMainButtonSizeDp="45dp"
+                app:aebRippleEffect="true"
+                app:aebSubButtonSizeDp="35dp"
+                />
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

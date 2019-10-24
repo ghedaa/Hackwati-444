@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:fitsSystemWindows="true">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/rel1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp">
+
+
+            <Button
+                android:id="@+id/uploadImg"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
+                android:layout_below="@id/relImg"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="-57dp"
+                android:layout_marginRight="-5dp"
+                android:layout_toLeftOf="@id/relImg"
+                android:background="@drawable/box_shape"
+                android:backgroundTint="#F7E459"
+                android:text="ارفع" />
+
+            <RelativeLayout
+                android:id="@+id/relImg"
+                android:layout_width="105dp"
+                android:layout_height="73dp"
+                android:layout_marginTop="80dp"
+
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true">
+            <ImageView
+                android:id="@+id/userImg"
+                android:layout_width="105dp"
+                android:layout_height="73dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerInParent="true"
+                android:alpha=".6"
+
+                android:onClick="selectImage"
+                android:src="@drawable/defult_thumbnail" />
+
+                <TextView
+                    android:id="@+id/plus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="+ "
+                    android:textSize="70dp"
+                    android:textColor="#94B9B8"/>
+
+            </RelativeLayout>
+            <ImageView
+                android:id="@+id/edit1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/relImg"
+                android:layout_marginTop="25dp"
+                android:layout_toLeftOf="@id/nameSignUpHin"
+                app:srcCompat="@drawable/ic_edit_black_24dp"
+                android:layout_alignParentLeft="true"
+                />
+
+            <TextView
+                android:id="@+id/nameSignUp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/relImg"
+                android:layout_marginTop="25dp"
+                android:text="الاسم:   "
+                android:textColor="#94B9B8"
+                android:textStyle="bold"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/nameSignUpHin"
+                android:layout_width="254dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/relImg"
+                android:layout_marginTop="25dp"
+                android:layout_toLeftOf="@+id/nameSignUp"
+                android:ems="10"
+                android:gravity="left"
+                android:hint="اسم المستخدم"
+                android:textSize="18dp" />
+
+
+            <TextView
+                android:id="@+id/emailSignUp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/nameSignUp"
+                android:layout_marginTop="25dp"
+                android:text="الايميل: "
+                android:textColor="#94B9B8"
+                android:textStyle="bold"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/emailSignUpHin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/nameSignUp"
+                android:layout_marginTop="25dp"
+                android:layout_toLeftOf="@+id/emailSignUp"
+                android:ems="10"
+                android:gravity="left"
+                android:hint="البريد الالكتروني"
+                android:textSize="18dp" />
+
+            <ImageView
+                android:id="@+id/edit2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/emailSignUp"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="25dp"
+                android:layout_toLeftOf="@id/nameSignUpHin"
+                app:srcCompat="@drawable/ic_edit_black_24dp"
+                android:layout_alignParentLeft="true"
+                />
+
+
+            <TextView
+                android:id="@+id/infoSignUp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/emailSignUp"
+                android:layout_marginTop="25dp"
+                android:text="النبذة:   "
+                android:textColor="#94B9B8"
+                android:textStyle="bold"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/infoUpHin"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/emailSignUpHin"
+                android:layout_marginTop="25dp"
+                android:layout_toLeftOf="@+id/nameSignUp"
+                android:ems="10"
+                android:gravity="left"
+                android:hint="     "
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/infotext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/infoSignUp"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:gravity="left"
+                android:hint="    gpojposj "
+                android:textAlignment="center"
+                android:textSize="18dp"
+                android:background="@drawable/box_shape"
+                android:backgroundTint="#F5F5F5"
+
+                />
+            <Button
+                android:id="@+id/draft_page"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/lightYellow"
+                android:layout_below="@id/infotext"
+                android:text="draft"/>
+
+
+
+
+
+
+            <View
+                android:id="@+id/separator"
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:layout_below="@id/infotext"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="25dp"
+                android:background="#A0A0A0" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rel2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rel1"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp">
+
+            <TextView
+                android:id="@+id/subscriber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:text=" المتابعين"
+                android:textSize="18dp"
+                android:textColor="#94B9B8"
+               />
+
+            <TextView
+                android:id="@+id/subscriberno"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_toLeftOf="@id/subscriber"
+                android:ems="10"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:textSize="18dp"
+                android:hint="-" />
+
+            <TextView
+                android:id="@+id/subscribed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/subscriberno"
+                android:layout_marginTop="25dp"
+                android:text=" المتابعون"
+                android:textColor="#94B9B8"
+
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/subscribedno"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_toLeftOf="@id/subscribed"
+                android:ems="10"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:hint="-"
+
+                android:textSize="18dp"/>
+
+            <TextView
+                android:id="@+id/story"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/subscribedno"
+                android:layout_marginTop="25dp"
+                android:text=" القصص"
+                android:textColor="#94B9B8"
+
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/storyno"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_toLeftOf="@id/story"
+                android:ems="10"
+                android:gravity="left"
+                android:hint="0"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:textSize="18dp" />
+
+            <View
+                android:id="@+id/separator2"
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:layout_below="@id/storyno"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="25dp"
+                android:background="#A0A0A0" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rel2"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center">
+
+
+
+
+            <Button
+                android:id="@+id/logout_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+
+                android:background="@drawable/box_shape"
+                android:backgroundTint="#F1675C"
+                android:text="تسجيل االخروج" />
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_gravity="top"
+        android:background="@drawable/icon_shape_botum"
+        android:backgroundTint="#C6E9E9"
+        android:gravity="center"
+        android:padding="25dp"
+        app:contentScrim="?attr/colorPrimary"
+        app:elevation="6dp"
+        app:layout_collapseMode="pin"
+        app:titleTextColor="#fff"
+
+
+        />
+
+
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

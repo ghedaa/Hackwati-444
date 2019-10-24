@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_subscription"
+        android:icon="@drawable/ic_home"
+        android:title="الإشتراكات"
+        android:state_checked="true"
+        />
+
+    <item
+        android:id="@+id/navigation_record"
+        android:icon="@drawable/ic_microphone"
+        android:title="سجل" />
+
+    <item
+
+        android:id="@+id/navigation_explore"
+        android:icon="@drawable/ic_compass"
+        android:title="اكتشف" />
+
+</menu>

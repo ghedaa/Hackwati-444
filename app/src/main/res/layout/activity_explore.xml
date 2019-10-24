@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/htab_maincontent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8F8F8"
+    android:fitsSystemWindows="true">
+    <!--  android:layout_height="584dp"-->
+
+
+    <LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="390dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="70dp"/>
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"/>
+
+</LinearLayout>
+    <include layout="@layout/toolbar_main" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

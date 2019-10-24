@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "445008314902",
+    "firebase_url": "https://hackwati444.firebaseio.com",
+    "project_id": "hackwati444",
+    "storage_bucket": "hackwati444.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:445008314902:android:e21a59d164dced9c97eb37",
+        "android_client_info": {
+          "package_name": "sa.ksu.swe444.hackwati"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "445008314902-3slfduube8uvpn902c12g3dl1gnfm707.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "sa.ksu.swe444.hackwati",
+            "certificate_hash": "ceb86b89a37f44407372a48f511b8da01afae379"
+          }
+        },
+        {
+          "client_id": "445008314902-to3btaeq287ubiv4ipqqvpco7qo6kcmr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "sa.ksu.swe444.hackwati",
+            "certificate_hash": "8f9af6541e44f12f99d90436d9501b31f9b74f4e"
+          }
+        },
+        {
+          "client_id": "445008314902-l2pkcgarh549b1t9cq9kdvtr2e8bppki.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPtUvxIkm68Q9yIt36yLzGjtIy2vkxX24"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "445008314902-l2pkcgarh549b1t9cq9kdvtr2e8bppki.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

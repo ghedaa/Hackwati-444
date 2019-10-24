@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5"
+    android:orientation="vertical"
+    android:padding="40dp">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="501dp"
+        android:layout_marginTop="40dp">
+
+        <RelativeLayout
+            android:id="@+id/relTab"
+            android:layout_width="146dp"
+            android:layout_height="54dp"
+            android:background="@drawable/icon_shape"
+
+            android:backgroundTint="#F7E459">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="تسجيل الدخول"
+                android:textColor="#fff"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/bigBox"
+            android:layout_width="match_parent"
+            android:layout_height="367dp"
+            android:layout_below="@id/relTab"
+            android:background="@drawable/box_shape_reg"
+            >
+
+
+            <Button
+                android:id="@+id/loginbutton_login"
+                android:layout_width="270dp"
+
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/pass"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/shape"
+                android:backgroundTint="#C6E9E9"
+                android:text="تسجيل الدخول"
+               />
+
+
+            <TextView
+                android:id="@+id/forgetText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/regBtnGoogle"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:text="نسيت كلمة المرور؟"
+                android:textColor="#3C3C3C" />
+
+
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/regBtnGoogle"
+                android:layout_width="270dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/loginbutton_login"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="18dp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/pass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/email"
+                android:layout_marginBottom="10dp"
+                android:padding="10dp">
+
+                <EditText
+                    android:id="@+id/password_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="كلمة المرور"
+                    android:inputType="textPassword" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:padding="10dp">
+
+                <EditText
+                    android:id="@+id/email_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="البريد الالكتروني"
+                    android:inputType="textEmailAddress" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/createAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/bigBox"
+            android:layout_marginTop="30dp"
+            android:text="انشاء حساب جديد"
+            android:layout_centerInParent="true"
+            android:textColor="#3C3C3C"
+            android:textSize="18dp"/>
+    </RelativeLayout>
+
+
+      <ProgressBar
+          android:id="@+id/progress_bar"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="10dp"
+          android:layout_gravity="center"/>
+
+
+</LinearLayout>

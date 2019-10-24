@@ -1,0 +1,64 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Base application theme. -->
+
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+
+        <!-- Customize your theme here. Theme.MaterialComponents.Light.NoActionBar-->
+        <item name="colorPrimary">@color/colorAccent</item>
+        <item name="colorPrimaryDark">#eee</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.MyApp.SmallComponent</item>
+        <item name="android:typeface">monospace</item>
+        <item name="android:text"></item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog</item>
+    </style>
+
+    <style name="ShapeAppearance.MyApp.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSize">4dp</item>
+    </style>
+
+    <style name="ShapeAppearance.MyApp.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+
+    <style name="ShapeAppearance.MyApp.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">4dp</item>
+    </style>
+
+    <style name="Theme.Custom" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowActionBarOverlay">true</item>
+        <item name="android:windowActionBarOverlay">true</item>
+
+    </style>
+
+    <style name="CustomActionBar" parent="@style/Theme.Design.NoActionBar">
+        <item name="android:windowActionBarOverlay">true</item>
+        <!-- Support library compatibility -->
+        <item name="windowActionBarOverlay">true</item>
+    </style>
+
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <item name="colorAccent">#eeee</item>
+    </style>
+
+    <style name="CustomDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!--buttons color-->
+        <item name="colorAccent">@android:color/holo_orange_dark</item>
+        <!--title and message color-->
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <!--dialog background-->
+        <item name="android:windowBackground">@drawable/background_dialog</item>
+    </style>
+
+
+
+
+
+</resources>

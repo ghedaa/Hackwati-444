@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#F5F5F5"
+    android:orientation="vertical"
+    android:padding="40dp">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="501dp"
+        android:layout_marginTop="40dp">
+
+        <RelativeLayout
+            android:id="@+id/relTab"
+            android:layout_width="146dp"
+            android:layout_height="54dp"
+            android:background="@drawable/icon_shape"
+            android:backgroundTint="#C6E9E9">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="التسجيل"
+                android:textColor="#fff"
+                android:textSize="18sp"
+                android:textStyle="bold"
+             />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/bigBox"
+            android:layout_width="328dp"
+            android:layout_height="365dp"
+            android:layout_below="@id/relTab"
+            android:background="@drawable/box_shape_reg">
+
+
+            <Button
+                android:id="@+id/register_btn"
+                android:layout_width="270dp"
+
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/repass"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="35dp"
+                android:background="@drawable/shape"
+                android:backgroundTint="#F7F7F7"
+                android:text="سجل" />
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+                <EditText
+                    android:id="@+id/username_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="اسم المستخدم" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/username"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+                <EditText
+                    android:id="@+id/email_register"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="البريد الإلكتروني"
+                    android:inputType="textEmailAddress" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/pass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/email"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+                <EditText
+                    android:id="@+id/pass_register"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="كلمة المرور"
+                    android:inputType="textPassword"
+                    app:passwordToggleEnabled="true" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/repass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/pass"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+                <EditText
+                    android:id="@+id/repass_register"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="إعادة كلمة المرور"
+                    android:inputType="textPassword"
+                    app:passwordToggleEnabled="true" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/haveAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/bigBox"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="30dp"
+            android:text="هل تمتلك حسابًا؟"
+            android:textColor="#3C3C3C"
+            android:textSize="18dp"
+            />
+    </RelativeLayout>
+
+
+
+
+</LinearLayout>

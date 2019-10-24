@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#eee"
+    tools:context=".InnerStoryActivity">
+
+
+    <ImageView
+        android:id="@+id/close"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="20dp"
+        app:srcCompat="@drawable/ic_down_arrow"
+        tools:ignore="VectorDrawableCompat" />
+
+    <ImageView
+        android:id="@+id/story_cover"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        app:srcCompat="@drawable/story_four" />
+
+    <ImageView
+        android:id="@+id/story_cover2"
+        android:layout_width="match_parent"
+        android:layout_height="395dp"
+        android:layout_centerHorizontal="true"
+        android:alpha=".06"
+        android:gravity="top"
+        android:src="@drawable/story_four" />
+
+    <RelativeLayout
+        android:id="@+id/voice_controller"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/seekBar"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="10dp"
+        android:padding="20dp">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:rotation="180"
+            app:srcCompat="@drawable/ic_fast_backword"
+            tools:ignore="VectorDrawableCompat" />
+
+        <ImageView
+            android:id="@+id/pause"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:clickable="true"
+            app:srcCompat="@drawable/ic_play_button"
+            tools:ignore="VectorDrawableCompat" />
+
+        <ImageView
+            android:id="@+id/forward"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentLeft="true"
+            app:srcCompat="@drawable/ic_fast_forward"
+            tools:ignore="VectorDrawableCompat" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pause"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp">
+
+            <Button
+                android:id="@+id/approve"
+                android:layout_width="159dp"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/shape"
+                android:text="قبول"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/reject"
+                android:layout_width="159dp"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:layout_toLeftOf="@id/approve"
+                android:background="@drawable/shape"
+                android:text="رفض"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/timer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/userName"
+        android:layout_marginTop="50dp"
+        android:alpha=".4"
+        android:background="#eee"
+        android:padding="10dp">
+
+
+        <TextView
+            android:id="@+id/currentTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="2:00:00"
+            android:textColor="@color/basicblue"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/remaining_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="5:00:00"
+            android:textColor="@color/basicblue"
+            android:textStyle="bold" />
+
+
+    </RelativeLayout>
+
+
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/userName"
+        android:layout_marginTop="50dp"
+        android:backgroundTint="@android:color/black"
+        android:thumbTint="#1561A4" />
+
+
+    <TextView
+        android:id="@+id/userName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/story_name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="الاسم"
+        android:textColor="#1561A4"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <!-- <TextView
+         android:id="@+id/time"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_below="@id/story_name"
+         android:layout_alignLeft="@id/userName"
+         android:layout_marginLeft="-95dp"
+         android:layout_marginTop="17dp"
+         android:text="التاريخ"
+         android:textColor="#1561A4"
+         android:textSize="20dp"
+         android:textStyle="bold" />
+ -->
+    <TextView
+        android:id="@+id/story_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/story_cover"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="الاسم"
+        android:textColor="#1561A4"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+</RelativeLayout>
