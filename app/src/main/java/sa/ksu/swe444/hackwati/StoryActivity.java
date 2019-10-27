@@ -309,6 +309,7 @@ public class StoryActivity extends AppCompatActivity implements View.OnClickList
 
 
                         ratingBar.setRating(3);
+                        ratingBar.setEnabled(false);
 
 
                       /*  Map<String, Object> story = new HashMap<>();
