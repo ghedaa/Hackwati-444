@@ -137,6 +137,7 @@ public class InnerStoryActivity extends AppCompatActivity implements View.OnClic
     }//end onCreate
 
     private void viewRateDialog() {
+
         AlertDialog.Builder builder = new AlertDialog.Builder(InnerStoryActivity.this);
         LayoutInflater inflater = getLayoutInflater();
         builder.setTitle("قيم قصتي");
@@ -148,10 +149,8 @@ public class InnerStoryActivity extends AppCompatActivity implements View.OnClic
             public void onClick(DialogInterface dialogInterface, int i) {
                 Toast.makeText(getApplicationContext(), "تقييمك هو " + ratingBar.getRating(), Toast.LENGTH_SHORT).show();
                 float rate =ratingBar.getRating();
-                DocumentReference storyRef = firebaseFirestore.collection("stories").document(storyID);
-               // storyRef.update("rate", FieldValue.increment(rate));
-              //  storyRef.update("rateCounter", FieldValue.increment(1));
-                String Rate = String.valueOf(rate);
+
+                float Rate = Float.valueOf(rate);
                 updateStoryRate(Rate);
 
 
@@ -167,12 +166,10 @@ public class InnerStoryActivity extends AppCompatActivity implements View.OnClic
 
     }
 
-    private void updateStoryRate(String rate) {
+    private void updateStoryRate(Float rate) {
 
         Map<String, Object> story = new HashMap<>();
-        //todo: delete rate
         story.put("rate", rate);
-
         story.put("rateCounter", FieldValue.increment(1));
 
         firebaseFirestore.collection("publishedStories").document(storyID).set(story, SetOptions.merge());
