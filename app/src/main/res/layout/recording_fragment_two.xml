@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/f2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,7 +13,7 @@
         android:layout_height="200dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
-        android:src="@drawable/ic_book_black_24dp" />
+        app:srcCompat="@drawable/ic_book_black_24dp" />
 
     <RelativeLayout
         android:id="@+id/re"
@@ -64,4 +66,13 @@
         android:backgroundTint="#DBDBDB"
         android:text="حفظ لوقت لاحق" />
 
-    </RelativeLayout>
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="126dp"
+        android:layout_height="36dp"
+        android:layout_centerInParent="true"
+        android:layout_above="@+id/submit"
+        android:layout_marginBottom="15dp"
+        android:tooltipText="تصنيف القصة" />
+
+</RelativeLayout>

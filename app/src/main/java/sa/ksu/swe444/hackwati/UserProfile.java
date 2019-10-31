@@ -195,12 +195,7 @@ public class UserProfile extends BaseActivity {
                             Glide.with(UserProfile.this)
                                     .load(thumbnail + "")
                                     .into(img);
-
-
                             info.setText(infoU);
-
-
-
 
                         }
 
@@ -215,8 +210,6 @@ public class UserProfile extends BaseActivity {
                 }
             }
         });
-
-
     }
 
     // IMAGE

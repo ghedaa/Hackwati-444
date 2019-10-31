@@ -14,6 +14,7 @@ import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.TypedValue;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -33,10 +34,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import sa.ksu.swe444.hackwati.AdminActivity;
+import sa.ksu.swe444.hackwati.ConcatUsActivity;
 import sa.ksu.swe444.hackwati.Item;
+import sa.ksu.swe444.hackwati.MainActivity;
 import sa.ksu.swe444.hackwati.R;
+import sa.ksu.swe444.hackwati.Recording.RecordingActivity;
 import sa.ksu.swe444.hackwati.SplashActivity;
 import sa.ksu.swe444.hackwati.UserProfile;
+import sa.ksu.swe444.hackwati.explor.ExploreActivity;
 import sa.ksu.swe444.hackwati.storyAdapter;
 
 public class ViewDraft extends AppCompatActivity {
@@ -53,6 +58,7 @@ public class ViewDraft extends AppCompatActivity {
     public FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     private static final String TAG = "AdminActivity";
     private FirebaseAuth auth;
+
 
     public String userName, userTumbnail;
 
@@ -73,6 +79,30 @@ public class ViewDraft extends AppCompatActivity {
         userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         initRecyclerView();
+
+
+
+        navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+
+                    case R.id.navigation_record:
+                        startActivity(new Intent(ViewDraft.this, RecordingActivity.class));
+                        break;
+
+                    case R.id.navigation_subscription:
+                        startActivity(new Intent(ViewDraft.this, MainActivity.class));
+                        break;
+
+                    case R.id.navigation_explore:
+                        startActivity(new Intent(ViewDraft.this, ExploreActivity.class));
+                        break;
+
+                }// end of switch
+                return true;
+            }
+        });
     }//end onCreate
 
     private void initRecyclerView() {
@@ -95,9 +125,9 @@ public class ViewDraft extends AppCompatActivity {
 
         final AllAngleExpandableButton button = (AllAngleExpandableButton) findViewById(R.id.button_expandable_110_250);
         final List<ButtonData> buttonDatas = new ArrayList<>();
-        int[] drawable = {R.drawable.defult_thumbnail, R.drawable.ic_power_settings_new_black_24dp, R.drawable.ic_search_black_24dp};// gray is some thing else
-        int[] color = {R.color.colorAccent, R.color.colorAccent, R.color.colorAccent, R.color.colorAccent};
-        for (int i = 0; i < 3; i++) {
+        int[] drawable = {R.drawable.defult_thumbnail, R.drawable.ic_power_settings_new_black_24dp, R.drawable.defult_thumbnail, R.drawable.ic_search_black_24dp, R.drawable.ic_error_outline_black_24dp};// gray is some thing else
+        int[] color = {R.color.colorAccent, R.color.colorAccent, R.color.colorAccent, R.color.colorAccent, R.color.colorAccent};
+        for (int i = 0; i < 5; i++) {
             ButtonData buttonData;
             if (i == 0) {
                 buttonData = ButtonData.buildIconButton(this, drawable[i], 7);
@@ -118,6 +148,7 @@ public class ViewDraft extends AppCompatActivity {
                 switch (index) {
                     case 1:
 
+
                         AlertDialog.Builder builder = new AlertDialog.Builder(ViewDraft.this);
                         builder.setMessage("هل أنت متأكد من أنك تريد تسجيل الخروج؟")
                                 .setCancelable(false)
@@ -126,31 +157,27 @@ public class ViewDraft extends AppCompatActivity {
 
                                         FirebaseAuth.getInstance().signOut();
                                         startActivity(new Intent(ViewDraft.this, SplashActivity.class));
-
-                                        finish();
-
                                     }
 
                                 });
                         builder.setNeutralButton("إلغاء", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-
-                            }
-
-                        });
+                            public void onClick(DialogInterface dialog, int id) { }});
 
                         AlertDialog alert = builder.create();
                         alert.show();
 
 
-
                         break;
                     case 2:
+                        startActivity(new Intent(ViewDraft.this, UserProfile.class));
                         break;
-
+                    case 3:
+                        break;
+                    case 4:
+                        startActivity(new Intent(ViewDraft.this, ConcatUsActivity.class));
+                        break;
                 }
             }
-
             @Override
             public void onExpand() {
 
@@ -249,4 +276,7 @@ public class ViewDraft extends AppCompatActivity {
                 });
 
     }
+
+
+
 }
