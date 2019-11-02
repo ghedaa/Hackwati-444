@@ -3,8 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="72dp"
     android:clickable="true"
-    android:layout_margin="5dp"
-    android:padding="6dip"
     android:id="@+id/LR">
 
     <ImageView
@@ -14,6 +12,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
+        android:layout_centerInParent="true"
         android:layout_marginStart="19dp"
         android:layout_marginLeft="16dp"
         android:src="@mipmap/ic_launcher_round" />
@@ -32,20 +31,24 @@ android:layout_centerInParent="true"
         android:textSize="15sp" />
 
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_arrow_forward_black_24dp"
-        android:layout_marginTop="16dp"
+
+    <Button
+        android:id="@+id/subscribeBtn"
+        android:layout_width="90dp"
+        android:layout_height="50dp"
+        android:background="@drawable/shape_subscribe"
+        android:backgroundTint="@color/gray_hak"
         android:layout_centerInParent="true"
         android:layout_alignParentLeft="true"
-        android:alpha=".6"
-        />
+        android:layout_marginLeft="20dp"
+        android:text=""
+        android:textColor="#fff"
+        android:textStyle="bold"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="59dp"
-        android:background="@android:color/darker_gray" />
+        android:layout_marginTop="70dp"
+        android:background="@color/gray_hak" />
 
 </RelativeLayout>

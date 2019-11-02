@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -23,7 +25,7 @@ import java.util.List;
 import sa.ksu.swe444.hackwati.list_adabter.CustomAdapter;
 import sa.ksu.swe444.hackwati.list_adabter.CustomPojo;
 
-public class SubscribedListActivity extends AppCompatActivity {
+public class SubscribedListActivity extends AppCompatActivity{
 
     private RecyclerView recyclerView;
     private CustomAdapter mAdapter;
@@ -32,6 +34,8 @@ public class SubscribedListActivity extends AppCompatActivity {
     public FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     private String userUid;
     private TextView emptyUsers;
+    Button subscribe;
+
 
 
     @Override
@@ -40,8 +44,8 @@ public class SubscribedListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_subscribed_list);
         userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        emptyUsers = findViewById(R.id.emptyUsers);
 
+        emptyUsers = findViewById(R.id.emptyUsers);
         recyclerView = findViewById(R.id.recycleView);
         namesList = new ArrayList<>();
         mAdapter = new CustomAdapter(SubscribedListActivity.this);
@@ -76,15 +80,6 @@ public class SubscribedListActivity extends AppCompatActivity {
                         } else { // has SubscribedUsers
 
                             retriveUserData(list);
-
-                    /*        for(int i=0; i<list.size(); i++){
-
-                                CustomPojo user = new CustomPojo();
-                                namesList.add(user);
-                                mAdapter.notifyDataSetChanged();
-
-                            }*/
-
                         }// end for loop
 
 
@@ -95,8 +90,6 @@ public class SubscribedListActivity extends AppCompatActivity {
 
 
     }
-
-
     public void retriveUserData(List<String> list) {
 
 
@@ -112,8 +105,10 @@ public class SubscribedListActivity extends AppCompatActivity {
 
                             String userName = document.get("username").toString();
                             String thumbnail = document.get("thumbnail").toString();
+                            String userID = document.getId().toString();
+                            boolean isSubscribed = true;
 
-                            CustomPojo user = new CustomPojo(userName,thumbnail);
+                            CustomPojo user = new CustomPojo(userID, userName,thumbnail,"اشتراك");
 
                             namesList.add(user);
                             recyclerView.setAdapter(mAdapter);
@@ -126,5 +121,7 @@ public class SubscribedListActivity extends AppCompatActivity {
 
         }//end for loop
     }
+
+
 
 }

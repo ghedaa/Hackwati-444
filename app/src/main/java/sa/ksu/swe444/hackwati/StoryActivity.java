@@ -125,8 +125,6 @@ public class StoryActivity extends AppCompatActivity implements View.OnClickList
                     if (document.exists()) {
 
 
-                        Log.d(TAG, " 111 document exist");
-
                         Intent intent = getIntent();
                         if (intent.getExtras() != null) {
                             storyId = intent.getExtras().getString(Constants.Keys.STORY_ID);
@@ -237,9 +235,7 @@ public class StoryActivity extends AppCompatActivity implements View.OnClickList
         washingtonRef.update("subscribedUsers", FieldValue.arrayUnion(userStoryId)).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                washingtonRef.update("numSubscribers", FieldValue.increment(1));
                 subscribe.setText("مشترك");
-                subscribe.setBackgroundColor(Color.YELLOW);
 
 
             }
@@ -253,7 +249,6 @@ public class StoryActivity extends AppCompatActivity implements View.OnClickList
         washingtonRef.update("subscribedUsers", FieldValue.arrayRemove(userStoryId)).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                washingtonRef.update("numSubscribers", FieldValue.increment(-1));
                 subscribe.setText("اشتراك");
             }
         });

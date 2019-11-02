@@ -200,6 +200,8 @@ public class UserProfile extends BaseActivity {
                         String email = document.get("email").toString();
                         String thumbnail = document.get("thumbnail").toString();
                         String infoU = document.get("info").toString();
+                        List<String> list = (List<String>) document.get("subscribedUsers");
+
                         if (userName != null && email != null) {
                             userNameText.setText(userName);
                             emailText.setText(email);
@@ -208,13 +210,13 @@ public class UserProfile extends BaseActivity {
                                     .load(thumbnail + "")
                                     .into(img);
 
+                            subscribedno.setText(list.size()+"");
 
                             info.setText(infoU);
 
 
                         }
 
-                        subscribedno.setText(document.get("numSubscribers").toString());
 
 
                     } else {
@@ -257,7 +259,6 @@ public class UserProfile extends BaseActivity {
 
         }
     }//end onActivityResult()
-
     private void persistImage(Bitmap bitmap) {
         File fileDir = UserProfile.this.getFilesDir();
         String name = "image";
@@ -274,7 +275,6 @@ public class UserProfile extends BaseActivity {
             Log.e(getClass().getSimpleName(), "Error writing bitmap", e);
         }//end catch
     }//end of persistImage()
-
     private void openCameraChooser() {
         if (ActivityCompat.checkSelfPermission(UserProfile.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(UserProfile.this, new String[]{Manifest.permission.CAMERA}, 100);
@@ -282,7 +282,6 @@ public class UserProfile extends BaseActivity {
 
         showPhotoOptionsDialog();
     }//end of openCameraChooser()
-
     private void showPhotoOptionsDialog() {
         final CharSequence[] items = {"Gallery"};
         AlertDialog.Builder builder = new AlertDialog.Builder(UserProfile.this);
@@ -296,7 +295,6 @@ public class UserProfile extends BaseActivity {
         });//end setItems
         builder.show();
     }//end showPhotoOptionsDialog()
-
     private void galleryIntent() {
 
         Intent intent = new Intent(
@@ -304,8 +302,6 @@ public class UserProfile extends BaseActivity {
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, INTENT_GALLERY);
     }//END OF galleryIntent()
-
-
     private void uploadImageWithUri() {
         Log.d(TAG, "aa2");
 
@@ -381,7 +377,6 @@ public class UserProfile extends BaseActivity {
         }
     }
 
-
     public void showDialogWithTextInput(String title) {
 
         LayoutInflater layoutInflaterAndroid = LayoutInflater.from(UserProfile.this);
@@ -430,7 +425,6 @@ public class UserProfile extends BaseActivity {
         androidx.appcompat.app.AlertDialog alertDialogAndroid = alertDialogBuilderUserInput.create();
         alertDialogAndroid.show();
     }
-
 
     public void edituserInfo(String title) {
 
@@ -509,7 +503,6 @@ public class UserProfile extends BaseActivity {
 
     public void Subscribers (){
 
-
         firebaseFirestore.collection("users")
                 .whereArrayContains("subscribedUsers", userUid)
                 .get()
@@ -528,6 +521,8 @@ public class UserProfile extends BaseActivity {
                 });
 
     }
+
+
 }
 
 

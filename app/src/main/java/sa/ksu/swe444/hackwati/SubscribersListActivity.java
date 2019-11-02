@@ -6,11 +6,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -33,6 +36,9 @@ public class SubscribersListActivity extends AppCompatActivity {
     private String userUid;
     private TextView emptyUsers;
 
+    private static final String TAG = "SubscribersListActivity";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,15 +59,39 @@ public class SubscribersListActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(mAdapter);
 
-        Subscribers ();
-       // retrieveSubscribedUsers();
+        retrieveSubscribedUsers();
 
     }
 
 
+    public void retrieveSubscribedUsers() {
+
+        DocumentReference docRef = firebaseFirestore.collection("users").document(userUid);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+
+                        final List<String> list = (List<String>) document.get("subscribedUsers");
+                        if (list == null) {
+                            emptyUsers.setText("لا يوجد متابعين");
+                        } else { // has SubscribedUsers
+
+                            Subscribers(list);
+                        }// end for loop
 
 
-    public void Subscribers (){
+                    }
+                }
+            }
+        });
+
+
+    }
+
+    public void Subscribers(final List<String> list) {
 
 
         firebaseFirestore.collection("users")
@@ -74,10 +104,23 @@ public class SubscribersListActivity extends AppCompatActivity {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 String userName = document.get("username").toString();
                                 String thumbnail = document.get("thumbnail").toString();
-                                CustomPojo user = new CustomPojo(userName,thumbnail);
+                                String userID = document.getId().toString();
+                                boolean isSubscribed = list.contains(userID);
+                            //    Log.d(TAG,"bobo"+isSubscribed+"");
+                                CustomPojo user;
+
+
+                                if(isSubscribed){
+                                user = new CustomPojo(userID, userName, thumbnail, "مشترك");
                                 namesList.add(user);
                                 recyclerView.setAdapter(mAdapter);
-                                mAdapter.notifyDataSetChanged();
+                                mAdapter.notifyDataSetChanged();}
+                                else{
+                                    user = new CustomPojo(userID, userName, thumbnail, "اشتراك");
+                                    namesList.add(user);
+                                    recyclerView.setAdapter(mAdapter);
+                                    mAdapter.notifyDataSetChanged();
+                                }
                             }
 
                         }
@@ -86,46 +129,8 @@ public class SubscribersListActivity extends AppCompatActivity {
 
     }
 
-    public void retrieveSubscribedUsers() {
-
-        DocumentReference docRef = firebaseFirestore.collection("users").document();
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        List<String> listSubscribers = new ArrayList<>();
-
-                        final List<String> list = (List<String>) document.get("subscribedUsers");
-                        if (list == null) {
-                        } else {
-
-
-                         for(int i=0; i<list.size(); i++){
-
-                               if (list.get(i).equalsIgnoreCase(userUid))
-                                   listSubscribers.add(list.get(i));
-
-
-                            }
-
-                        }// end for loop
-
-
-                    }
-                }
-            }
-        });
-
-
-    }
-
 
     public void retriveUserData(String name, String imge) {
-
-
-
 
 
     }
