@@ -29,6 +29,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import sa.ksu.swe444.hackwati.ui.profileActivity.ProfileActivity;
+
 import static java.lang.String.valueOf;
 
 
@@ -72,6 +74,15 @@ public class StoryActivity extends AppCompatActivity implements View.OnClickList
         cover = (ImageView) findViewById(R.id.cover);
         listenBtn = findViewById(R.id.listenBtn);
         channelname = findViewById(R.id.channelname);
+        channelname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent (StoryActivity.this, ProfileActivity.class);
+                intent.putExtra(Constants.Keys.STORY_USER_ID, userStoryId);
+                startActivity(intent);
+
+            }
+        });
         subscribe = findViewById(R.id.subscribeBtn);
         subscribe.setOnClickListener(this);
         listenBtn.setOnClickListener(this);
