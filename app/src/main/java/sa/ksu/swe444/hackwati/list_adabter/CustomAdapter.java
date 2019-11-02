@@ -27,9 +27,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 import java.util.List;
 
+import sa.ksu.swe444.hackwati.AdminStoryActivity;
 import sa.ksu.swe444.hackwati.Constants;
 import sa.ksu.swe444.hackwati.Item;
 import sa.ksu.swe444.hackwati.R;
+import sa.ksu.swe444.hackwati.ui.profileActivity.ProfileActivity;
 
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder> {
@@ -122,6 +124,11 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
                         CustomPojo clickedUser = list_members.get(clickedPosition);
                         userID = clickedUser.getId();
+
+
+                        Intent intent = new Intent(context, ProfileActivity.class);
+                        intent.putExtra(Constants.Keys.STORY_USER_ID, clickedUser.getId());
+                        context.startActivity(intent);
 
 
                     }
