@@ -37,6 +37,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -52,11 +54,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import sa.ksu.swe444.hackwati.Draft.ViewDraft;
+import sa.ksu.swe444.hackwati.list_adabter.CustomPojo;
 
 
 public class UserProfile extends BaseActivity {
     Button log_out;
-    private TextView relImg,info, storyno;
+    private TextView relImg, info, storyno, subscribed ,subscriber,subscriberno;
     private static int INTENT_GALLERY = 301;
     private boolean isSelectImage;
     Uri contentURI;
@@ -93,7 +96,7 @@ public class UserProfile extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(UserProfile.this, ViewDraft.class);
-                intent.putExtra(Constants.Keys.DRAFT ,true);
+                intent.putExtra(Constants.Keys.DRAFT, true);
                 startActivity(intent);
             }
         });
@@ -114,7 +117,15 @@ public class UserProfile extends BaseActivity {
             }
         });
 
+        subscriberno = findViewById(R.id.subscriberno);
         subscribedno = findViewById(R.id.subscribedno);
+        subscribed = findViewById(R.id.subscribed);
+        subscribed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(UserProfile.this,SubscribedListActivity.class));
+            }
+        });
         storyno = findViewById(R.id.storyno);
 
         relImg.setOnClickListener(new View.OnClickListener() {
@@ -135,7 +146,15 @@ public class UserProfile extends BaseActivity {
             }
         });
 
-        info=findViewById(R.id.infotext);
+
+        subscriber = findViewById(R.id.subscriber);
+        subscriber.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(UserProfile.this,SubscribersListActivity.class));            }
+        });
+
+        info = findViewById(R.id.infotext);
 
         edit2 = findViewById(R.id.edit2);
         edit2.setOnClickListener(new View.OnClickListener() {
@@ -155,14 +174,9 @@ public class UserProfile extends BaseActivity {
 
         retriveUserData();
         countStories();
-
+        Subscribers ();
 
         //////////
-
-
-
-
-
 
 
     }// end onCreate()
@@ -174,8 +188,6 @@ public class UserProfile extends BaseActivity {
 
 
     public void retriveUserData() {
-
-
         DocumentReference docRef = firebaseFirestore.collection("users").document(userUid);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -198,8 +210,6 @@ public class UserProfile extends BaseActivity {
 
 
                             info.setText(infoU);
-
-
 
 
                         }
@@ -470,6 +480,7 @@ public class UserProfile extends BaseActivity {
         androidx.appcompat.app.AlertDialog alertDialogAndroid = alertDialogBuilderUserInput.create();
         alertDialogAndroid.show();
     }
+
     public void countStories() {
         firebaseFirestore.collection("publishedStories")
                 .whereEqualTo("userId", userUid)
@@ -478,11 +489,11 @@ public class UserProfile extends BaseActivity {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            int counter =0;
+                            int counter = 0;
                             for (DocumentSnapshot document : task.getResult()) {
-                               counter++;
+                                counter++;
                             }
-                            storyno.setText(counter+"");
+                            storyno.setText(counter + "");
 
                         }
                     }
@@ -494,7 +505,27 @@ public class UserProfile extends BaseActivity {
     public void onBackPressed() {
         Intent intent = new Intent(UserProfile.this, MainActivity.class); // from where? and to the distanation
         startActivity(intent); // to start another activity
+    }
 
+    public void Subscribers (){
+
+
+        firebaseFirestore.collection("users")
+                .whereArrayContains("subscribedUsers", userUid)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        int counter=0;
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                               counter++;
+                            }
+                            subscriberno.setText(counter+"");
+
+                        }
+                    }
+                });
 
     }
 }

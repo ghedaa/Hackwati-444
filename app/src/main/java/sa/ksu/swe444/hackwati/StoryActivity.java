@@ -149,7 +149,7 @@ public class StoryActivity extends AppCompatActivity implements View.OnClickList
                             } else if (userStoryId.equals(subscribedUsers) || userStoryId == subscribedUsers) {
 
                                 subscribe.setText("مشترك");
-                                subscribe.setBackgroundColor(Color.YELLOW);
+                                //subscribe.setBackgroundColor(Color.YELLOW);
                                 break;
 
 
@@ -320,6 +320,7 @@ public class StoryActivity extends AppCompatActivity implements View.OnClickList
 
 
                         ratingBar.setRating(3);
+                        ratingBar.setEnabled(false);
 
 
                       /*  Map<String, Object> story = new HashMap<>();
