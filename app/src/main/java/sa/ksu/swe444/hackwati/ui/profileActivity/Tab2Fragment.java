@@ -47,20 +47,26 @@ public class Tab2Fragment extends Fragment {
     String userUid;
     StorageReference storageRef;
     FirebaseStorage storage = FirebaseStorage.getInstance();
-
+    private String userStoryId;
 
 
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view= inflater.inflate(R.layout.fragment_all_stories, container, false);
+        View view= inflater.inflate(R.layout.profile_fragment_two, container, false);
+        recyclerView = view.findViewById(R.id.recycler_view);
 
         userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         storageRef = storage.getReference();
         mAuth = FirebaseAuth.getInstance();
-
         emptyStories =view.findViewById(R.id.emptyStories);
+
+        if (getArguments() != null) {
+            userStoryId = getArguments().getString("userStoryId");
+            Log.d(TAG,userStoryId+" gggg");
+
+        }
 
         initRecyclerView();
 
@@ -80,8 +86,8 @@ public class Tab2Fragment extends Fragment {
     }
 
     private void retrieveUserStories() {
-        firebaseFirestore.collection("stories")
-                .whereEqualTo("userId", userUid)// <-- This line
+        firebaseFirestore.collection("publishedStories")
+                .whereEqualTo("userId", userStoryId)// <-- This line
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -89,7 +95,6 @@ public class Tab2Fragment extends Fragment {
                         if (task.isSuccessful()) {
 
 
-                            Log.d(TAG, " 1 => test");
 
                             for (DocumentSnapshot document : task.getResult()) {
 

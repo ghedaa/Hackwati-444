@@ -50,48 +50,10 @@ public class Tab3Fragment extends Fragment {
                 (10, dpToPx(10), false));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
-        itemList();
 
         return view;
     }
 
-    private void itemList() {
-        int[] covers = new int[]{
-                R.drawable.gray,
-                R.drawable.gray,
-                R.drawable.gray,
-                R.drawable.gray,
-        };
-
-
-        Item a =new Item("انبتهي يا جود",covers[0]);
-        itemList.add(a);
-        a =new Item("انبتهي يا جود",covers[1]);
-        itemList.add(a);
-        a =new Item("انبتهي يا جود",covers[2]);
-        itemList.add(a);
-        a =new Item("انبتهي يا جود",covers[3]);
-        itemList.add(a);
-
-        Item a1 = new Item("أخي زيد", covers[0]);
-        itemList.add(a1);
-
-        a1 = new Item("ليس بعد !", covers[1]);
-        itemList.add(a1);
-
-        a1 = new Item("جود ودراجتها الجديدة", covers[2]);
-        itemList.add(a1);
-
-        a1 = new Item("انبتهي يا جود", covers[3]);
-        itemList.add(a1);
-
-
-
-
-
-
-        adapter.notifyDataSetChanged();
-    }
 
     private int dpToPx(int dp) {
         Resources r = getResources();

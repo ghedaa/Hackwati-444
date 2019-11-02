@@ -31,43 +31,34 @@ import sa.ksu.swe444.hackwati.R;
 public class Tab1Fragment extends Fragment {
 
 LinearLayout linear;
-    private RecyclerView recyclerView;
-    private CustomAdapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
-    private ArrayList<CustomPojo> namesList;
-
     public FirebaseAuth mAuth;
 
     TextView userinfo;
 
-    private static final String TAG = "UserProfileTab1";
+    private static final String TAG = "Tab1Fragment";
     public FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     String userUid;
     StorageReference storageRef;
     FirebaseStorage storage = FirebaseStorage.getInstance();
+    private String userStoryId;
+
 
 
     @SuppressLint("WrongViewCast")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v=  inflater.inflate(R.layout.profile_fragment_one, container, false);
-
         userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         storageRef = storage.getReference();
         mAuth = FirebaseAuth.getInstance();
 
-        recyclerView =v.findViewById(R.id.recycleView);
-        namesList=new ArrayList<>();
-        mAdapter = new CustomAdapter(getActivity());
+        if (getArguments() != null) {
+            userStoryId = getArguments().getString("userStoryId");
+            Log.d(TAG,userStoryId+" gggg");
 
-        //We set the array to the adapter
-        mAdapter.setListContent(namesList);
+        }
 
-        mLayoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setAdapter(mAdapter);
-
-        userinfo=v.findViewById(R.id.info);
+        userinfo=v.findViewById(R.id.userinfo);
 
 
         retriveUserData();
@@ -80,7 +71,7 @@ LinearLayout linear;
     public void retriveUserData() {
 
 
-        DocumentReference docRef = firebaseFirestore.collection("users").document(userUid);
+        DocumentReference docRef = firebaseFirestore.collection("users").document(userStoryId);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -89,15 +80,10 @@ LinearLayout linear;
                     if (document.exists()) {
 
                         String userInformation = document.get("info").toString();
-                        if (userInformation != null) {
-                            userinfo.setText(userInformation);
-                        }
+                            userinfo.setText(userInformation+"");
 
-                    } else {
-                        Log.d(TAG, "No such document");
+
                     }
-                } else {
-                    Log.d(TAG, "get failed with ", task.getException());
                 }
             }
         });
@@ -107,48 +93,6 @@ LinearLayout linear;
 
 
 
-   /* private void namesList() {
-
-        // this is data fro recycler view
-        CustomPojo s1 = new CustomPojo();
-        s1.setName("الاسم");
-        s1.setContent("أسماء الجديع");
-        s1.setImg(R.drawable.ic_person_black_24dp);
-        namesList.add(s1);
-
-        CustomPojo s2 = new CustomPojo();
-        s2.setName("البريد الإلكتروني");
-        s2.setContent("iasmju@gmail.com" );
-        s2.setImg(R.drawable.ic_email_black_24dp);
-        namesList.add(s2);
-
-        CustomPojo s3 = new CustomPojo();
-        s3.setName("تاريخ الميلاد");
-        s3.setContent("10/10/1997");
-        s3.setImg(R.drawable.ic_date_range_black_24dp);
-        namesList.add(s3);
-
-        CustomPojo s4 = new CustomPojo();
-        s4.setName("الجنس");
-        s4.setContent("أنثى" );
-        s4.setImg(R.drawable.ic_people_outline_black_24dp);
-        namesList.add(s4);
-
-        CustomPojo s5 = new CustomPojo();
-        s5.setName("عدد المشتركين");
-        s5.setContent("1400" );
-        s5.setImg(R.drawable.ic_filter_9_plus_black_24dp);
-        namesList.add(s5);
-
-
-
-        recyclerView.setAdapter(mAdapter);
-        mAdapter.notifyDataSetChanged();
-
-
-
-    }
-*/
 
 }
 

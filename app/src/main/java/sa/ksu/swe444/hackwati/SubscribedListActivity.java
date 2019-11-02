@@ -108,7 +108,7 @@ public class SubscribedListActivity extends AppCompatActivity{
                             String userID = document.getId().toString();
                             boolean isSubscribed = true;
 
-                            CustomPojo user = new CustomPojo(userID, userName,thumbnail,"اشتراك");
+                            CustomPojo user = new CustomPojo(userID, userName,thumbnail,"مشترك");
 
                             namesList.add(user);
                             recyclerView.setAdapter(mAdapter);

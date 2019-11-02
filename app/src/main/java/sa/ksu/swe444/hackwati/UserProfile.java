@@ -217,13 +217,7 @@ public class UserProfile extends BaseActivity {
 
                         }
 
-
-
-                    } else {
-                        Log.d(TAG, "No such document");
                     }
-                } else {
-                    Log.d(TAG, "get failed with ", task.getException());
                 }
             }
         });
