@@ -1,4 +1,4 @@
-package sa.ksu.swe444.hackwati.ui.profileActivity;
+package sa.ksu.swe444.hackwati.shaden;
 
 import android.content.Context;
 import android.view.LayoutInflater;

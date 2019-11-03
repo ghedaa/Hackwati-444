@@ -29,6 +29,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import sa.ksu.swe444.hackwati.ui.profileActivity.ProfileActivity;
+
 import static java.lang.String.valueOf;
 
 
@@ -72,6 +74,15 @@ public class StoryActivity extends AppCompatActivity implements View.OnClickList
         cover = (ImageView) findViewById(R.id.cover);
         listenBtn = findViewById(R.id.listenBtn);
         channelname = findViewById(R.id.channelname);
+        channelname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent (StoryActivity.this, ProfileActivity.class);
+                intent.putExtra(Constants.Keys.STORY_USER_ID, userStoryId);
+                startActivity(intent);
+
+            }
+        });
         subscribe = findViewById(R.id.subscribeBtn);
         subscribe.setOnClickListener(this);
         listenBtn.setOnClickListener(this);
@@ -114,8 +125,6 @@ public class StoryActivity extends AppCompatActivity implements View.OnClickList
                     if (document.exists()) {
 
 
-                        Log.d(TAG, " 111 document exist");
-
                         Intent intent = getIntent();
                         if (intent.getExtras() != null) {
                             storyId = intent.getExtras().getString(Constants.Keys.STORY_ID);
@@ -138,7 +147,7 @@ public class StoryActivity extends AppCompatActivity implements View.OnClickList
                             } else if (userStoryId.equals(subscribedUsers) || userStoryId == subscribedUsers) {
 
                                 subscribe.setText("مشترك");
-                                subscribe.setBackgroundColor(Color.YELLOW);
+                                //subscribe.setBackgroundColor(Color.YELLOW);
                                 break;
 
 
@@ -226,9 +235,7 @@ public class StoryActivity extends AppCompatActivity implements View.OnClickList
         washingtonRef.update("subscribedUsers", FieldValue.arrayUnion(userStoryId)).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                washingtonRef.update("numSubscribers", FieldValue.increment(1));
                 subscribe.setText("مشترك");
-                subscribe.setBackgroundColor(Color.YELLOW);
 
 
             }
@@ -242,7 +249,6 @@ public class StoryActivity extends AppCompatActivity implements View.OnClickList
         washingtonRef.update("subscribedUsers", FieldValue.arrayRemove(userStoryId)).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                washingtonRef.update("numSubscribers", FieldValue.increment(-1));
                 subscribe.setText("اشتراك");
             }
         });

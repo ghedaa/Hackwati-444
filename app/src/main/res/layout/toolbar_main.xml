@@ -12,7 +12,7 @@
         android:layout_height="65dp"
         android:layout_gravity="top"
         android:background="@drawable/icon_shape_botum"
-        android:backgroundTint="#C6E9E9"
+        android:backgroundTint="@color/yellow_hak"
         android:gravity="center"
         android:padding="30dp"
         app:contentScrim="?attr/colorPrimary"
