@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".uploaded_stories.UserUploadedStories"></activity>
+        <activity android:name=".uploaded_stories.ListenToUserStory"></activity>
+        <activity android:name=".uploaded_stories.UserUploadedStories" />
         <activity android:name=".SubscribersListActivity" />
         <activity android:name=".SubscribedListActivity" />
         <activity android:name=".Draft.ListenToStoryDraft" />
@@ -45,10 +46,10 @@
         </activity>
         <activity android:name=".Login" />
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

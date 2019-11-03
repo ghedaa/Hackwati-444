@@ -55,6 +55,7 @@ import java.util.List;
 
 import sa.ksu.swe444.hackwati.Draft.ViewDraft;
 import sa.ksu.swe444.hackwati.list_adabter.CustomPojo;
+import sa.ksu.swe444.hackwati.uploaded_stories.UserUploadedStories;
 
 
 public class UserProfile extends BaseActivity {
@@ -69,6 +70,8 @@ public class UserProfile extends BaseActivity {
     private String imgPath;
     private ImageView edit1, img, edit2;
     private Button draft;
+    private Button userStories;
+
 
 
     private static final String TAG = "UserProfile";
@@ -98,6 +101,13 @@ public class UserProfile extends BaseActivity {
                 Intent intent = new Intent(UserProfile.this, ViewDraft.class);
                 intent.putExtra(Constants.Keys.DRAFT, true);
                 startActivity(intent);
+            }
+        });
+        userStories = findViewById(R.id.user_story);
+        userStories.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(UserProfile.this, UserUploadedStories.class));
             }
         });
 

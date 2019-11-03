@@ -178,7 +178,14 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/lightYellow"
                 android:layout_below="@id/infotext"
-                android:text="draft"/>
+                android:text="مسودات"/>
+            <Button
+                android:id="@+id/user_story"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/lightYellow"
+                android:layout_below="@id/draft_page"
+                android:text="جميع قصصي"/>
 
 
 

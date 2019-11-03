@@ -1,5 +1,8 @@
-package sa.ksu.swe444.hackwati;
+package sa.ksu.swe444.hackwati.uploaded_stories;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DownloadManager;
 import android.content.DialogInterface;
@@ -8,8 +11,6 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-
-import android.provider.Telephony;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,29 +21,12 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.core.operation.Merge;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
@@ -50,8 +34,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import sa.ksu.swe444.hackwati.Constants;
+import sa.ksu.swe444.hackwati.InnerStoryActivity;
+import sa.ksu.swe444.hackwati.R;
 
-public class InnerStoryActivity extends AppCompatActivity implements View.OnClickListener {
+public class ListenToUserStory extends AppCompatActivity implements View.OnClickListener  {
     private ImageView share,backwardCover;
     private ImageView close;
     private SeekBar seekBar;
@@ -77,10 +64,11 @@ public class InnerStoryActivity extends AppCompatActivity implements View.OnClic
     Uri img;
     private String title;
     private String storyID;
+    private String status;
+
 
     ImageView storyCover;
     private TextView titleView;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,11 +112,11 @@ public class InnerStoryActivity extends AppCompatActivity implements View.OnClic
 
         seekBar.postDelayed(mUpdateSeekbar, 100);
 
-        Glide.with(InnerStoryActivity.this)
+        Glide.with(ListenToUserStory.this)
                 .load(img + "")
                 .into(storyCover);
 
-        Glide.with(InnerStoryActivity.this)
+        Glide.with(ListenToUserStory.this)
                 .load(img + "")
                 .into(backwardCover);
 
@@ -136,47 +124,9 @@ public class InnerStoryActivity extends AppCompatActivity implements View.OnClic
 
     }//end onCreate
 
-    private void viewRateDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(InnerStoryActivity.this);
-        LayoutInflater inflater = getLayoutInflater();
-        builder.setTitle("قيم قصتي");
-        View dialogLayout = inflater.inflate(R.layout.alert_dialog_with_ratingbar, null);
-        final RatingBar ratingBar = dialogLayout.findViewById(R.id.ratingBar);
-        builder.setView(dialogLayout);
-        builder.setPositiveButton("حسنا", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(getApplicationContext(), "تقييمك هو " + ratingBar.getRating(), Toast.LENGTH_SHORT).show();
-                float rate =ratingBar.getRating();
-                DocumentReference storyRef = firebaseFirestore.collection("stories").document(storyID);
-               // storyRef.update("rate", FieldValue.increment(rate));
-              //  storyRef.update("rateCounter", FieldValue.increment(1));
-                String Rate = String.valueOf(rate);
-                updateStoryRate(Rate);
 
 
-            }
-        });
-        builder.setNegativeButton("إلغاء", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
 
-            }
-        });
-        builder.show();
-
-    }
-    private void updateStoryRate(String rate) {
-
-        Map<String, Object> story = new HashMap<>();
-        //todo: delete rate
-        story.put("rate", rate);
-
-        story.put("rateCounter", FieldValue.increment(1));
-
-        firebaseFirestore.collection("publishedStories").document(storyID).set(story, SetOptions.merge());
-    }
-    
     // end of viewRateDialog
     private void init() {
         share = findViewById(R.id.share);
@@ -224,7 +174,6 @@ public class InnerStoryActivity extends AppCompatActivity implements View.OnClic
 
             @Override
             public void onCompletion(MediaPlayer mp) {
-                viewRateDialog();
                 mediaPlayer.start();
                 mediaPlayer.pause();
                 defaultTimer();
@@ -354,24 +303,6 @@ public class InnerStoryActivity extends AppCompatActivity implements View.OnClic
     }
 
 
-    private void getAudio() {
-
-        // Create a storage reference from our app
-        StorageReference storageRef = storage.getReference();
-
-// Create a reference with an initial file path and name
-        StorageReference pathReference = storageRef.child("story_audio/new_record.3gp");
-
-// Create a reference to a file from a Google Cloud Storage URI
-        StorageReference gsReference = storage.getReferenceFromUrl("gs://bucket/tory_audio/new_record.3gp");
-
-// Create a reference from an HTTPS URL
-// Note that in the URL, characters are URL escaped!
-        // StorageReference httpsReference = storage.getReferenceFromUrl("https://firebasestorage.googleapis.com/b/bucket/o/images%20stars.jpg");
-    }
-
-
-
     private void getExtras() {
 
         Intent intent = getIntent();
@@ -386,7 +317,4 @@ public class InnerStoryActivity extends AppCompatActivity implements View.OnClic
         }
 
     }
-
-
-
-}// end class
+}// class
