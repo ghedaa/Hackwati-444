@@ -90,8 +90,7 @@
             android:layout_height="58dp"
             android:layout_gravity="bottom"
             android:background="@drawable/shape_subscribe"
-            android:backgroundTint="#80"
-            app:tabBackground="@color/float_transparent"
+            android:backgroundTint="@color/yellow_hak"
             app:tabIndicatorColor="@color/yellow_hak"
             app:tabSelectedTextColor="@color/orange_hak2"
             app:tabTextColor="#fff" />
