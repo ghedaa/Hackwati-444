@@ -63,7 +63,6 @@ dependencies {
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.3'
 
 
-
 }
 apply plugin: 'com.google.gms.google-services'  // Google Play services Gradle plugin
 
