@@ -70,7 +70,7 @@ public class UserProfile extends BaseActivity {
     private String imgPath;
     private ImageView edit1, img, edit2;
     private Button draft;
-    private Button userStories;
+    private TextView stories;
 
 
 
@@ -103,8 +103,8 @@ public class UserProfile extends BaseActivity {
                 startActivity(intent);
             }
         });
-        userStories = findViewById(R.id.user_story);
-        userStories.setOnClickListener(new View.OnClickListener() {
+        stories = findViewById(R.id.story);
+        stories.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(UserProfile.this, UserUploadedStories.class));
