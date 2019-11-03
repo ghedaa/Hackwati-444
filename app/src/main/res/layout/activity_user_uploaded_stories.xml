@@ -4,6 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".uploaded_stories.UserUploadedStories">
 
+    <RelativeLayout
+        android:layout_width="355dp"
+        android:layout_height="616dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="95dp"
+        android:gravity="center"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:showIn="@layout/profile_fragment_one"
+        tools:ignore="MissingConstraints">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycleView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"></androidx.recyclerview.widget.RecyclerView>
+
+    </RelativeLayout>
+
+    <include layout="@layout/toolbar_main" />
+
+    <TextView
+        android:id="@+id/emptyUsers"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text=""/>
 </androidx.constraintlayout.widget.ConstraintLayout>

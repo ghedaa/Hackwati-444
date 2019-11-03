@@ -2,6 +2,7 @@ package sa.ksu.swe444.hackwati.Recording;
 
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -100,6 +102,7 @@ public class Tab2StoryInfo extends Fragment {
 
 // should be removed
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.recording_fragment_two, container, false);
@@ -119,6 +122,8 @@ public class Tab2StoryInfo extends Fragment {
 
         ArrayAdapter adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, list);
         spinner.setAdapter(adapter);
+
+        spinner.setBackgroundColor(R.color.gray);
 
 
 
