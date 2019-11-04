@@ -202,7 +202,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         user.put("username",register_name.getText().toString());
         user.put("email",register_email.getText().toString());
         user.put("info","");
-        user.put("numSubscribers", 0);
+        user.put("favorite", Arrays.asList());
         user.put("subscribedUsers", Arrays.asList());
         user.put("thumbnail","https://firebasestorage.googleapis.com/v0/b/hackwati444.appspot.com/o/Hakawati%2Fdefult_thumbnail.png?alt=media&token=be4ed812-e028-493c-a703-593e4a993c1f");
 

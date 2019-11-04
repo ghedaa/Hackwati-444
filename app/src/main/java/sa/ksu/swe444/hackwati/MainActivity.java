@@ -70,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
         navView = findViewById(R.id.nav_view);
         toolbarMain = (Toolbar) findViewById(R.id.toolbarMain);
         setSupportActionBar(toolbarMain);
+        getSupportActionBar().setTitle("الصفحة الرئيسية");
+
 
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(

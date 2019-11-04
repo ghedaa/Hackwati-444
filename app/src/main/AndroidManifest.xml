@@ -12,11 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".SubscribersListActivity"></activity>
-        <activity android:name=".SubscribedListActivity" />
+        <activity android:name=".SubscribersListActivity"
+            android:parentActivityName=".UserProfile">
+        </activity>
+        <activity android:name=".SubscribedListActivity"
+            android:parentActivityName=".UserProfile" />
         <activity android:name=".Draft.ListenToStoryDraft" />
         <activity android:name=".Draft.ViewDraft" />
-        <activity android:name=".StoryActivity" />
+        <activity android:name=".StoryActivity" >
+
+        </activity>
         <activity android:name=".SignUp" />
         <activity
             android:name=".InnerStoryActivity"
@@ -34,6 +39,7 @@
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".UserProfile"
+            android:parentActivityName=".MainActivity"
             android:label="@string/app_name" />
         <activity android:name=".SplashActivity">
             <intent-filter>

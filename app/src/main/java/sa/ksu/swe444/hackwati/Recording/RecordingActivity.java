@@ -49,6 +49,7 @@ public class RecordingActivity extends AppCompatActivity implements Tab1Record.S
         setContentView(R.layout.recording_main_activity);
         toolbarRec= (Toolbar) findViewById(R.id.toolbarRec);
         setSupportActionBar(toolbarRec);
+        getSupportActionBar().setTitle("سجل");
         navView = findViewById(R.id.nav_view_rec);
 
 
