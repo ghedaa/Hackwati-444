@@ -9,7 +9,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
-import android.provider.Telephony;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,29 +19,17 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.core.operation.Merge;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
@@ -185,7 +172,7 @@ public class InnerStoryActivity extends AppCompatActivity implements View.OnClic
         pause = findViewById(R.id.pause);
         backward = findViewById(R.id.back);
         forward = findViewById(R.id.forward);
-        nightMood = findViewById(R.id.night_mood);
+        nightMood = findViewById(R.id.download);
         backwardCover = findViewById(R.id.story_cover2);
 
         speed = findViewById(R.id.speed);
@@ -283,7 +270,7 @@ public class InnerStoryActivity extends AppCompatActivity implements View.OnClic
                     }
                 }// if
                 break;
-            case R.id.night_mood:
+            case R.id.download:
                 // startActivity(new Intent(InnerStoryActivity.this , Test.class));
 
         }// end switch

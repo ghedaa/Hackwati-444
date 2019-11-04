@@ -54,7 +54,6 @@ LinearLayout linear;
 
         if (getArguments() != null) {
             userStoryId = getArguments().getString("userStoryId");
-            Log.d(TAG,userStoryId+" gggg");
 
         }
 
@@ -63,7 +62,6 @@ LinearLayout linear;
 
         retriveUserData();
 
-       /* namesList();*/
 
         return  v;
     }

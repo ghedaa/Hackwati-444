@@ -49,6 +49,7 @@ public class RecordingActivity extends AppCompatActivity implements Tab1Record.S
         setContentView(R.layout.recording_main_activity);
         toolbarRec= (Toolbar) findViewById(R.id.toolbarRec);
         setSupportActionBar(toolbarRec);
+        getSupportActionBar().setTitle("سجل");
         navView = findViewById(R.id.nav_view_rec);
 
 
@@ -81,12 +82,7 @@ public class RecordingActivity extends AppCompatActivity implements Tab1Record.S
 
         });
 
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_subscription,  R.id.navigation_explore, R.id.navigation_record)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_record_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(navView, navController);
+
 
         navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

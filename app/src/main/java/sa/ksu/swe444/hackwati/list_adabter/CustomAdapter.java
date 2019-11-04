@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -31,6 +33,7 @@ import sa.ksu.swe444.hackwati.AdminStoryActivity;
 import sa.ksu.swe444.hackwati.Constants;
 import sa.ksu.swe444.hackwati.Item;
 import sa.ksu.swe444.hackwati.R;
+import sa.ksu.swe444.hackwati.StoryActivity;
 import sa.ksu.swe444.hackwati.ui.profileActivity.ProfileActivity;
 
 
@@ -64,6 +67,13 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         holder.user_name.setText(list_items.getName());
         Glide.with(context).load(list_items.getImg()).into(holder.icon);
         holder.subscribe.setText(list_items.isSubscribed());
+
+        if(list_items.isSubscribed().equals("اشتراك"))
+            ViewCompat.setBackgroundTintList( holder.subscribe, ContextCompat.getColorStateList(context,R.color.gray_hak));
+
+        else if(list_items.isSubscribed().equals("مشترك"))
+            ViewCompat.setBackgroundTintList(holder.subscribe, ContextCompat.getColorStateList(context,R.color.green_hak));
+
 
     }
 
@@ -153,6 +163,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
                 @Override
                 public void onSuccess(Void aVoid) {
                     subscribe.setText("مشترك");
+                    ViewCompat.setBackgroundTintList(subscribe, ContextCompat.getColorStateList(context,R.color.green_hak));
+
 
 
                 }
@@ -173,6 +185,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
                 @Override
                 public void onSuccess(Void aVoid) {
                     subscribe.setText("اشتراك");
+                    ViewCompat.setBackgroundTintList(subscribe, ContextCompat.getColorStateList(context,R.color.gray_hak));
+
                 }
             });
 

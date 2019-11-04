@@ -6,6 +6,7 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -29,6 +30,7 @@ public class ExploreActivity extends AppCompatActivity {
     public BottomNavigationView navView;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +38,12 @@ public class ExploreActivity extends AppCompatActivity {
 
 
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("اكتشف");
+
+
+        navView = findViewById(R.id.nav_explore_view);
 
         allStories=new AllStories();
         popularStories=new PopularStories();
@@ -48,5 +56,29 @@ public class ExploreActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
         viewPager2.setAdapter(adapter2);
 
+
+
+        navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+
+                    case R.id.navigation_record:
+                        startActivity(new Intent(ExploreActivity.this, RecordingActivity.class));
+
+                        break;
+
+                    case R.id.navigation_subscription:
+                        startActivity(new Intent(ExploreActivity.this, MainActivity.class));
+                        break;
+
+                    case R.id.navigation_explore:
+                        startActivity(new Intent(ExploreActivity.this, ExploreActivity.class));
+                        break;
+
+                }// end of switch
+                return true;
+            }
+        });
     }
 }

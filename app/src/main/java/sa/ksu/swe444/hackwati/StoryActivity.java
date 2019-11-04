@@ -1,19 +1,29 @@
 package sa.ksu.swe444.hackwati;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.widget.ImageViewCompat;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,21 +35,24 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import sa.ksu.swe444.hackwati.ui.profileActivity.ProfileActivity;
 
 import static java.lang.String.valueOf;
 
 
-public class StoryActivity extends AppCompatActivity implements View.OnClickListener {
+public class StoryActivity extends AppCompatActivity implements View.OnClickListener  {
 
 
-    private TextView channelname, bookName, duration, discrebtionM;
+    private TextView channelname, timestamp, bookName, duration, discrebtionM,favoritesFlag;
     private String user_id;
     private Button listenBtn;
+    ImageButton btnAddToList;
     //subscribedBtn;
     private ImageView channelimage, cover;
     private static final String TAG = StoryActivity.class.getSimpleName();
@@ -48,10 +61,13 @@ public class StoryActivity extends AppCompatActivity implements View.OnClickList
     public FirebaseAuth mAuth;
     String userUid;
     Button subscribe;
-    String storyDuration;
+    int storyDuration;
+    private Toolbar toolbarMain;
     String storyUri;
     String storyCover;
     private String storyTitle;
+    MediaPlayer mediaPlayer;
+    String format;
 
 
     //s1
@@ -60,16 +76,29 @@ public class StoryActivity extends AppCompatActivity implements View.OnClickList
     private String storyId, userStoryId;
 
 
+    @SuppressLint("DefaultLocale")
     @TargetApi(Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.story_activity_main);
         getExtras();
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(false);
+
+
+
         userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         duration = findViewById(R.id.duration);
         bookName = findViewById(R.id.bookName);
+        favoritesFlag = findViewById(R.id.flag);
+        favoritesFlag.setOnClickListener(this);
         discrebtionM = findViewById(R.id.discrebtion);
+        timestamp = findViewById(R.id.date);
         channelimage = findViewById(R.id.channelimage);
         cover = (ImageView) findViewById(R.id.cover);
         listenBtn = findViewById(R.id.listenBtn);
@@ -83,18 +112,44 @@ public class StoryActivity extends AppCompatActivity implements View.OnClickList
 
             }
         });
+        channelimage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent (StoryActivity.this, ProfileActivity.class);
+                intent.putExtra(Constants.Keys.STORY_USER_ID, userStoryId);
+                startActivity(intent);
+
+            }
+        });
         subscribe = findViewById(R.id.subscribeBtn);
         subscribe.setOnClickListener(this);
         listenBtn.setOnClickListener(this);
         ratingBar = findViewById(R.id.rating);
+        ratingBar.setNumStars(5);
+
+        btnAddToList = findViewById(R.id.btnAddToList);
+        btnAddToList.setOnClickListener(this);
 
 
         subscribe.setVisibility(View.VISIBLE);
         subscribe.setText("اشتراك");
+        ViewCompat.setBackgroundTintList(subscribe, ContextCompat.getColorStateList(StoryActivity.this,R.color.gray_hak));
+
+        mediaPlayer = MediaPlayer.create(StoryActivity.this, Uri.parse(storyUri));
+        storyDuration = mediaPlayer.getDuration();
+        mediaPlayer.release();
+        /*convert millis to appropriate time*/
+         format = String.format("%d دقيقة, %d ثانية",
+                TimeUnit.MILLISECONDS.toMinutes(storyDuration),
+                TimeUnit.MILLISECONDS.toSeconds(storyDuration) -
+                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(storyDuration))  );
+
+
+        duration.setText(format+"");
 
         subscribeUser();
         retriveStory();
-         retriveUserData();
+        retriveUserData();
 
         showRate();
 
@@ -147,6 +202,8 @@ public class StoryActivity extends AppCompatActivity implements View.OnClickList
                             } else if (userStoryId.equals(subscribedUsers) || userStoryId == subscribedUsers) {
 
                                 subscribe.setText("مشترك");
+                                ViewCompat.setBackgroundTintList(subscribe, ContextCompat.getColorStateList(StoryActivity.this,R.color.green_hak));
+
                                 //subscribe.setBackgroundColor(Color.YELLOW);
                                 break;
 
@@ -155,6 +212,18 @@ public class StoryActivity extends AppCompatActivity implements View.OnClickList
 
 
                         }// end for loop
+
+                        List<String> favoriteList = (List<String>) document.get("favorite");
+                        if(favoriteList.contains(storyId)){
+                           favoritesFlag.setText("1");
+                            btnAddToList.setColorFilter(ContextCompat.getColor(StoryActivity.this, R.color.pink_hak), android.graphics.PorterDuff.Mode.SRC_IN);
+
+                        }
+                        else {
+                            favoritesFlag.setText("0");
+                            btnAddToList.setColorFilter(ContextCompat.getColor(StoryActivity.this, R.color.gray_hak), android.graphics.PorterDuff.Mode.SRC_IN);
+
+                        }
 
 
                     }
@@ -177,18 +246,19 @@ public class StoryActivity extends AppCompatActivity implements View.OnClickList
                         String title = (String) document.get("title");
                         String description = (String) document.get("description");
                         String pic = document.get("pic").toString();
-                        storyDuration = (String) document.get("duration");
                         storyUri = (String) document.get("sound");
                         storyCover = (String) document.get("pic");
                         storyTitle = (String) document.get("title");
+                        Date date = document.getDate("timestamp");
 
-
+                        timestamp.setText("بتاريخ: "+date.toString());
                         bookName.setText(title);
-                        duration.setText(description);
                         Glide.with(StoryActivity.this)
                                 .load(pic + "")
                                 .into(cover);
                         discrebtionM.setText(description);
+
+                        getSupportActionBar().setTitle(title+"");
 
 
                     } else {
@@ -222,11 +292,44 @@ public class StoryActivity extends AppCompatActivity implements View.OnClickList
                 intent.putExtra(Constants.Keys.STORY_COVER, storyCover);
                 intent.putExtra(Constants.Keys.STORY_ID, storyId);
                 intent.putExtra(Constants.Keys.STORY_TITLE, storyTitle);
-
                 startActivity(intent);
+                break;
+            case R.id.btnAddToList:
+                if(favoritesFlag.getText().equals("0"))
+                addToFavoritesList();
+                else if (favoritesFlag.getText().equals("1"))
+                    removeFromFavoritesList();
 
 
         }
+    }
+
+    private void removeFromFavoritesList() {
+        final DocumentReference washingtonRef = firebaseFirestore.collection("users").document(userUid);
+        washingtonRef.update("favorite", FieldValue.arrayRemove(storyId)).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @SuppressLint("ResourceAsColor")
+            @Override
+            public void onSuccess(Void aVoid) {
+         favoritesFlag.setText("0");
+                btnAddToList.setColorFilter(ContextCompat.getColor(StoryActivity.this, R.color.gray_hak), android.graphics.PorterDuff.Mode.SRC_IN);
+
+            }
+        });
+    }
+
+    private void addToFavoritesList() {
+        final DocumentReference washingtonRef = firebaseFirestore.collection("users").document(userUid);
+        washingtonRef.update("favorite", FieldValue.arrayUnion(storyId)).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @SuppressLint("ResourceAsColor")
+            @Override
+            public void onSuccess(Void aVoid) {
+                favoritesFlag.setText("1");
+                btnAddToList.setColorFilter(ContextCompat.getColor(StoryActivity.this, R.color.pink_hak), android.graphics.PorterDuff.Mode.SRC_IN);
+
+
+            }
+        });
+
     }
 
 
@@ -236,6 +339,7 @@ public class StoryActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onSuccess(Void aVoid) {
                 subscribe.setText("مشترك");
+                ViewCompat.setBackgroundTintList(subscribe, ContextCompat.getColorStateList(StoryActivity.this,R.color.green_hak));
 
 
             }
@@ -250,6 +354,8 @@ public class StoryActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onSuccess(Void aVoid) {
                 subscribe.setText("اشتراك");
+                ViewCompat.setBackgroundTintList(subscribe, ContextCompat.getColorStateList(StoryActivity.this,R.color.gray_hak));
+
             }
         });
 
@@ -275,18 +381,16 @@ public class StoryActivity extends AppCompatActivity implements View.OnClickList
                                 .load(thumbnail + "")
                                 .into(channelimage);
 
+
+
                         if (userName != null) {
-                            channelname.setText(userName);
+                            channelname.setText("سجلت بواسطة:  "+ userName);
 
 
                         }
 
 
-                    } else {
-                        Log.d(TAG, "No such document");
                     }
-                } else {
-                    Log.d(TAG, "get failed with ", task.getException());
                 }
             }
         });
@@ -327,6 +431,21 @@ public class StoryActivity extends AppCompatActivity implements View.OnClickList
 
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch ( item.getItemId() ) {
+            case android.R.id.home:
+                super.onBackPressed();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
 

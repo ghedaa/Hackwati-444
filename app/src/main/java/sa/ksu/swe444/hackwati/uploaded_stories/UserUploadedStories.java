@@ -49,6 +49,7 @@ public class UserUploadedStories extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     private ArrayList<story> namesList;
     private TextView emptyUsers;
+    private Button status;
 
 
     @Override
@@ -57,7 +58,7 @@ public class UserUploadedStories extends AppCompatActivity {
         setContentView(R.layout.activity_user_uploaded_stories);
         userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-
+        status = findViewById(R.id.subscribeBtn);
         emptyUsers = findViewById(R.id.emptyUsers);
         recyclerView = findViewById(R.id.recycleView);
         namesList = new ArrayList<>();
@@ -72,8 +73,7 @@ public class UserUploadedStories extends AppCompatActivity {
         retrievePublishedStories();
         retrieveRejectedStories();
         retrieveUnderProcessingStories();
-
-
+//        status.setBackgroundColor(itemList.get(mAdapter.getItemCount()).getColor());
         installButton110to250();
 
     }//end onCreate()
@@ -101,6 +101,7 @@ public class UserUploadedStories extends AppCompatActivity {
                         String thumbnail = "";
                         Item item = new Item(true,storyId, title, pic,sound, userId, userName, thumbnail);
                         item.setStatus(Constants.Keys.PUBLISHED);
+                        item.setColor(R.color.green_hak);
                         itemList.add(item);
 
                         mAdapter.notifyDataSetChanged();
@@ -136,6 +137,7 @@ public class UserUploadedStories extends AppCompatActivity {
 
                         Item item = new Item(true,storyId, title, pic,sound, userId, userName, thumbnail);
                         item.setStatus(Constants.Keys.REJECTED);
+                        item.setColor(R.color.pink_hak2);
                         itemList.add(item);
 
                         mAdapter.notifyDataSetChanged();
@@ -172,6 +174,7 @@ public class UserUploadedStories extends AppCompatActivity {
 
                         Item item = new Item(true,storyId, title, pic,sound, userId, userName, thumbnail);
                         item.setStatus(Constants.Keys.PROCESSING);
+                        item.setColor(R.color.orange_hak);
                         itemList.add(item);
 
                         mAdapter.notifyDataSetChanged();

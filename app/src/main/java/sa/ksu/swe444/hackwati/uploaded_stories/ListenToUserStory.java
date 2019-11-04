@@ -1,37 +1,35 @@
 package sa.ksu.swe444.hackwati.uploaded_stories;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DownloadManager;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.StrictMode;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import sa.ksu.swe444.hackwati.Constants;
@@ -45,7 +43,7 @@ public class ListenToUserStory extends AppCompatActivity implements View.OnClick
     private ImageView pause;
     private ImageView backward;
     private ImageView forward;
-    private ImageView nightMood;
+    private ImageView downloadStory;
     private TextView speed;
     private MediaPlayer mediaPlayer;
     private TextView remainingTime;
@@ -58,6 +56,7 @@ public class ListenToUserStory extends AppCompatActivity implements View.OnClick
     StorageReference storageReference;
     StorageReference ref;
     public FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+    private static final int REQUEST_CODE_WRITE_EXTERNAL_STORAGE_PERMISSION = 1;
 
 
     Uri uri;
@@ -81,11 +80,11 @@ public class ListenToUserStory extends AppCompatActivity implements View.OnClick
         backward.setOnClickListener(this);
         forward.setOnClickListener(this);
         speed.setOnClickListener(this);
-        nightMood.setOnClickListener(this);
+        downloadStory.setOnClickListener(this);
         //get Audio from fire base
 
 
-        // download();
+
 
 
         getExtras();
@@ -126,6 +125,35 @@ public class ListenToUserStory extends AppCompatActivity implements View.OnClick
 
 
 
+    private void download() {
+
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_GRANTED) {
+                Log.e("Permission error", "You have permission");
+
+
+                // String url = uri;
+                DownloadManager.Request request = new DownloadManager.Request(uri);
+                request.setDescription("Some descrition");
+                request.setTitle("Some title");
+// in order for this if to run, you must use the android 3.2 to compile your app
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                    request.allowScanningByMediaScanner();
+                    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                }
+                request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "name-of-the-file.3gp");
+
+// get download service and enqueue file
+                DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+                manager.enqueue(request);
+
+
+            }
+
+        }
+    }
+
 
     // end of viewRateDialog
     private void init() {
@@ -135,7 +163,7 @@ public class ListenToUserStory extends AppCompatActivity implements View.OnClick
         pause = findViewById(R.id.pause);
         backward = findViewById(R.id.back);
         forward = findViewById(R.id.forward);
-        nightMood = findViewById(R.id.night_mood);
+        downloadStory = findViewById(R.id.download);
         backwardCover = findViewById(R.id.story_cover2);
 
         speed = findViewById(R.id.speed);
@@ -232,7 +260,10 @@ public class ListenToUserStory extends AppCompatActivity implements View.OnClick
                     }
                 }// if
                 break;
-            case R.id.night_mood:
+            case R.id.download:
+                download();
+                break;
+
                 // startActivity(new Intent(InnerStoryActivity.this , Test.class));
 
         }// end switch
@@ -317,4 +348,29 @@ public class ListenToUserStory extends AppCompatActivity implements View.OnClick
         }
 
     }
+
+    public static boolean isDownloadManagerAvailable(Context context) {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if(requestCode == REQUEST_CODE_WRITE_EXTERNAL_STORAGE_PERMISSION)
+        {
+            int grantResultsLength = grantResults.length;
+            if(grantResultsLength > 0 && grantResults[0]==PackageManager.PERMISSION_GRANTED)
+            {
+                Toast.makeText(getApplicationContext(), "You grant write external storage permission. Please click original button again to continue.", Toast.LENGTH_LONG).show();
+            }else
+            {
+                Toast.makeText(getApplicationContext(), "You denied write external storage permission.", Toast.LENGTH_LONG).show();
+            }
+        }
 }// class
+ }

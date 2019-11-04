@@ -7,12 +7,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/icon_shape_botum"
+        android:backgroundTint="@color/yellow_hak"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@drawable/icon_shape_botum"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:backgroundTint="@color/yellow_hak"
+            app:title="   "
+            app:titleTextColor="#fff"
+
+            />
+
+    </com.google.android.material.appbar.AppBarLayout>
     <RelativeLayout
         android:layout_width="355dp"
         android:layout_height="616dp"
         android:layout_gravity="center"
-        android:layout_marginTop="95dp"
         android:gravity="center"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:showIn="@layout/profile_fragment_one">
@@ -25,7 +44,6 @@
 
     </RelativeLayout>
 
-    <include layout="@layout/toolbar_main" />
 
     <TextView
         android:id="@+id/emptyUsers"
