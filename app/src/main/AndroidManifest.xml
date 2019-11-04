@@ -38,6 +38,7 @@
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".UserProfile"
+            android:parentActivityName=".MainActivity"
             android:label="@string/app_name" />
         <activity android:name=".SplashActivity">
             <intent-filter>

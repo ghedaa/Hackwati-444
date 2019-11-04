@@ -7,6 +7,7 @@ import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Bundle;
 
+import com.bumptech.glide.Glide;
 import com.fangxu.allangleexpandablebutton.AllAngleExpandableButton;
 import com.fangxu.allangleexpandablebutton.ButtonData;
 import com.fangxu.allangleexpandablebutton.ButtonEventListener;
@@ -36,7 +37,6 @@ import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import java.util.ArrayList;
@@ -56,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
     public View item;
     private TextView emptyStories;
     private String userUid;
+    private TextView userName;
+
     public FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     private static final String TAG = "MainActivity";
     ArrayList<User> arrayList = new ArrayList<User>();
@@ -67,6 +69,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         emptyStories = findViewById(R.id.emptyStories);
+
+        userName = findViewById(R.id.nameUser);
+
         navView = findViewById(R.id.nav_view);
         toolbarMain = (Toolbar) findViewById(R.id.toolbarMain);
         setSupportActionBar(toolbarMain);
@@ -74,18 +79,22 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+
+       /* AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_subscription,  R.id.navigation_explore, R.id.navigation_record)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(navView, navController);
+        NavigationUI.setupWithNavController(navView, navController);*/
 
 
         userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         initRecyclerView();
         installButton110to250();
+        retriveUserName();
+
+        navView = (BottomNavigationView) findViewById(R.id.nav_view);
 
         navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -366,6 +375,8 @@ public class MainActivity extends AppCompatActivity {
                             String thumbnail = userDocument.get("thumbnail").toString();
                             arrayList.add(new User(userID, userName, thumbnail));
 
+
+
                             if (c < subscribedUsers.size())
                                 myCallback.onCallback(arrayList);
 
@@ -397,5 +408,33 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog alert = builder.create();
         alert.show();
     }
+
+    public void retriveUserName() {
+        DocumentReference docRef = firebaseFirestore.collection("users").document(userUid);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+
+                        String username = document.get("username").toString();
+
+
+                        if (userName != null ) {
+                            userName.setText(username);
+
+
+
+                        }
+
+                    }
+                }
+            }
+        });
+
+
+    }
+
 
 }
