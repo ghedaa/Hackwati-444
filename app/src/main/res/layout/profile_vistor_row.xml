@@ -169,9 +169,7 @@
                 android:textAlignment="center"
                 android:textSize="18dp"
                 android:background="@drawable/box_shape"
-                android:backgroundTint="#F5F5F5"
-
-                />
+                android:backgroundTint="#F5F5F5" />
             <Button
                 android:id="@+id/draft_page"
                 android:layout_width="match_parent"
@@ -179,12 +177,6 @@
                 android:backgroundTint="@color/lightYellow"
                 android:layout_below="@id/infotext"
                 android:text="مسودات"/>
-
-
-
-
-
-
 
             <View
                 android:id="@+id/separator"

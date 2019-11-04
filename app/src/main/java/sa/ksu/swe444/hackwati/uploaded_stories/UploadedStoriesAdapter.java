@@ -3,18 +3,24 @@ package sa.ksu.swe444.hackwati.uploaded_stories;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -25,10 +31,8 @@ import java.util.List;
 
 
 import sa.ksu.swe444.hackwati.Constants;
-import sa.ksu.swe444.hackwati.InnerStoryActivity;
 import sa.ksu.swe444.hackwati.Item;
 import sa.ksu.swe444.hackwati.R;
-
 
 
 
@@ -41,6 +45,7 @@ public class UploadedStoriesAdapter extends RecyclerView.Adapter<UploadedStories
     UploadedStoriesAdapter.MyViewHolder holder;
     private Context context;
     private String userID;
+    public FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
 
 
     public UploadedStoriesAdapter(Context context) {
@@ -65,8 +70,10 @@ public class UploadedStoriesAdapter extends RecyclerView.Adapter<UploadedStories
         holder.user_name.setText(list_items.getTitle());
         Glide.with(context).load(list_items.getImage()).into(holder.icon);
        // holder.subscribe.setText(list_items.getStatus());
+        holder.subscribe.setBackgroundColor(list_items.getColor());
+
         if(list_items.getStatus().equals( Constants.Keys.REJECTED)){
-            holder.subscribe.setBackgroundColor(R.color.pink_hak2);
+            holder.subscribe.setBackgroundColor(list_items.getColor());
             holder.subscribe.setText("مرفوض");
         }
         else if(list_items.getStatus().equals( Constants.Keys.PROCESSING)){
@@ -100,13 +107,13 @@ public class UploadedStoriesAdapter extends RecyclerView.Adapter<UploadedStories
         ImageView icon;
         Button subscribe;
         RelativeLayout relativeLayout;
+        private ImageView menu;
         public FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
         String userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
 
         public MyViewHolder(View itemView) {
             super(itemView);
-
 
             user_name = (TextView) itemView.findViewById(R.id.title1);
             icon = (ImageView) itemView.findViewById(R.id.icon);
@@ -125,11 +132,72 @@ public class UploadedStoriesAdapter extends RecyclerView.Adapter<UploadedStories
                 }
             });
 
+            menu = itemView.findViewById(R.id.menu);
+            menu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    PopupMenu popup = new PopupMenu(context, holder.menu);
+                    popup.inflate(R.menu.option_menu);
+                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            switch (item.getItemId()) {
+                                case R.id.menu_item_delete:
+                                    String id = storyList.get(getAdapterPosition()).getStoryId();
+                                    String col = storyList.get(getAdapterPosition()).getStatus();
+                                    int position =  getAdapterPosition();
+                                    Toast.makeText(context, "pop", Toast.LENGTH_SHORT).show();
+                                    deleteStory(id, col , position);
+                                    return true;
+                                default:
+                                    return false;
+                            }                        }
+                    });
+
+                    popup.show();
+                }
+            });
+
+
+
         }
 
 
         }//MyViewHolder class
 
+
+    public void deleteStory(String id , String status ,int position){
+        String storyCollection = null;
+
+        if(status.equals( Constants.Keys.REJECTED)){
+            storyCollection = "rejectedStories";
+        }
+        else if(status.equals( Constants.Keys.PROCESSING)){
+            storyCollection = "stories";
+        }
+        else if(status.equals( Constants.Keys.PUBLISHED)) {
+            storyCollection = "publishedStories";
+        }
+        
+        
+        firebaseFirestore.collection(storyCollection).document(id)
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error deleting document", e);
+                    }
+                });
+        Toast.makeText(context, "deleted", Toast.LENGTH_SHORT).show();
+        notifyItemRemoved(position);
+
+    }
 
 
     }//end class

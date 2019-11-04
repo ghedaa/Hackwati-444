@@ -130,9 +130,5 @@ public class SubscribersListActivity extends AppCompatActivity {
     }
 
 
-    public void retriveUserData(String name, String imge) {
-
-
-    }
 
 }
