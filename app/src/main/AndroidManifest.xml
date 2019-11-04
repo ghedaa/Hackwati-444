@@ -12,16 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".SubscribersListActivity"
-            android:parentActivityName=".UserProfile">
-        </activity>
-        <activity android:name=".SubscribedListActivity"
-            android:parentActivityName=".UserProfile" />
+        <activity android:name=".uploaded_stories.ListenToUserStory"></activity>
+        <activity android:name=".uploaded_stories.UserUploadedStories" />
+        <activity android:name=".SubscribersListActivity" />
+        <activity android:name=".SubscribedListActivity" />
         <activity android:name=".Draft.ListenToStoryDraft" />
         <activity android:name=".Draft.ViewDraft" />
-        <activity android:name=".StoryActivity" >
-
-        </activity>
+        <activity android:name=".StoryActivity" />
         <activity android:name=".SignUp" />
         <activity
             android:name=".InnerStoryActivity"
@@ -39,7 +36,6 @@
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".UserProfile"
-            android:parentActivityName=".MainActivity"
             android:label="@string/app_name" />
         <activity android:name=".SplashActivity">
             <intent-filter>
@@ -50,10 +46,10 @@
         </activity>
         <activity android:name=".Login" />
     </application>
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

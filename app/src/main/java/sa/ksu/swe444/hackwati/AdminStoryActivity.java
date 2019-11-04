@@ -358,7 +358,7 @@ public class AdminStoryActivity extends AppCompatActivity implements View.OnClic
                         String sound = (String) document.get("sound");
                         String title = (String) document.get("title");
                         String userId = (String) document.get("userId");
-                        String timestamp = (String) document.get("timestamp").toString();
+                        String timestamp = document.get("timestamp").toString();
 
 
                         // new doc
@@ -370,6 +370,7 @@ public class AdminStoryActivity extends AppCompatActivity implements View.OnClic
                         publishedStories.put("userId", userId);
                         publishedStories.put("sound", sound);
                         publishedStories.put("timestamp", FieldValue.serverTimestamp());
+
 
                         firebaseFirestore.collection("publishedStories").document().set(publishedStories)
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -421,6 +422,93 @@ public class AdminStoryActivity extends AppCompatActivity implements View.OnClic
 
     public void rejectStory(){
 
+        DocumentReference docRef = firebaseFirestore.collection("stories").document(storyId);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    final DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+
+                        // get data
+                        document.getData();
+                        String description = (String) document.get("description");
+                        String pic = (String) document.get("pic");
+                        String rate = (String) document.get("rate");
+                        String sound = (String) document.get("sound");
+                        String title = (String) document.get("title");
+                        String userId = (String) document.get("userId");
+                        String timestamp = (String) document.get("timestamp").toString();
+
+
+                        // new doc
+                        Map<String, Object> rejectedStories = new HashMap<>();
+                        rejectedStories.put("description", description);
+                        rejectedStories.put("rate", rate);
+                        rejectedStories.put("title", title);
+                        rejectedStories.put("pic", pic);
+                        rejectedStories.put("userId", userId);
+                        rejectedStories.put("sound", sound);
+                        rejectedStories.put("timestamp", FieldValue.serverTimestamp());
+
+
+                        firebaseFirestore.collection("rejectedStories").document().set(rejectedStories)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+
+
+                                        firebaseFirestore.collection("stories").document(storyId)
+                                                .delete()
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Log.w(TAG, "Error deleting document", e);
+                                                    }
+                                                });
+
+
+                                        Toast.makeText(AdminStoryActivity.this, "story publish", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(AdminStoryActivity.this, AdminActivity.class));
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(AdminStoryActivity.this, "Error_add_story", Toast.LENGTH_SHORT).show();
+                                        Log.d(TAG, e.toString());
+                                    }
+                                });
+
+
+                    } else {
+                        Log.d(TAG, "No such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
+
+    }
+
+
+/*
+*
+*
+*
+* no more needed
+*
+*
+*/
+    public void rejectStory2(){
+
         firebaseFirestore.collection("stories").document(storyId)
                 .delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -437,6 +525,7 @@ public class AdminStoryActivity extends AppCompatActivity implements View.OnClic
                 });
 
     }
+
 
     public void retriveUserData() {
 

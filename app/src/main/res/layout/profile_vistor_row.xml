@@ -178,7 +178,8 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/lightYellow"
                 android:layout_below="@id/infotext"
-                android:text="draft"/>
+                android:text="مسودات"/>
+
 
 
 

@@ -42,6 +42,18 @@
             android:layout_marginTop="270dp"
             android:hint="نبذه" />
 
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_marginTop="40dp"
+            android:layout_centerInParent="true"
+            android:layout_below="@+id/pp"
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:drawSelectorOnTop="true"
+            android:outlineAmbientShadowColor="@android:color/black"
+            android:outlineSpotShadowColor="@android:color/black"
+            />
+
 
     </RelativeLayout>
 

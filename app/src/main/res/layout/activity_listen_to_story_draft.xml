@@ -83,7 +83,7 @@
                 android:layout_height="50dp"
                 android:layout_margin="10dp"
                 android:background="@drawable/shape"
-                android:text="قبول"
+                android:text="نشر"
                 android:textStyle="bold" />
 
             <Button
@@ -93,7 +93,7 @@
                 android:layout_margin="10dp"
                 android:layout_toLeftOf="@id/approve"
                 android:background="@drawable/shape"
-                android:text="رفض"
+                android:text="حذف"
                 android:textStyle="bold" />
         </LinearLayout>
 
