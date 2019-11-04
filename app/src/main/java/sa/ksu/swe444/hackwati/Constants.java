@@ -18,6 +18,13 @@ public class Constants {
         String STORY_USER_ID = "story_user_id";
         String STORY_TITLE= "story_title";
         String DRAFT = "user_draft";
+        String PUBLISHED = "published";
+        String REJECTED = "rejected";
+        String PROCESSING = "processing";
+
+
+
+
 
 
 

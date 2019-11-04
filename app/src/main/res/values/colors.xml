@@ -10,4 +10,20 @@
     <color name="lightYellow">#F7E459</color>
     <color name="gray">#a9a9a9</color>
 
+
+    <color name="green_hak">#a5d851</color>
+    <color name="green_hak2">#4B9535</color>
+    <color name="blue_hak">#a1dfd0</color>
+    <color name="blue_hak2">#4D7670</color>
+    <color name="yellow_hak">#fcd50b</color>
+    <color name="yellow_hak2">#DA740A</color>
+    <color name="orange_hak">#fcb556</color>
+    <color name="orange_hak2">#76410E</color>
+    <color name="pink_hak">#faa1a9</color>
+    <color name="pink_hak2">#B95C77</color>
+    <color name="gray_hak">#C3CFC4</color>
+    <color name="gray_hak2">#6D7A83</color>
+
+
+
 </resources>

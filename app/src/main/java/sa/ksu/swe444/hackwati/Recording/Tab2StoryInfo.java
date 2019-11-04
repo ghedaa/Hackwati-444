@@ -2,6 +2,7 @@ package sa.ksu.swe444.hackwati.Recording;
 
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -17,9 +19,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -47,7 +52,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -91,23 +98,43 @@ public class Tab2StoryInfo extends Fragment {
     int random;
     String storyId;
     private Button saveToDraft;
+    private Spinner spinner;
 
 // should be removed
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.recording_fragment_two, container, false);
         storyDiscription = view.findViewById(R.id.pp);
         storyTitle = view.findViewById(R.id.name);
         saveToDraft = view.findViewById(R.id.draft);
+        spinner = view.findViewById(R.id.spinner);
+
+        List<String> list = new ArrayList<>();
+        list.add("نوع القصة");
+        list.add("قصص مغامرات");
+        list.add("قصص أنبياء");
+        list.add("قصص سيرة");
+        list.add("قصص حيوانات");
+        list.add("قصص خيال علمي");
+
+
+        ArrayAdapter adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, list);
+        spinner.setAdapter(adapter);
+
+        spinner.setBackgroundColor(R.color.gray);
+
+
 
         saveToDraft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                verificationBeforeUploadingStory();
-                storyId = storyTitleToStoryId();
-                uploadAudioToDraft();
-                uploadImageWithUriToDraft();
+              if(verificationBeforeUploadingStory()) {
+                  storyId = storyTitleToStoryId();
+                  uploadAudioToDraft();
+                  uploadImageWithUriToDraft();
+              }
             }
         });
         mAuth = FirebaseAuth.getInstance();
@@ -124,10 +151,11 @@ public class Tab2StoryInfo extends Fragment {
         publishStory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                verificationBeforeUploadingStory();
-                storyId = storyTitleToStoryId();
-                uploadAudio();
-                uploadImageWithUri();
+                if(verificationBeforeUploadingStory()) {
+                    storyId = storyTitleToStoryId();
+                    uploadAudio();
+                    uploadImageWithUri();
+                }
 
             }
         });
@@ -145,6 +173,8 @@ public class Tab2StoryInfo extends Fragment {
 
         return view;
     }//end of onCreate()
+
+
 
     private void uploadImageWithUriToDraft() {
         if (imgPath != null) {
@@ -211,28 +241,41 @@ public class Tab2StoryInfo extends Fragment {
             }
         });
     }
-    private void verificationBeforeUploadingStory(){
+    private boolean verificationBeforeUploadingStory(){
+        boolean isValid = true;
 
         if (storyDiscription.getText().toString().equals("") && storyTitle.getText().toString().equals("")) {
             //show a popup for result
             showDialogWithOkButton("الرجاء ادخال عنوان وملخص للقصة!");
+            isValid = false;
 
         } else if (storyDiscription.getText().toString().equals("")) {
             //show a popup for result
             showDialogWithOkButton("الرجاء مخلص القصة");
+            isValid = false;
+
 
         }//end if
 
         else if (storyTitle.getText().toString().equals("")) {
             //show a popup for result
             showDialogWithOkButton("الرجاء ادخال عنوان القصة");
+            isValid = false;
+
 
         }//end if
 
-        else if (imgPath == null)
+        else if (imgPath == null) {
             showDialogWithOkButton("الرجاء رفع غلاف لقصتك");
+            isValid = false;
+        }
+        else if(spinner.getSelectedItem().toString().equals("نوع القصة")) {
+            showDialogWithOkButton("الرجاء اختيار نوع القصة");
+            isValid = false;
 
+        }
 
+return isValid;
     }
 
     @Override
@@ -402,6 +445,10 @@ public class Tab2StoryInfo extends Fragment {
         story.put("userId", userId);
         story.put("pic", imgUri);
         story.put("sound", audioUri);
+        story.put("story_type", spinner.getSelectedItem().toString());
+        story.put("status", "under processing");
+
+
         //call back tto get Duration
         story.put("timestamp", FieldValue.serverTimestamp());
 
@@ -530,6 +577,8 @@ public class Tab2StoryInfo extends Fragment {
         story.put("pic", imgUri);
         story.put("sound", audioUri);
         story.put("timestamp", FieldValue.serverTimestamp());
+        story.put("story_type", spinner.getSelectedItem().toString());
+
 
 
 

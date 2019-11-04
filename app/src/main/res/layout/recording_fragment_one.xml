@@ -5,12 +5,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="70dp"
     android:orientation="vertical">
 
 
 
 <LinearLayout
-    android:layout_marginTop="10dp"
+    android:layout_marginTop="-20dp"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_centerInParent="true"
@@ -23,7 +24,7 @@
         android:layout_height="70dp"
         android:background="@drawable/circle"
         android:layout_below="@+id/recording"
-        android:src="@drawable/ic_lion"
+        app:srcCompat="@drawable/ic_lion"
         android:layout_margin="5dp"/>
 
     <ImageButton
@@ -33,7 +34,7 @@
         android:background="@drawable/circle"
 
         android:layout_below="@+id/recording"
-        android:src="@drawable/ic_monkey"
+        app:srcCompat="@drawable/ic_monkey"
         android:layout_margin="5dp"/>
 
 
@@ -43,7 +44,7 @@
         android:layout_height="70dp"
         android:background="@drawable/circle"
         android:layout_below="@+id/recording"
-        android:src="@drawable/ic_owl"
+        app:srcCompat="@drawable/ic_owl"
         android:layout_margin="5dp"/>
 
     <ImageButton
@@ -53,7 +54,7 @@
         android:background="@drawable/circle"
 
         android:layout_below="@+id/recording"
-        android:src="@drawable/ic_dog"
+        app:srcCompat="@drawable/ic_dog"
         android:layout_margin="5dp"/>
 </LinearLayout>
 
@@ -62,35 +63,37 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/waves"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:layout_margin="30dp">
+
+        android:layout_margin="10dp"
+    >
 
         <ImageButton
             android:id="@+id/record_btn"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:background="@drawable/circle"
             android:layout_centerInParent="true"
-            app:srcCompat="@drawable/ic_microphone"/>
+            android:background="@drawable/circle"
+            app:srcCompat="@drawable/ic_microphone" />
+
         <ImageButton
-        android:id="@+id/listen_record_btn"
-        android:layout_toRightOf="@id/record_btn"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_margin="5dp"
-        android:background="@drawable/circle"
-        android:layout_centerInParent="true"
-        app:srcCompat="@drawable/ic_play_button"/>
-        <ImageButton
-            android:id="@+id/stop_listen_record_btn"
-            android:layout_toLeftOf="@id/record_btn"
+            android:id="@+id/listen_record_btn"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_margin="5dp"
-            android:background="@drawable/circle"
             android:layout_centerInParent="true"
-            app:srcCompat="@drawable/ic_pause"/>
+            android:layout_margin="5dp"
+            android:layout_toRightOf="@id/record_btn"
+            android:background="@drawable/circle"
+            app:srcCompat="@drawable/ic_play_button" />
+
+        <ImageButton
+            android:id="@+id/stop_listen_record_btn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true"
+            android:layout_margin="5dp"
+            android:layout_toLeftOf="@id/record_btn"
+            android:background="@drawable/circle"
+            app:srcCompat="@drawable/ic_pause" />
 
 
     </RelativeLayout>
@@ -100,7 +103,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="70dp"
         android:text="00 : 00"
         android:textColor="@android:color/black"
         android:textSize="15pt" />
@@ -135,8 +138,8 @@
         android:id="@+id/waves"
         layout="@layout/visualiser"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="92dp"
         android:layout_below="@id/timer"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="40dp" />
 
 </RelativeLayout>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/htab_maincontent"
@@ -8,7 +9,6 @@
     android:layout_height="match_parent"
     android:background="#C6E9E9"
     android:fitsSystemWindows="true">
-    <!--  android:layout_height="584dp"-->
     <RelativeLayout
         android:layout_width="390dp"
         android:layout_height="708dp"
@@ -24,20 +24,37 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
-            android:layout_width="369dp"
-            android:layout_height="678dp"
+            android:layout_width="363dp"
+            android:layout_height="505dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
 
             android:layout_centerInParent="true"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="70dp"
-            android:layout_marginRight="11dp"
+            android:layout_marginRight="17dp"
             android:foregroundGravity="center"
             android:padding="10dp"
             tools:ignore="NotSibling">
 
         </androidx.recyclerview.widget.RecyclerView>
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/nav_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginBottom="48dp"
+            android:background="?android:attr/windowBackground"
+            android:layout_below="@id/recycler_view"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:menu="@menu/bottom_nav_menu"></com.google.android.material.bottomnavigation.BottomNavigationView>
     </RelativeLayout>
 
 
@@ -48,7 +65,8 @@
         android:gravity="center"
         android:text="" />
 
-    <include
-        android:id="@+id/toole"
-        layout="@layout/toolbar_main" />
+    <include layout="@layout/toolbar_main" />
+
+
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

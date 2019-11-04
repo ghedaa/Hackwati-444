@@ -13,6 +13,8 @@ public class Item {
     private int soundImage;
     private String storyId;
     boolean isMain ;
+    private String status;
+
 
 
 
@@ -50,6 +52,8 @@ public class Item {
         this.storyId=storyId;
 
     }
+
+
 
 
 
@@ -151,5 +155,12 @@ public Item ( String title, String image){
 
     public void setStoryId(String storyId) {
         this.storyId = storyId;
+    }
+
+    public String getStatus(){
+        return status;
+    }
+    public void setStatus(String status){
+        this.status = status;
     }
 }

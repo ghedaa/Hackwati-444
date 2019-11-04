@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/f2"
     android:layout_width="match_parent"
+    android:layout_marginTop="90dp"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
@@ -11,13 +13,18 @@
         android:layout_height="200dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
-        android:src="@drawable/ic_book_black_24dp" />
+        app:srcCompat="@drawable/ic_book_black_24dp" />
 
     <RelativeLayout
         android:id="@+id/re"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_width="369dp"
+        android:layout_height="355dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
         android:gravity="center"
         android:padding="30dp">
 
@@ -35,6 +42,17 @@
             android:layout_marginTop="270dp"
             android:hint="نبذه" />
 
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_marginTop="40dp"
+            android:layout_centerInParent="true"
+            android:layout_below="@+id/pp"
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:drawSelectorOnTop="true"
+            android:outlineAmbientShadowColor="@android:color/black"
+            android:outlineSpotShadowColor="@android:color/black"
+            />
 
 
     </RelativeLayout>

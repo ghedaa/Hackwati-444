@@ -12,7 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Draft.ListenToStoryDraft"></activity>
+        <activity android:name=".uploaded_stories.ListenToUserStory"></activity>
+        <activity android:name=".uploaded_stories.UserUploadedStories" />
+        <activity android:name=".SubscribersListActivity" />
+        <activity android:name=".SubscribedListActivity" />
+        <activity android:name=".Draft.ListenToStoryDraft" />
         <activity android:name=".Draft.ViewDraft" />
         <activity android:name=".StoryActivity" />
         <activity android:name=".SignUp" />
@@ -33,14 +37,14 @@
         <activity
             android:name=".UserProfile"
             android:label="@string/app_name" />
-        <activity android:name=".Login">
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SplashActivity" />
+        <activity android:name=".Login" />
     </application>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
