@@ -310,24 +310,30 @@
 
     </RelativeLayout>
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+
+
+
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:layout_gravity="top"
+        android:layout_height="wrap_content"
         android:background="@drawable/icon_shape_botum"
-        android:backgroundTint="#C6E9E9"
-        android:gravity="center"
-        android:padding="25dp"
-        app:contentScrim="?attr/colorPrimary"
-        app:elevation="6dp"
-        app:layout_collapseMode="pin"
-        app:titleTextColor="#fff"
+        android:backgroundTint="@color/yellow_hak"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@drawable/icon_shape_botum"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:backgroundTint="@color/yellow_hak"
+            app:title="   "
+            app:titleTextColor="#fff"
 
-        />
+            />
 
-
+    </com.google.android.material.appbar.AppBarLayout>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

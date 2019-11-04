@@ -7,173 +7,210 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <RelativeLayout
+    <TextView
+        android:id="@+id/flag"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:text=""
+        android:textSize="0dp"
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginTop="210dp">
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="70dp">
 
 
-            <Button
-                android:id="@+id/listenBtn"
-                android:layout_width="159dp"
-                android:layout_height="41dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginLeft="24dp"
-                android:layout_marginTop="50dp"
-                android:background="@drawable/shape"
-                android:text="استمع"
-                android:textStyle="bold" />
+        <RelativeLayout
+            android:id="@+id/rel_cover"
+            android:layout_width="200dp"
+            android:layout_height="250dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="20dp">
+
+            <ImageView
+                android:id="@+id/cover"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#e1e1e1"
+                android:contentDescription="اسم الكتاب" />
+
+            <TextView
+                android:id="@+id/duration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentBottom="true"
+                android:background="#fff"
+                android:text="٣٠:٢"
+                android:textSize="14dp"
+
+                />
+
+            <ImageButton
+                android:id="@+id/btnAddToList"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="#fff"
+                android:src="@drawable/ic_favorite_black_24dp"
+                android:tint="#979797"
+                android:clickable="true"
+                android:contentDescription="اضف للقائمة" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/outter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rel_cover"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="20dp">
 
             <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:id="@+id/relTab"
+                android:layout_width="146dp"
+                android:layout_height="44dp"
+                android:background="@drawable/icon_shape"
+                android:backgroundTint="@color/yellow_hak">
 
-                <Button
-                    android:id="@+id/subscribeBtn"
-                    android:layout_width="159dp"
-                    android:layout_height="41dp"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginLeft="24dp"
-                    android:layout_marginTop="50dp"
-                    android:background="@drawable/shape"
-                    android:shadowColor="@color/lightBlue"
-                    android:tag="off"
-                    android:text=""
-                    android:textColor="@color/darkBlue" />
+                <TextView
+                    android:id="@+id/bookName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:text="العنوان"
+                    android:textAlignment="center"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
 
 
             </RelativeLayout>
 
-
-        </LinearLayout>
-
-        <RelativeLayout
-            android:id="@+id/rel1"
-            android:layout_width="match_parent"
-            android:layout_height="271dp"
-            android:layout_marginTop="40dp">
-
-
-            <ImageView
-                android:id="@+id/cover"
-                android:layout_width="173dp"
-                android:layout_height="200dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginLeft="20dp"
-                android:background="@drawable/shape_subscribe"
-                android:backgroundTint="#e1e1e1"
-                android:contentDescription="اسم الكتاب"
-                android:orientation="horizontal"
-                android:src="@drawable/gray" />
-
-
             <RelativeLayout
-                android:layout_width="217dp"
+                android:id="@+id/info"
+                android:layout_width="380dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="15dp"
-                android:background="#F5F5F5">
+                android:layout_below="@id/relTab"
+                android:layout_centerInParent="true"
+                android:background="@drawable/box_shape_reg">
+
+                <ImageView
+                    android:id="@+id/channelimage"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="15dp" />
+
 
                 <RatingBar
                     android:id="@+id/rating"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/relUser"
+                    android:layout_below="@id/date"
                     android:layout_centerInParent="true"
-                    android:layout_marginLeft="40dp"
-                    android:layout_marginTop="-1dp"
+                    android:layout_toLeftOf="@id/rating_label"
                     android:numStars="5"
                     android:saveEnabled="true"
                     android:scaleX=".5"
-                    android:scaleY=".5"
-                    />
-
+                    android:scaleY=".5" />
 
                 <RelativeLayout
-                    android:id="@+id/relUser"
-                    android:layout_width="182dp"
-                    android:layout_height="48dp"
-                    android:layout_below="@id/duration"
-                    android:layout_centerInParent="true"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="10dp"
-                    android:orientation="horizontal">
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/discrebtion"
+                    android:layout_centerInParent="true">
 
-                    <ImageView
-                        android:id="@+id/channelimage"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp" />
 
-                    <TextView
-                        android:id="@+id/channelname"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="6dp"
-                        android:layout_marginRight="23dp"
-                        android:layout_toLeftOf="@id/channelimage"
-                        android:text="الاسم"
-                        android:textSize="20dp" />
+                    <Button
+                        android:id="@+id/listenBtn"
+                        android:layout_width="159dp"
+                        android:layout_height="41dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/shape_subscribe"
+                        android:backgroundTint="@color/blue_hak"
+                        android:text="استمع"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/subscribeBtn"
+                        android:layout_width="159dp"
+                        android:layout_height="41dp"
+                        android:layout_margin="10dp"
+                        android:layout_toLeftOf="@id/listenBtn"
+                        android:background="@drawable/shape"
+                        android:shadowColor="@color/lightBlue"
+                        android:text=""
+                        android:textColor="@color/darkBlue" />
+
+
                 </RelativeLayout>
 
 
                 <TextView
-                    android:id="@+id/bookName"
-                    android:layout_width="216dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="العنوان"
-                    android:textSize="30sp" />
-
-
-                <TextView
-                    android:id="@+id/duration"
+                    android:id="@+id/date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/bookName"
+                    android:layout_below="@id/channelname"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginRight="23dp"
+                    android:layout_toLeftOf="@id/channelimage"
+                    android:text="الاسم"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:id="@+id/rating_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/date"
+                    android:layout_marginLeft="10dp"
+
+                    android:layout_marginTop="18dp"
+                    android:layout_marginRight="23dp"
+                    android:layout_toLeftOf="@id/channelimage"
+                    android:text="التقيم"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:id="@+id/summ"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/rating"
+                    android:layout_marginTop="20dp"
+                    android:background="#F7F7F7"
+                    android:gravity="center"
+                    android:text="ملخص القصة:"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/discrebtion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/summ"
                     android:layout_centerInParent="true"
-                    android:layout_marginTop="7dp"
-                    android:layout_marginRight="75dp"
-                    android:text="٣٠:٢"
-                    android:textSize="20sp"
+                    android:gravity="center"
+                    android:text="العنوان"
+                    android:textAlignment="center"
+                    android:textSize="14dp" />
 
-                    />
-
+                <TextView
+                    android:id="@+id/channelname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginRight="23dp"
+                    android:layout_toLeftOf="@id/channelimage"
+                    android:text="الاسم"
+                    android:textSize="14dp" />
             </RelativeLayout>
-        </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/rel1"
-            android:layout_margin="40dp"
-            android:layout_marginTop="30dp">
-
-            <TextView
-                android:id="@+id/summ"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#F3F3F3"
-                android:gravity="center"
-                android:text="ملخص القصة:"
-                android:textSize="25sp" />
-
-            <TextView
-                android:id="@+id/discrebtion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/summ"
-                android:layout_centerInParent="true"
-                android:layout_marginTop="40dp"
-                android:gravity="center"
-                android:text="العنوان"
-                android:textAlignment="center"
-                android:textSize="20dp" />
 
         </RelativeLayout>
 
@@ -222,6 +259,31 @@
             </LinearLayout>
         -->
 
+
     </RelativeLayout>
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/icon_shape_botum"
+        android:backgroundTint="@color/yellow_hak"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_gravity="center"
+            android:background="@drawable/icon_shape_botum"
+            android:backgroundTint="@color/yellow_hak"
+            android:gravity="center"
+            app:title="   "
+            app:titleTextColor="#fff"
+
+            />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

@@ -81,8 +81,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         tab2Fragment.setArguments(bundle);
         adapter.addFragment(tab2Fragment, "القصص");
 
-      /*  tab3Fragment = new Tab3Fragment();
-        adapter.addFragment(tab3Fragment, "القصص");*/
+      tab3Fragment = new Tab3Fragment();
+        adapter.addFragment(tab3Fragment, "التفضيلات");
 
 
         viewPager.setAdapter(adapter);

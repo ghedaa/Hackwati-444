@@ -100,14 +100,14 @@ public class Tab2Fragment extends Fragment {
 
 
                                 document.getData();
-
                                 String title = (String) document.get("title");
                                 String userId = (String) document.get("userId");
                                 String storyId = (String) document.getId();
+                                String userName = "";
                                 String pic = (String) document.get("pic");
+                                String sound = (String) document.get("sound");
 
-
-                                Item item = new Item(storyId, title, pic, userId);
+                                Item item = new Item(true,storyId, title, pic,sound, userId, "", "");
                                 itemList.add(item);
                                 adapter.notifyDataSetChanged();
 
