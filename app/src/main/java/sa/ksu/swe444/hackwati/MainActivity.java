@@ -73,9 +73,8 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("الصفحة الرئيسية");
 
 
-
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_subscription,  R.id.navigation_explore, R.id.navigation_record)
+                R.id.navigation_subscription, R.id.navigation_explore, R.id.navigation_record)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
@@ -169,7 +168,9 @@ public class MainActivity extends AppCompatActivity {
 
                                 });
                         builder.setNeutralButton("إلغاء", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) { }});
+                            public void onClick(DialogInterface dialog, int id) {
+                            }
+                        });
 
                         AlertDialog alert = builder.create();
                         alert.show();
@@ -261,28 +262,9 @@ public class MainActivity extends AppCompatActivity {
                         if (list == null) {
                             emptyStories.setText("لا يوجد قصص تابع واستمتع!");
                         } else { // has SubscribedUsers
-
-                            retriveUserData(list, new MyCallback() {
-                                @Override
-                                public void onCallback(ArrayList<User> usersDataList) {
-                                    retriveSubscribedUserStories(list, usersDataList);
-                                }
-                            });
-
-
+                            retriveUserData(list);
                         }// end for loop
-
-                        for (int i = 0; i <= itemList.size(); i++) {
-                            if (itemList.size() == 0) {
-                                Log.d("TAG", "itemlest is empty");
-                                return;
-                            }
-                        }
-                    } else {
-                        Log.d(TAG, "No such document");
                     }
-                } else {
-                    Log.d(TAG, "get failed with ", task.getException());
                 }
             }
         });
@@ -290,15 +272,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void retriveSubscribedUserStories(List<String> list, final ArrayList<User> usersDataList) {
+    public void retriveSubscribedUserStories(final String userID, final String userName, final String thumbnail) {
 
-
-        for (int i = 0; i < list.size(); i++) {
-            Log.d("TAG", "list: " + list.get(i));
 
 
             firebaseFirestore.collection("publishedStories")
-                    .whereEqualTo("userId", list.get(i) + "")// <-- This line
+                    .whereEqualTo("userId", userID)
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
@@ -311,45 +290,27 @@ public class MainActivity extends AppCompatActivity {
                                 for (DocumentSnapshot document : task.getResult()) {
 
 
-
                                     document.getData();
-
                                     String title = (String) document.get("title");
                                     String userId = (String) document.get("userId");
                                     String storyId = (String) document.getId();
-                                    String userName = "";
                                     String pic = (String) document.get("pic");
                                     String sound = (String) document.get("sound");
 
-                                    String thumbnail = "";
-
-
-                                    //retrive user data
-                                    for (int i = 0; i < usersDataList.size(); i++) {
-                                        if (usersDataList.get(i).getEmail().equals(userId)) {
-                                            userName = (String) usersDataList.get(i).getUsername();
-                                            thumbnail = (String) usersDataList.get(i).getImg();
-                                            break;
-                                        }
-                                    }
 
                                     Item item = new Item(true,storyId, title, pic,sound, userId, userName, thumbnail);
                                     itemList.add(item);
                                     adapter.notifyDataSetChanged();
-
                                 }
 
-                            } else {
-                                Log.d(TAG, "Error getting documents: ", task.getException());
                             }
                         }
                     });
 
-        }
 
     }
 
-    public void retriveUserData(final List<String> subscribedUsers, final MyCallback myCallback) {
+    public void retriveUserData(final List<String> subscribedUsers) {
 
 
         for (int i = 0; i < subscribedUsers.size(); i++) {
@@ -358,18 +319,14 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                     if (task.isSuccessful()) {
-                        int c = 0;
                         DocumentSnapshot userDocument = task.getResult();
                         if (userDocument.exists()) {
                             String userName = userDocument.get("username").toString();
-                            String userID = userDocument.getId().toString();
+                            String userID = userDocument.getId();
                             String thumbnail = userDocument.get("thumbnail").toString();
-                            arrayList.add(new User(userID, userName, thumbnail));
 
-                            if (c < subscribedUsers.size())
-                                myCallback.onCallback(arrayList);
+                            retriveSubscribedUserStories(userID,userName,thumbnail);
 
-                            c++;
 
                         }
 

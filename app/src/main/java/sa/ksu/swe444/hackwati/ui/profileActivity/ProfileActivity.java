@@ -82,6 +82,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         adapter.addFragment(tab2Fragment, "القصص");
 
       tab3Fragment = new Tab3Fragment();
+        tab3Fragment.setArguments(bundle);
         adapter.addFragment(tab3Fragment, "التفضيلات");
 
 

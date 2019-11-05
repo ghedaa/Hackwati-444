@@ -62,6 +62,7 @@ public class Tab3Fragment extends Fragment {
 
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.profile_fragment_three, container, false);
@@ -74,8 +75,6 @@ public class Tab3Fragment extends Fragment {
 
         if (getArguments() != null) {
             userStoryId = getArguments().getString("userStoryId");
-            Log.d(TAG,userStoryId+" gggg");
-
         }
 
         initRecyclerView();
@@ -92,12 +91,13 @@ public class Tab3Fragment extends Fragment {
         recyclerView.addItemDecoration(new MainActivity.GridSpacingItemDecoration(10, dpToPx(10), false));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
+      //1
         retrieveFavoritStories();
     }
 
     public void retrieveFavoritStories() {
 
-        DocumentReference docRef = firebaseFirestore.collection("users").document(userUid);
+        DocumentReference docRef = firebaseFirestore.collection("users").document(userStoryId);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -110,47 +110,94 @@ public class Tab3Fragment extends Fragment {
                             emptyStories.setText("لا يوجد قصص مفضلة");
                         } else { // has SubscribedUsers
 
-                            retriveStories(list);
+                            for(String StoryID : list)
+                            retriveUserFromStoryID(StoryID);
                         }// end for loop
-
-
                     }
                 }
             }
         });
-
-
     }
-    public void retriveStories(List<String> list) {
+    //2
+    public void retriveUserFromStoryID(final String StoryID) {
 
 
-        for(int i=0; i<list.size(); i++) {
-            DocumentReference docRef = firebaseFirestore.collection("publishedStories").document(list.get(i));
-            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if (task.isSuccessful()) {
-                        DocumentSnapshot document = task.getResult();
-                        if (document.exists()) {
-                            document.getData();
-                            String title = (String) document.get("title");
-                            String userId = (String) document.get("userId");
-                            String storyId = (String) document.getId();
-                            String userName = "";
-                            String pic = (String) document.get("pic");
-                            String sound = (String) document.get("sound");
 
-                            Item item = new Item(true,storyId, title, pic,sound, userId, "", "");
-                            itemList.add(item);
-                            adapter.notifyDataSetChanged();
+        DocumentReference docRef2 = firebaseFirestore.collection("publishedStories").document(StoryID);
+        docRef2.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot userDocument = task.getResult();
+                    if (userDocument.exists()) {
+                        String userID = (String) userDocument.get("userId");
+                        retriveUserData(userID);
+                    }}
+            }
+        });
+    }
+   //3
+    public void retriveUserData(String userID) {
 
-                        }
+
+
+        DocumentReference docRef2 = firebaseFirestore.collection("users").document(userID);
+        docRef2.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot userDocument = task.getResult();
+                    if (userDocument.exists()) {
+                        String userName = userDocument.get("username").toString();
+                        String userID = userDocument.getId();
+                        String thumbnail = userDocument.get("thumbnail").toString();
+                        retriveStories(userID,userName,thumbnail);
                     }
                 }
-            });
-
-        }//end for loop
+            }
+        });
     }
+    //4
+    public void retriveStories(final String userID, final String userName, final String thumbnail) {
+
+
+
+
+            firebaseFirestore.collection("publishedStories")
+                    .whereEqualTo("userId", userID)// <-- This line
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull final Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+
+
+                                Log.d(TAG, " 1 => test");
+
+                                for (DocumentSnapshot document : task.getResult()) {
+
+
+                                    document.getData();
+                                    String title = (String) document.get("title");
+                                    String userId = (String) document.get("userId");
+                                    String storyId = (String) document.getId();
+                                    String pic = (String) document.get("pic");
+                                    String sound = (String) document.get("sound");
+
+
+                                    Item item = new Item(true,storyId, title, pic,sound, userId, userName, thumbnail);
+                                    itemList.add(item);
+                                    adapter.notifyDataSetChanged();
+                                }
+                            }
+                        }
+                    });
+    }
+
+
+
+
+
 
 
 
