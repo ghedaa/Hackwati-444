@@ -59,6 +59,11 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        //getSupportActionBar().setTitle("ملف شخصي");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(false);
+
         getExtras();
 
         userImg = findViewById(R.id.userImg);
