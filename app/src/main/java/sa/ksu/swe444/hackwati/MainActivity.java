@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         emptyStories = findViewById(R.id.emptyStories);
         navView = findViewById(R.id.nav_view);
+
         toolbarMain = (Toolbar) findViewById(R.id.toolbarMain);
         setSupportActionBar(toolbarMain);
         getSupportActionBar().setTitle("الصفحة الرئيسية");
@@ -89,21 +90,30 @@ public class MainActivity extends AppCompatActivity {
         navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
                 switch (item.getItemId()) {
 
                     case R.id.navigation_record:
                         startActivity(new Intent(MainActivity.this, RecordingActivity.class));
+                       // navView.setSelectedItemId(R.id.navigation_record);
+                      //  navView.getMenu().getItem(R.id.navigation_record).setChecked(true);
+
                         break;
 
                     case R.id.navigation_subscription:
                         startActivity(new Intent(MainActivity.this, MainActivity.class));
+                      //  navView.setSelectedItemId(R.id.navigation_subscription);
+
                         break;
 
                     case R.id.navigation_explore:
                         startActivity(new Intent(MainActivity.this, ExploreActivity.class));
+                     //   navView.setSelectedItemId(R.id.navigation_explore);
+
                         break;
 
                 }// end of switch
+
                 return true;
             }
         });
