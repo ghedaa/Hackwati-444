@@ -44,6 +44,7 @@ public class ExploreActivity extends AppCompatActivity {
 
 
         navView = findViewById(R.id.nav_explore_view);
+        navView.setSelectedItemId(R.id.navigation_explore);
 
         allStories=new AllStories();
         popularStories=new PopularStories();

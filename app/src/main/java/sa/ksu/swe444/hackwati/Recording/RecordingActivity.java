@@ -51,6 +51,7 @@ public class RecordingActivity extends AppCompatActivity implements Tab1Record.S
         setSupportActionBar(toolbarRec);
         getSupportActionBar().setTitle("سجل");
         navView = findViewById(R.id.nav_view_rec);
+        navView.setSelectedItemId(R.id.navigation_record);
 
 
         //initiate frags

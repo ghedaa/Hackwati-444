@@ -37,6 +37,7 @@ import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import java.util.ArrayList;
@@ -54,10 +55,8 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbarMain;
     public BottomNavigationView navView;
     public View item;
-    private TextView emptyStories;
+    private TextView emptyStories, userNameText;
     private String userUid;
-    private TextView userName;
-
     public FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     private static final String TAG = "MainActivity";
     ArrayList<User> arrayList = new ArrayList<User>();
@@ -69,19 +68,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         emptyStories = findViewById(R.id.emptyStories);
-
-        userName = findViewById(R.id.nameUser);
-
+        userNameText=findViewById(R.id.userName);
         navView = findViewById(R.id.nav_view);
+
         toolbarMain = (Toolbar) findViewById(R.id.toolbarMain);
         setSupportActionBar(toolbarMain);
         getSupportActionBar().setTitle("الصفحة الرئيسية");
 
 
-
-
-       /* AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_subscription,  R.id.navigation_explore, R.id.navigation_record)
+/*        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.navigation_subscription, R.id.navigation_explore, R.id.navigation_record)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
@@ -90,30 +86,37 @@ public class MainActivity extends AppCompatActivity {
 
         userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+        retriveUserName();
         initRecyclerView();
         installButton110to250();
-        retriveUserName();
-
-        navView = (BottomNavigationView) findViewById(R.id.nav_view);
 
         navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
                 switch (item.getItemId()) {
 
                     case R.id.navigation_record:
                         startActivity(new Intent(MainActivity.this, RecordingActivity.class));
+                       // navView.setSelectedItemId(R.id.navigation_record);
+                      //  navView.getMenu().getItem(R.id.navigation_record).setChecked(true);
+
                         break;
 
                     case R.id.navigation_subscription:
                         startActivity(new Intent(MainActivity.this, MainActivity.class));
+                      //  navView.setSelectedItemId(R.id.navigation_subscription);
+
                         break;
 
                     case R.id.navigation_explore:
                         startActivity(new Intent(MainActivity.this, ExploreActivity.class));
+                     //   navView.setSelectedItemId(R.id.navigation_explore);
+
                         break;
 
                 }// end of switch
+
                 return true;
             }
         });
@@ -178,7 +181,9 @@ public class MainActivity extends AppCompatActivity {
 
                                 });
                         builder.setNeutralButton("إلغاء", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) { }});
+                            public void onClick(DialogInterface dialog, int id) {
+                            }
+                        });
 
                         AlertDialog alert = builder.create();
                         alert.show();
@@ -270,28 +275,9 @@ public class MainActivity extends AppCompatActivity {
                         if (list == null) {
                             emptyStories.setText("لا يوجد قصص تابع واستمتع!");
                         } else { // has SubscribedUsers
-
-                            retriveUserData(list, new MyCallback() {
-                                @Override
-                                public void onCallback(ArrayList<User> usersDataList) {
-                                    retriveSubscribedUserStories(list, usersDataList);
-                                }
-                            });
-
-
+                            retriveUserData(list);
                         }// end for loop
-
-                        for (int i = 0; i <= itemList.size(); i++) {
-                            if (itemList.size() == 0) {
-                                Log.d("TAG", "itemlest is empty");
-                                return;
-                            }
-                        }
-                    } else {
-                        Log.d(TAG, "No such document");
                     }
-                } else {
-                    Log.d(TAG, "get failed with ", task.getException());
                 }
             }
         });
@@ -299,66 +285,45 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void retriveSubscribedUserStories(List<String> list, final ArrayList<User> usersDataList) {
-
-
-        for (int i = 0; i < list.size(); i++) {
-            Log.d("TAG", "list: " + list.get(i));
-
-
-            firebaseFirestore.collection("publishedStories")
-                    .whereEqualTo("userId", list.get(i) + "")// <-- This line
-                    .get()
-                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull final Task<QuerySnapshot> task) {
-                            if (task.isSuccessful()) {
-
-
-                                Log.d(TAG, " 1 => test");
-
-                                for (DocumentSnapshot document : task.getResult()) {
+    public void retriveSubscribedUserStories(final String userID, final String userName, final String thumbnail) {
 
 
 
-                                    document.getData();
-
-                                    String title = (String) document.get("title");
-                                    String userId = (String) document.get("userId");
-                                    String storyId = (String) document.getId();
-                                    String userName = "";
-                                    String pic = (String) document.get("pic");
-                                    String sound = (String) document.get("sound");
-
-                                    String thumbnail = "";
+        firebaseFirestore.collection("publishedStories")
+                .whereEqualTo("userId", userID)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull final Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
 
 
-                                    //retrive user data
-                                    for (int i = 0; i < usersDataList.size(); i++) {
-                                        if (usersDataList.get(i).getEmail().equals(userId)) {
-                                            userName = (String) usersDataList.get(i).getUsername();
-                                            thumbnail = (String) usersDataList.get(i).getImg();
-                                            break;
-                                        }
-                                    }
+                            Log.d(TAG, " 1 => test");
 
-                                    Item item = new Item(true,storyId, title, pic,sound, userId, userName, thumbnail);
-                                    itemList.add(item);
-                                    adapter.notifyDataSetChanged();
+                            for (DocumentSnapshot document : task.getResult()) {
 
-                                }
 
-                            } else {
-                                Log.d(TAG, "Error getting documents: ", task.getException());
+                                document.getData();
+                                String title = (String) document.get("title");
+                                String userId = (String) document.get("userId");
+                                String storyId = (String) document.getId();
+                                String pic = (String) document.get("pic");
+                                String sound = (String) document.get("sound");
+
+
+                                Item item = new Item(true,storyId, title, pic,sound, userId, userName, thumbnail);
+                                itemList.add(item);
+                                adapter.notifyDataSetChanged();
                             }
-                        }
-                    });
 
-        }
+                        }
+                    }
+                });
+
 
     }
 
-    public void retriveUserData(final List<String> subscribedUsers, final MyCallback myCallback) {
+    public void retriveUserData(final List<String> subscribedUsers) {
 
 
         for (int i = 0; i < subscribedUsers.size(); i++) {
@@ -367,20 +332,14 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                     if (task.isSuccessful()) {
-                        int c = 0;
                         DocumentSnapshot userDocument = task.getResult();
                         if (userDocument.exists()) {
                             String userName = userDocument.get("username").toString();
-                            String userID = userDocument.getId().toString();
+                            String userID = userDocument.getId();
                             String thumbnail = userDocument.get("thumbnail").toString();
-                            arrayList.add(new User(userID, userName, thumbnail));
 
+                            retriveSubscribedUserStories(userID, userName, thumbnail);
 
-
-                            if (c < subscribedUsers.size())
-                                myCallback.onCallback(arrayList);
-
-                            c++;
 
                         }
 
@@ -389,52 +348,36 @@ public class MainActivity extends AppCompatActivity {
             });
         }// end retriveUserData
 
-
     }
+        public void retriveUserName (){
+            DocumentReference docRef = firebaseFirestore.collection("users").document(userUid);
+            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
 
-    public interface MyCallback {
-        void onCallback(ArrayList<User> arrayList);
-    }
-
-    private void showDialogWithOkButton(String msg) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setMessage(msg)
-                .setCancelable(false)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        //do things
-                    }
-                });
-        AlertDialog alert = builder.create();
-        alert.show();
-    }
-
-    public void retriveUserName() {
-        DocumentReference docRef = firebaseFirestore.collection("users").document(userUid);
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-
-                        String username = document.get("username").toString();
+                            String userName = document.get("username").toString();
 
 
-                        if (userName != null ) {
-                            userName.setText(username);
+                            if (userName != null) {
+                                userNameText.setText(userName);
 
 
+                            }
 
                         }
-
                     }
                 }
-            }
-        });
+            });
 
+
+        }
 
     }
 
 
-}
+
+
+
