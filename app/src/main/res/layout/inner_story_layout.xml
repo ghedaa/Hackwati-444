@@ -140,12 +140,12 @@
         android:padding="20dp">
 
         <ImageView
-            android:id="@+id/night_mood"
+            android:id="@+id/download"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentBottom="true"
-            app:srcCompat="@drawable/night_mood"
+            app:srcCompat="@drawable/ic_download"
             tools:ignore="VectorDrawableCompat" />
         <ImageView
             android:id="@+id/share"

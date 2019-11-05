@@ -5,7 +5,7 @@
         android:id="@+id/navigation_subscription"
         android:icon="@drawable/ic_home"
         android:title="الإشتراكات"
-        android:state_checked="true"
+
         />
 
     <item

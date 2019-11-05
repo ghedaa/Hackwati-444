@@ -109,7 +109,7 @@ public class Tab2StoryInfo extends Fragment {
         storyDiscription = view.findViewById(R.id.pp);
         storyTitle = view.findViewById(R.id.name);
         saveToDraft = view.findViewById(R.id.draft);
-        spinner = view.findViewById(R.id.spinner);
+        spinner = view.findViewById(R.id.codeSpinner);
 
         List<String> list = new ArrayList<>();
         list.add("نوع القصة");
@@ -120,11 +120,8 @@ public class Tab2StoryInfo extends Fragment {
         list.add("قصص خيال علمي");
 
 
-        ArrayAdapter adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, list);
+        ArrayAdapter adapter = new ArrayAdapter<>(getContext(), R.layout.spinner_layout,R.id.textview, list);
         spinner.setAdapter(adapter);
-
-        spinner.setBackgroundColor(R.color.gray);
-
 
 
         saveToDraft.setOnClickListener(new View.OnClickListener() {

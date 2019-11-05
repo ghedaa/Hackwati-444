@@ -14,6 +14,7 @@ public class Item {
     private String storyId;
     boolean isMain ;
     private String status;
+    private int color;
 
 
 
@@ -160,7 +161,16 @@ public Item ( String title, String image){
     public String getStatus(){
         return status;
     }
+
     public void setStatus(String status){
         this.status = status;
+    }
+
+    public int getColor() {
+        return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
     }
 }
