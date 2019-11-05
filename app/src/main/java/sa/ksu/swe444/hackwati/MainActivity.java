@@ -276,36 +276,36 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-            firebaseFirestore.collection("publishedStories")
-                    .whereEqualTo("userId", userID)
-                    .get()
-                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull final Task<QuerySnapshot> task) {
-                            if (task.isSuccessful()) {
+        firebaseFirestore.collection("publishedStories")
+                .whereEqualTo("userId", userID)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull final Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
 
 
-                                Log.d(TAG, " 1 => test");
+                            Log.d(TAG, " 1 => test");
 
-                                for (DocumentSnapshot document : task.getResult()) {
-
-
-                                    document.getData();
-                                    String title = (String) document.get("title");
-                                    String userId = (String) document.get("userId");
-                                    String storyId = (String) document.getId();
-                                    String pic = (String) document.get("pic");
-                                    String sound = (String) document.get("sound");
+                            for (DocumentSnapshot document : task.getResult()) {
 
 
-                                    Item item = new Item(true,storyId, title, pic,sound, userId, userName, thumbnail);
-                                    itemList.add(item);
-                                    adapter.notifyDataSetChanged();
-                                }
+                                document.getData();
+                                String title = (String) document.get("title");
+                                String userId = (String) document.get("userId");
+                                String storyId = (String) document.getId();
+                                String pic = (String) document.get("pic");
+                                String sound = (String) document.get("sound");
 
+
+                                Item item = new Item(true,storyId, title, pic,sound, userId, userName, thumbnail);
+                                itemList.add(item);
+                                adapter.notifyDataSetChanged();
                             }
+
                         }
-                    });
+                    }
+                });
 
 
     }
@@ -338,21 +338,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public interface MyCallback {
-        void onCallback(ArrayList<User> arrayList);
-    }
 
-    private void showDialogWithOkButton(String msg) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setMessage(msg)
-                .setCancelable(false)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        //do things
-                    }
-                });
-        AlertDialog alert = builder.create();
-        alert.show();
-    }
 
 }
