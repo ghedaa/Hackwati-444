@@ -27,9 +27,9 @@ public class storyAdapter extends RecyclerView.Adapter<storyAdapter.MyViewHolder
     private String storyId,userId;
     public String  userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+    public storyAdapter() {
 
-
-
+    }
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder   {
@@ -67,11 +67,11 @@ public class storyAdapter extends RecyclerView.Adapter<storyAdapter.MyViewHolder
                         boolean draft = false;
                         Context context = view.getContext();
                         Intent draftIntent = ((Activity)mContext).getIntent();
+
                         if(draftIntent != null) {
                             if(draftIntent.getExtras()!= null)
-                             draft=  draftIntent.getExtras().getBoolean(Constants.Keys.DRAFT, false);
+                                draft=  draftIntent.getExtras().getBoolean(Constants.Keys.DRAFT, false);
                         }
-
 
                         if(userUid.equals("DUbp3gH497gydI7fJodUfRz9A2K3")){
                         Intent intent = new Intent(context, AdminStoryActivity.class);

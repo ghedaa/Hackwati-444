@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -57,6 +58,8 @@ public class ListenToUserStory extends AppCompatActivity implements View.OnClick
     StorageReference ref;
     public FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     private static final int REQUEST_CODE_WRITE_EXTERNAL_STORAGE_PERMISSION = 1;
+    public BottomNavigationView navView;
+
 
 
     Uri uri;
