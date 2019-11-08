@@ -360,6 +360,9 @@ public class AdminStoryActivity extends AppCompatActivity implements View.OnClic
                         String userId = (String) document.get("userId");
                         String timestamp = document.get("timestamp").toString();
 
+                        //1 : SEND NOTIFICATION HERE
+                        sendApprovedNotifications(userId,title);
+
 
                         // new doc
                         Map<String, Object> publishedStories = new HashMap<>();
@@ -419,6 +422,37 @@ public class AdminStoryActivity extends AppCompatActivity implements View.OnClic
 
     }
 
+    private void sendApprovedNotifications(String userId, String title) {
+        final String[] username = {""};
+                  firebaseFirestore.collection("users").document(userId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+              @Override
+              public void onSuccess(DocumentSnapshot documentSnapshot) {
+                  documentSnapshot.getData();
+                  username[0] =(String) documentSnapshot.get("username").toString();
+
+              }
+          });
+        Map<String, Object> notificationMessage = new HashMap<>();
+        notificationMessage.put("title","أهلا "+username[0]);
+        notificationMessage.put("message","إن قصتك بعنوان "+title+" تم قبولها لأنها رائعة");
+        notificationMessage.put("from","DUbp3gH497gydI7fJodUfRz9A2K3");
+
+        firebaseFirestore.collection("users").document(userId).collection("Notification")
+                .add(notificationMessage)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                           Toast.makeText(AdminStoryActivity.this,"notification sent",Toast.LENGTH_LONG).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(AdminStoryActivity.this,"notification NOT sent",Toast.LENGTH_LONG).show();
+
+            }
+        });
+    }
+
 
     public void rejectStory(){
 
@@ -440,6 +474,9 @@ public class AdminStoryActivity extends AppCompatActivity implements View.OnClic
                         String userId = (String) document.get("userId");
                         String timestamp = (String) document.get("timestamp").toString();
 
+                         //1 : SEND NOTIFICATION HERE
+
+                        sendRejectedNotifications(userId,title);
 
                         // new doc
                         Map<String, Object> rejectedStories = new HashMap<>();
@@ -498,8 +535,39 @@ public class AdminStoryActivity extends AppCompatActivity implements View.OnClic
 
     }
 
+    private void sendRejectedNotifications(String userId, String title) {
+        final String[] username = {""};
+        firebaseFirestore.collection("users").document(userId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                documentSnapshot.getData();
+                username[0] =(String) documentSnapshot.get("username").toString();
 
-/*
+            }
+        });
+        Map<String, Object> notificationMessage = new HashMap<>();
+        notificationMessage.put("title","أهلا "+username[0]);
+        notificationMessage.put("message","إن قصتك بعنوان "+title+" تم رفضها,نرجوا مرجعة المحتوى");
+        notificationMessage.put("from","DUbp3gH497gydI7fJodUfRz9A2K3");
+
+        firebaseFirestore.collection("users").document(userId).collection("Notification")
+                .add(notificationMessage)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Toast.makeText(AdminStoryActivity.this,"notification sent",Toast.LENGTH_LONG).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(AdminStoryActivity.this,"notification NOT sent",Toast.LENGTH_LONG).show();
+
+            }
+        });
+    }
+
+
+    /*
 *
 *
 *

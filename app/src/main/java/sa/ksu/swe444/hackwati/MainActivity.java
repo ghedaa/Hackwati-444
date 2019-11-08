@@ -41,7 +41,9 @@ import android.widget.Toast;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import sa.ksu.swe444.hackwati.Recording.RecordingActivity;
 import sa.ksu.swe444.hackwati.explor.ExploreActivity;
@@ -58,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView emptyStories, userNameText;
     private String userUid;
     public FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+    public FirebaseAuth mAuth= FirebaseAuth.getInstance();
+
     private static final String TAG = "MainActivity";
     ArrayList<User> arrayList = new ArrayList<User>();
 
@@ -177,6 +181,12 @@ public class MainActivity extends AppCompatActivity {
 
                                         FirebaseAuth.getInstance().signOut();
                                         startActivity(new Intent(MainActivity.this, SplashActivity.class));
+                                        //Token ID
+                                        String uid= mAuth.getInstance().getUid();
+                                        Map<String,Object> user_updateToken = new HashMap<>();
+                                        user_updateToken.put("TokenID","");
+                                        firebaseFirestore.collection("users").document(uid).update(user_updateToken);
+                                        // done by fatimah clearing token id
                                     }
 
                                 });

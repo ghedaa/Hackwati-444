@@ -21,9 +21,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -197,7 +199,16 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
     private void createUserCollection (){
 
-        ;
+        //Token ID
+
+                String tokenID= FirebaseInstanceId.getInstance().getToken();
+                String uid= mAuth.getInstance().getUid();
+
+                Map<String,Object> user_updateToken = new HashMap<>();
+                user_updateToken.put("TokenID",tokenID);
+                firebaseFirestore.collection("users").document(uid).update(user_updateToken);
+// end og getting token by fatimah
+
         Map<String,Object> user = new HashMap<>();
         user.put("username",register_name.getText().toString());
         user.put("email",register_email.getText().toString());
@@ -226,6 +237,8 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                         Log.d(TAG,e.toString());
                     }
                 });
+        
+        //Token ID Method:
     }
 
 
