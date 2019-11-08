@@ -16,7 +16,9 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".uploaded_stories.ListenToUserStory"></activity>
 
-        <activity android:name=".uploaded_stories.UserUploadedStories">
+        <activity android:name=".uploaded_stories.UserUploadedStories"
+            android:parentActivityName=".MainActivity"
+            >
             <intent-filter>
                 <action  android:name="fatimah.firebase.TARGETNOTIFICATION"></action>
                 <category android:name="android.intent.category.DEFAULT"></category>

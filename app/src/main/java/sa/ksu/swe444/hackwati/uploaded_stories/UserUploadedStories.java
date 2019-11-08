@@ -3,6 +3,7 @@ package sa.ksu.swe444.hackwati.uploaded_stories;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -57,6 +58,13 @@ public class UserUploadedStories extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_uploaded_stories);
         userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("القصص المرفوعة");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(false);
+
 
         status = findViewById(R.id.subscribeBtn);
         emptyUsers = findViewById(R.id.emptyUsers);

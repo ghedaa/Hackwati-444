@@ -180,7 +180,7 @@ public class InnerStoryActivity extends AppCompatActivity implements View.OnClic
         currentTime = findViewById(R.id.currentTime);
         storyCover = findViewById(R.id.story_cover);
         //  myService = new MyService();
-        RL = findViewById(R.id.Dialog);
+      //  RL = findViewById(R.id.Dialog);
         storage = FirebaseStorage.getInstance();
         titleView = findViewById(R.id.story_name);
 

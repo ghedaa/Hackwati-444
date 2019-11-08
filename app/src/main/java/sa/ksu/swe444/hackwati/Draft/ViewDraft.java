@@ -70,9 +70,15 @@ public class ViewDraft extends AppCompatActivity {
         emptyStories =findViewById(R.id.emptyStories);
         navView = findViewById(R.id.nav_view);
         toolbarMain = (Toolbar) findViewById(R.id.toolbarMain);
+        setSupportActionBar(toolbarMain);
+
+        getSupportActionBar().setTitle("المسودات");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(false);
+
         auth = FirebaseAuth.getInstance();
 
-        setSupportActionBar(toolbarMain);
+      //  setSupportActionBar(toolbarMain);
 
         installButton110to250();
 
@@ -82,27 +88,7 @@ public class ViewDraft extends AppCompatActivity {
 
 
 
-        navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
 
-                    case R.id.navigation_record:
-                        startActivity(new Intent(ViewDraft.this, RecordingActivity.class));
-                        break;
-
-                    case R.id.navigation_subscription:
-                        startActivity(new Intent(ViewDraft.this, MainActivity.class));
-                        break;
-
-                    case R.id.navigation_explore:
-                        startActivity(new Intent(ViewDraft.this, ExploreActivity.class));
-                        break;
-
-                }// end of switch
-                return true;
-            }
-        });
     }//end onCreate
 
     private void initRecyclerView() {
