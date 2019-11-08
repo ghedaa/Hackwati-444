@@ -278,7 +278,7 @@
             android:backgroundTint="@color/yellow_hak"
             android:gravity="center"
             app:title="   "
-            app:titleTextColor="#fff"
+            app:titleTextColor="#4D3C13"
 
             />
 

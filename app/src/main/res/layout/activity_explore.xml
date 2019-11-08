@@ -46,7 +46,7 @@
             android:background="@drawable/icon_shape_botum"
             android:backgroundTint="@color/yellow_hak"
             app:title=""
-            app:titleTextColor="#fff"
+            app:titleTextColor="#4D3C13"
 
             />
     </com.google.android.material.appbar.AppBarLayout>
