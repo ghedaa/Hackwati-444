@@ -1,7 +1,5 @@
 package sa.ksu.swe444.hackwati;
 
-import android.annotation.TargetApi;
-import android.app.DownloadManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -27,24 +25,19 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.WriteBatch;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+
+import sa.ksu.swe444.hackwati.uploaded_stories.UploadedStoriesAdapter;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
@@ -70,6 +63,8 @@ public class AdminStoryActivity extends AppCompatActivity implements View.OnClic
     StorageReference storageReference;
     StorageReference ref;
     public FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+    private UploadedStoriesAdapter storiesAdapter;
+    private storyAdapter adapter;
 
 
     Uri audio_url;
@@ -151,6 +146,8 @@ public class AdminStoryActivity extends AppCompatActivity implements View.OnClic
         user_name = findViewById(R.id.userName);
         story_name = findViewById(R.id.story_name);
       //  timer = findViewById(R.id.timer);
+        storiesAdapter = new UploadedStoriesAdapter();
+        adapter = new storyAdapter();
 
 
     }//end init
@@ -235,6 +232,8 @@ public class AdminStoryActivity extends AppCompatActivity implements View.OnClic
 
                                 approveStory();
                                 startActivity(new Intent(AdminStoryActivity.this, AdminActivity.class));
+                                storiesAdapter.notifyDataSetChanged();
+                                adapter.notifyDataSetChanged();
 
 
                             }
@@ -264,6 +263,8 @@ public class AdminStoryActivity extends AppCompatActivity implements View.OnClic
 
                                 rejectStory();
                                 startActivity(new Intent(AdminStoryActivity.this, AdminActivity.class));
+                                storiesAdapter.notifyDataSetChanged();
+                                adapter.notifyDataSetChanged();
 
 
                             }

@@ -1,15 +1,9 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="95dp"
-    android:height="95dp"
-    android:viewportWidth="95"
-    android:viewportHeight="95">
+    android:width="408dp"
+    android:height="408dp"
+    android:viewportWidth="408"
+    android:viewportHeight="408">
   <path
-      android:fillColor="#FF000000"
-      android:pathData="M60,23V2c0,-1.105 -0.896,-2 -2,-2H37c-1.104,0 -2,0.895 -2,2v21c0,1.105 0.896,2 2,2h21C59.104,25 60,24.105 60,23z"/>
-  <path
-      android:fillColor="#FF000000"
-      android:pathData="M60,58V37c0,-1.105 -0.896,-2 -2,-2H37c-1.104,0 -2,0.895 -2,2v21c0,1.105 0.896,2 2,2h21C59.104,60 60,59.105 60,58z"/>
-  <path
-      android:fillColor="#FF000000"
-      android:pathData="M60,93V72c0,-1.105 -0.896,-2 -2,-2H37c-1.104,0 -2,0.895 -2,2v21c0,1.105 0.896,2 2,2h21C59.104,95 60,94.105 60,93z"/>
+      android:fillColor="#6D7A83"
+      android:pathData="M204,102c28.05,0 51,-22.95 51,-51S232.05,0 204,0s-51,22.95 -51,51S175.95,102 204,102zM204,153c-28.05,0 -51,22.95 -51,51s22.95,51 51,51s51,-22.95 51,-51S232.05,153 204,153zM204,306c-28.05,0 -51,22.95 -51,51s22.95,51 51,51s51,-22.95 51,-51S232.05,306 204,306z"/>
 </vector>

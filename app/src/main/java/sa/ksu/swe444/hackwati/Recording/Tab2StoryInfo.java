@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -36,6 +37,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -62,6 +64,8 @@ import sa.ksu.swe444.hackwati.Constants;
 import sa.ksu.swe444.hackwati.MainActivity;
 import sa.ksu.swe444.hackwati.MySharedPreference;
 import sa.ksu.swe444.hackwati.R;
+import sa.ksu.swe444.hackwati.explor.ExploreActivity;
+import sa.ksu.swe444.hackwati.uploaded_stories.UserUploadedStories;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
@@ -99,6 +103,8 @@ public class Tab2StoryInfo extends Fragment {
     String storyId;
     private Button saveToDraft;
     private Spinner spinner;
+    public BottomNavigationView navView;
+
 
 // should be removed
 
@@ -167,10 +173,35 @@ public class Tab2StoryInfo extends Fragment {
 
             }
         });
+        bottomNavigation();
 
         return view;
     }//end of onCreate()
 
+
+    public void bottomNavigation() {
+        navView = view.findViewById(R.id.nav_view_rec);
+        navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+
+                    case R.id.navigation_record:
+                        break;
+
+                    case R.id.navigation_subscription:
+                        showDialogWithOkButton("هل تريد حقاً ترك القصة؟",  new Intent(getContext(), MainActivity.class));
+                        break;
+
+                    case R.id.navigation_explore:
+                        showDialogWithOkButton("هل تريد حقاً ترك القصة؟",  new Intent(getContext(), ExploreActivity.class));
+                        break;
+
+                }// end of switch
+                return true;
+            }
+        });
+    }
 
 
     private void uploadImageWithUriToDraft() {
@@ -598,13 +629,32 @@ return isValid;
 
     }
 
-    private void showDialogWithOkButton(String msg) {
+    private void showDialogWithOkButton(String msg, final Intent intent) {
         androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(getContext());
         builder.setMessage(msg)
                 .setCancelable(false)
                 .setPositiveButton("حسنًا", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        //do things
+                        startActivity(intent);
+                    }
+                }).setNegativeButton("إلغاء", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+
+            }
+        });
+        androidx.appcompat.app.AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    private void showDialogWithOkButton(String msg) {
+        final androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(getContext());
+        builder.setMessage(msg)
+                .setCancelable(false)
+                .setPositiveButton("حسناً", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
                     }
                 });
         androidx.appcompat.app.AlertDialog alert = builder.create();

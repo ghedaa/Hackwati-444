@@ -3,6 +3,8 @@ package sa.ksu.swe444.hackwati.uploaded_stories;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -16,6 +18,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -24,7 +29,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.type.Color;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +44,7 @@ public class UploadedStoriesAdapter extends RecyclerView.Adapter<UploadedStories
     private static final String TAG = "CustomAdapter";
 
     private List<Item> storyList = new ArrayList<>();
-    private final LayoutInflater inflater;
+    private LayoutInflater inflater;
     View view;
     UploadedStoriesAdapter.MyViewHolder holder;
     private Context context;
@@ -53,6 +57,10 @@ public class UploadedStoriesAdapter extends RecyclerView.Adapter<UploadedStories
         inflater = LayoutInflater.from(context);
     }
 
+    public UploadedStoriesAdapter() {
+
+    }
+
     //This method inflates view present in the RecyclerView
     @Override
     public UploadedStoriesAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -63,25 +71,34 @@ public class UploadedStoriesAdapter extends RecyclerView.Adapter<UploadedStories
 
 
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Item list_items = storyList.get(position);
         holder.user_name.setText(list_items.getTitle());
         Glide.with(context).load(list_items.getImage()).into(holder.icon);
-       // holder.subscribe.setText(list_items.getStatus());
-        holder.subscribe.setBackgroundColor(list_items.getColor());
+         holder.subscribe.setText(list_items.getStatus());
+        //holder.subscribe.setBackgroundColor(list_items.getColor());
 
         if(list_items.getStatus().equals( Constants.Keys.REJECTED)){
-            holder.subscribe.setBackgroundColor(list_items.getColor());
+           // holder.subscribe.setBackgroundColor(list_items.getColor());
+           // holder.subscribe.setBackgroundTintList(ColorStateList.valueOf(R.color.pink_hak2));
+            ViewCompat.setBackgroundTintList(holder.subscribe, ContextCompat.getColorStateList(context, R.color.pink_hak2));
+
+
             holder.subscribe.setText("مرفوض");
         }
         else if(list_items.getStatus().equals( Constants.Keys.PROCESSING)){
-            holder.subscribe.setBackgroundColor(R.color.orange_hak);
+            //holder.subscribe.setBackgroundColor(R.color.orange_hak);
+           // holder.subscribe.setBackgroundTintList(ColorStateList.valueOf(R.color.orange_hak));
+            ViewCompat.setBackgroundTintList(holder.subscribe,ContextCompat.getColorStateList(context, R.color.orange_hak));
             holder.subscribe.setText("مرسل");
         }
         else if(list_items.getStatus().equals( Constants.Keys.PUBLISHED)) {
-            holder.subscribe.setBackgroundColor(R.color.green_hak);
+            //holder.subscribe.setBackgroundColor(R.color.green_hak);
+            //holder.subscribe.setBackgroundTintList(ColorStateList.valueOf(R.color.green_hak));
+            ViewCompat.setBackgroundTintList(holder.subscribe,ContextCompat.getColorStateList(context, R.color.green_hak));
             holder.subscribe.setText("منشور");
         }
 

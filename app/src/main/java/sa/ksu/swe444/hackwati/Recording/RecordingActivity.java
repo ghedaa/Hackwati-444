@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -51,7 +52,7 @@ public class RecordingActivity extends AppCompatActivity implements Tab1Record.S
         setSupportActionBar(toolbarRec);
         getSupportActionBar().setTitle("سجل");
         navView = findViewById(R.id.nav_view_rec);
-        navView.setSelectedItemId(R.id.navigation_record);
+       // navView.setSelectedItemId(R.id.);
 
 
         //initiate frags
@@ -78,53 +79,47 @@ public class RecordingActivity extends AppCompatActivity implements Tab1Record.S
         viewPager.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                return true;
+                if(f1.goToNext())
+                    return false;
+                else
+                    return true;
             }
 
         });
+// to enable swapping between tabs if you have not record
+        LinearLayout tabStrip = ((LinearLayout)tabLayout.getChildAt(0));
+        for(int i = 0; i < tabStrip.getChildCount(); i++) {
+            tabStrip.getChildAt(i).setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if(f1.goToNext())
+                        return false;
+                    else
+                        return true;
+                }
+            });
+        }
 
-
-
-        navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-
-                    case R.id.navigation_record:
-                        startActivity(new Intent(RecordingActivity.this, RecordingActivity.class));
-                        break;
-
-                    case R.id.navigation_subscription:
-                        startActivity(new Intent(RecordingActivity.this, MainActivity.class));
-                        break;
-
-                    case R.id.navigation_explore:
-                        startActivity(new Intent(RecordingActivity.this, ExploreActivity.class));
-                        break;
-
-                }// end of switch
-                return true;
-            }
-        });
 
     }
 
 
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-
+        if(f1.goToNext())
             ((IOnFocusListenable) f1).onWindowFocusChanged(hasFocus);
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onNextButton() {
-        viewPager.setCurrentItem(1);
-        Tab2StoryInfo f2 = new Tab2StoryInfo();
-     //   f2.getInfo(duration , timestamp , id);
+        if(f1.goToNext())
+          viewPager.setCurrentItem(1);
 
     }
 }

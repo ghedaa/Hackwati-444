@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -24,8 +25,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 
+import com.gauravk.audiovisualizer.visualizer.BlastVisualizer;
+import com.gauravk.audiovisualizer.visualizer.WaveVisualizer;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.tyorikan.voicerecordingvisualizer.RecordingSampler;
 
@@ -38,6 +44,8 @@ import sa.ksu.swe444.hackwati.MainActivity;
 import sa.ksu.swe444.hackwati.R;
 import sa.ksu.swe444.hackwati.SignUp;
 import sa.ksu.swe444.hackwati.SplashActivity;
+import sa.ksu.swe444.hackwati.explor.ExploreActivity;
+import sa.ksu.swe444.hackwati.uploaded_stories.UserUploadedStories;
 
 
 @RequiresApi(api = Build.VERSION_CODES.O)
@@ -49,15 +57,14 @@ public class Tab1Record extends Fragment implements View.OnClickListener, IOnFoc
 
     private ImageButton recordButton;
     private MediaRecorder recorder;
-    private MediaPlayer playerDog ;
-    private MediaPlayer playerLion ;
-    private MediaPlayer playerMonkey ;
-    private MediaPlayer playerBird ;
-
+    private MediaPlayer playerDog;
+    private MediaPlayer playerLion;
+    private MediaPlayer playerMonkey;
+    private MediaPlayer playerBird;
 
 
     boolean mStartPlaying;
-    private TextView timer ;
+    private TextView timer;
     private boolean isRecording = false;
     private boolean startRecording;
     private ImageButton imageButton;
@@ -65,7 +72,7 @@ public class Tab1Record extends Fragment implements View.OnClickListener, IOnFoc
 
     // Requesting permission to RECORD_AUDIO
     private boolean permissionToRecordAccepted = false;
-    private String [] permissions = {Manifest.permission.RECORD_AUDIO};
+    private String[] permissions = {Manifest.permission.RECORD_AUDIO};
     private View view;
 
     private VisualizerView visualizerView;
@@ -86,10 +93,12 @@ public class Tab1Record extends Fragment implements View.OnClickListener, IOnFoc
     private ImageButton stopPlayRecord;
     private MediaPlayer player = null;
     private Button cancelRecording;
+    private WaveVisualizer mVisualizer;
+    private static final int MY_PERMISSIONS_RECORD_AUDIO = 33;
     // pass this att to
     private long duration;
-
-
+    String t;
+    public BottomNavigationView navView;
 
 
 
@@ -97,7 +106,6 @@ public class Tab1Record extends Fragment implements View.OnClickListener, IOnFoc
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.recording_fragment_one, container, false);
-
         // Record to the external cache directory for visibility
         fileName = getActivity().getExternalCacheDir().getAbsolutePath();
         fileName += "/audiorecordtest.3gp";
@@ -112,18 +120,18 @@ public class Tab1Record extends Fragment implements View.OnClickListener, IOnFoc
                 startActivity(new Intent(getContext(), MainActivity.class));
             }
         });
-
-        initRecorder();
+        mVisualizer = view.findViewById(R.id.blast);
+        //initRecorder();
         timer = view.findViewById(R.id.timer);
         visualizerView = view.findViewById(R.id.visualizer);
         nextBtn = view.findViewById(R.id.next_btn);
         playRecord = view.findViewById(R.id.listen_record_btn);
-        stopPlayRecord= view.findViewById(R.id.stop_listen_record_btn);
+        stopPlayRecord = view.findViewById(R.id.stop_listen_record_btn);
 
         playRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!isRecording) {
+                if (!isRecording && checkForPermission()) {
                     startPlaying();
                 }
             }
@@ -132,14 +140,14 @@ public class Tab1Record extends Fragment implements View.OnClickListener, IOnFoc
         stopPlayRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(player.isPlaying())
+                if (checkForPermission() && player.isPlaying() )
                     player.stop();
 
             }
         });
 
-        dog= view.findViewById(R.id.record_dog);
-        playerDog = MediaPlayer.create(getContext() ,R.raw.bark);
+        dog = view.findViewById(R.id.record_dog);
+        playerDog = MediaPlayer.create(getContext(), R.raw.bark);
         dog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -147,7 +155,7 @@ public class Tab1Record extends Fragment implements View.OnClickListener, IOnFoc
             }
         });
         monkey = view.findViewById(R.id.record_monkey);
-        playerMonkey = MediaPlayer.create(getContext() ,R.raw.rmonkeycolobus);
+        playerMonkey = MediaPlayer.create(getContext(), R.raw.rmonkeycolobus);
         monkey.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -156,7 +164,7 @@ public class Tab1Record extends Fragment implements View.OnClickListener, IOnFoc
             }
         });
         lion = view.findViewById(R.id.record_lion);
-        playerLion = MediaPlayer.create(getContext() ,R.raw.lion4);
+        playerLion = MediaPlayer.create(getContext(), R.raw.lion4);
         lion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -165,7 +173,7 @@ public class Tab1Record extends Fragment implements View.OnClickListener, IOnFoc
         });
 
         bird = view.findViewById(R.id.record_bird);
-        playerBird = MediaPlayer.create(getContext(),R.raw.bird);
+        playerBird = MediaPlayer.create(getContext(), R.raw.bird);
         bird.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -174,90 +182,112 @@ public class Tab1Record extends Fragment implements View.OnClickListener, IOnFoc
         });
 
 
-
         recordButton.setOnClickListener(this);
-        //playButton.setOnClickListener(this);
-
-        //playButton.setText("start playing");
 
 
         startRecording = true;
         mStartPlaying = false;
-         handler = new Handler();
-         updater = new Runnable() {
-             public void run() {
-                    handler.postDelayed(this, 1);
-                    if(isRecording){  /**/
+        handler = new Handler();
+        updater = new Runnable() {
+            public void run() {
+                handler.postDelayed(this, 1);
+                if (isRecording) {  /**/
                     int maxAmplitude = recorder.getMaxAmplitude();
                     if (maxAmplitude != 0) {
+                        mVisualizer.setAudioSessionId(maxAmplitude);
                         visualizerView.addAmplitude(maxAmplitude);
-                          elapsedTime = System.currentTimeMillis() - start;
-                       String t= milliSecondsToTimer(elapsedTime);
+                        elapsedTime = System.currentTimeMillis() - start;
+                        t = milliSecondsToTimer(elapsedTime);
                         timer.setText(t);
-                        if(t.equals("3 : 0")) {
+                        if (t.equals("0 : 3")) {
                             recorder.stop();
                             isRecording = false;
                             recordButton.setEnabled(false);
                         }
                     }
-                        }
+                }
             }// run
         };
 
-         nextBtn.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View view) {
+        nextBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 // if (isRecording)
                 //     recorder.stop();
-                 listener.onNextButton();
+                if (!startRecording) {
+                    listener.onNextButton();
+                } else if (isRecording) {
+                    showDialogWithOkButton("هل تريد إلغاء التسجيل؟");
 
-
-                 //startActivity(new Intent(getContext(), ));
-
-
-               /*  if (recorder != null)
-                     showDialogWithOkButton("لم تقم بالتسجيل !");*/
-/*
-                else{ AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                 builder.setMessage("هل انتهيت التسجيل؟؟")
-                         .setCancelable(false)
-                         .setPositiveButton("نعم، التالي", new DialogInterface.OnClickListener() {
-                             public void onClick(DialogInterface dialog, int id) {
+                } else {
+                    showDialogWithOkButton("لم تسجل القصة بعد");
+                }
 
 
 
-                                 listener.onNextButton();
-                                // isRecording = false;
+
+            }
+        });
+
+       if(checkForPermission()) {
+           initRecorder();
 
 
-                             }
 
-                         });
-                 builder.setNeutralButton("إلغاء", new DialogInterface.OnClickListener() {
-                     public void onClick(DialogInterface dialog, int id) {
-
-                     }
-
-                 });
-
-                 AlertDialog alert = builder.create();
-                 alert.show();
-
-
-             }*/
-
-
-             }
-         });
-
-
+       }
+        bottomNavigation();
         return view;
     }//onCreateView()
 
+    public void bottomNavigation() {
+        navView = view.findViewById(R.id.nav_view_rec);
+        navView.setSelectedItemId(R.id.navigation_record);
+        navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-    private void initRecorder(){
+                    switch (item.getItemId()) {
+
+                        case R.id.navigation_record:
+                            break;
+
+                        case R.id.navigation_subscription:
+                            if(!isRecording && startRecording ) {
+                                startActivity(new Intent(getContext(), MainActivity.class));
+                            }
+                            else {
+                                showDialogWithOkButton("هل حقاً تريد ترك القصة؟");
+                            }
+                            break;
+
+                        case R.id.navigation_explore:
+                            if(!isRecording && startRecording) {
+                                startActivity(new Intent(getContext(), ExploreActivity.class));
+                            }
+                            else {
+                                showDialogWithOkButton("هل حقاً تريد ترك القصة؟");
+                            }
+                            break;
+
+                    }// end of switch
+
+
+                return true;
+            }
+        });
+    }
+    private boolean checkForPermission() {
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.RECORD_AUDIO}, MY_PERMISSIONS_RECORD_AUDIO);
+            return false;
+        } else {
+
+            return true;
+        }
+    }
+
+    private void initRecorder() {
         recorder = new MediaRecorder();
-
         recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
         recorder.setOutputFile(fileName);
@@ -272,45 +302,54 @@ public class Tab1Record extends Fragment implements View.OnClickListener, IOnFoc
     }//initRecorder()
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode){
-            case REQUEST_RECORD_AUDIO_PERMISSION:
-                permissionToRecordAccepted  = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-                break;
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_RECORD_AUDIO: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission was granted, yay!
+                    Toast.makeText(getContext(), "Permissions Accepted to record audio", Toast.LENGTH_LONG).show();
+
+                } else {
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                    Toast.makeText(getContext(), "Permissions Denied to record audio", Toast.LENGTH_LONG).show();
+                }
+                return;
+            }
         }
-        //if (!permissionToRecordAccepted )
-        //   getActivity().finish();
-
-    }//onRequestPermissionsResult
-
-
-
+    }
 
 
     @SuppressLint("ResourceAsColor")
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.record_btn:
-                if(startRecording){
-                    recorder.start();
-                    start = System.currentTimeMillis();
-                    startRecording = false;
-                    isRecording = true;
-                    nextBtn.setBackgroundColor(R.color.gray);
-                    nextBtn.setEnabled(false);
-                    Toast.makeText(getContext(),"start recording" , Toast.LENGTH_LONG).show();
+
+                if (checkForPermission()) {
+                    if (startRecording ) {
+                        recorder.start();
+                        start = System.currentTimeMillis();
+                        startRecording = false;
+                        isRecording = true;
+                        nextBtn.setEnabled(false);
+                        ViewCompat.setBackgroundTintList(nextBtn, ContextCompat.getColorStateList(getContext(), R.color.gray));
 
 
-                }else {
-                    recorder.stop();
-                    nextBtn.setBackgroundColor(R.color.colorPrimary);
-                    duration = elapsedTime;
-                    isRecording = false;
-                    nextBtn.setEnabled(true);
-                    Toast.makeText(getContext(),"btn is enabled" , Toast.LENGTH_LONG).show();
 
+                    } else if(isRecording){
+                        recorder.stop();
+                        duration = elapsedTime;
+                        isRecording = false;
+                        nextBtn.setEnabled(true);
+                        timer.setText(t);
+                        recordButton.setEnabled(false);
+                        ViewCompat.setBackgroundTintList(nextBtn, ContextCompat.getColorStateList(getContext(), R.color.yellow_hak));
+
+
+                    }
                 }
 
 
@@ -340,7 +379,8 @@ public class Tab1Record extends Fragment implements View.OnClickListener, IOnFoc
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
-        handler.post(updater);
+        if(isRecording && !startRecording)
+            handler.post(updater);
 
     }//onWindowFocusChanged()
 
@@ -355,19 +395,17 @@ public class Tab1Record extends Fragment implements View.OnClickListener, IOnFoc
         // Add hours if there
 
 
-        finalTimerString = minutes +" : "+ seconds;
+        finalTimerString = seconds + " : " + minutes;
 
         // return timer string
         return finalTimerString;
     }// milliSecondsToTimer
 
 
-    public interface SecondFragmentListener{
+    public interface SecondFragmentListener {
         // methods are the action i need
         void onNextButton();
     }
-
-
 
 
     private void onPlay(boolean start) {
@@ -380,6 +418,10 @@ public class Tab1Record extends Fragment implements View.OnClickListener, IOnFoc
 
     private void startPlaying() {
         player = new MediaPlayer();
+        int audioSessionId = player.getAudioSessionId();
+        if (audioSessionId != -1)
+            mVisualizer.setAudioSessionId(audioSessionId);
+
         try {
             player.setDataSource(fileName);
             player.prepare();
@@ -395,15 +437,24 @@ public class Tab1Record extends Fragment implements View.OnClickListener, IOnFoc
         player = null;
     }//stopPlaying()
 
-    private void showDialogWithOkButton(String msg){
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+    private void showDialogWithOkButton(String msg) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setMessage(msg)
                 .setCancelable(false)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                .setPositiveButton("حسناً", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        //do things
+                        startActivity(new Intent(getContext(), MainActivity.class));
+                        if(isRecording){
+                            recorder.stop();
+                            isRecording = false;
+                        }
                     }
-                });
+                }).setNegativeButton("إلغاء", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
         AlertDialog alert = builder.create();
         alert.show();
     }
@@ -411,9 +462,37 @@ public class Tab1Record extends Fragment implements View.OnClickListener, IOnFoc
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        listener = (SecondFragmentListener) getActivity();
+        if(isRecording && !startRecording)
+          listener = (SecondFragmentListener) getActivity();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
     }
 
 
+
+    /**
+     * stop recording
+     */
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if(isRecording)
+            recorder.stop();
+        super.onDestroy();
+        if (mVisualizer != null)
+            mVisualizer.release();
+    }
+
+    public boolean goToNext(){
+        if(startRecording || isRecording)
+            return false;
+        else
+            return true;
+    }
 
 }// class

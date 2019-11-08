@@ -80,12 +80,6 @@ public class AdminActivity extends AppCompatActivity {
 
         initRecyclerView();
 
-
-
-
-
-
-
     }// end of OnCreate()
 
     private void initRecyclerView() {
@@ -106,7 +100,7 @@ public class AdminActivity extends AppCompatActivity {
     private void installButton110to250() {
 
 
-        final AllAngleExpandableButton button = (AllAngleExpandableButton) findViewById(R.id.button_expandable_110_250);
+        final AllAngleExpandableButton button = findViewById(R.id.button_expandable_110_250);
         final List<ButtonData> buttonDatas = new ArrayList<>();
         int[] drawable = {R.drawable.defult_thumbnail, R.drawable.ic_power_settings_new_black_24dp, R.drawable.ic_search_black_24dp};// gray is some thing else
         int[] color = {R.color.colorAccent, R.color.colorAccent, R.color.colorAccent, R.color.colorAccent};
