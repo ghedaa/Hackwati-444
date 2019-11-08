@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,14 +25,25 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static sa.ksu.swe444.hackwati.Constants.Keys.USER_EMAIL;
+import static sa.ksu.swe444.hackwati.Constants.Keys.USER_PASS;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
 
@@ -46,15 +58,16 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     private ProgressBar progressBar;
     private GoogleSignInOptions gso;
     private EditText forget_email;
-
     public String userID;
-
+    public FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     private GoogleSignInClient mGoogleSignInClient;
     private final int RC_SIGN_IN = 1;
     private FirebaseAuth.AuthStateListener authStateListener;
     private boolean verify = false;
+    private MySharedPreference pref1;
+    SharedPreferences pref;
 
     // ...
     private final String TAG = "Login";
@@ -63,8 +76,21 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+        pref =getSharedPreferences("user_details",MODE_PRIVATE);
+        Intent intent = new Intent(Login.this,MainActivity.class);
+        //3
+        if(pref.contains(USER_EMAIL) && pref.contains(USER_PASS)){
+            startActivity(intent);
+        }
         init();
+       // save the user loggong by fatimah
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            // User is signed in
+            Intent i = new Intent(Login.this, MainActivity.class);
 
+        }
+        //end by fatimah
         FirebaseUser mFirebaseUser = mAuth.getCurrentUser();
         if(mFirebaseUser != null) {
             userID = mFirebaseUser.getUid();
@@ -127,7 +153,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         switch (view.getId()) {
 
             case R.id.loginbutton_login:
+
+
                 signIn();
+                // save user in myshared by fatimah
+
+                // ended by fatimah
                 break;
             case R.id.regBtnGoogle:
                 Log.e("TAG", "google clicked");
@@ -197,6 +228,24 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     private void googleSignIn() {
         progressBar.setVisibility(View.VISIBLE);
+        //Token ID
+        mAuth.getCurrentUser().getIdToken(true).addOnSuccessListener(new OnSuccessListener<GetTokenResult>() {
+            @Override
+            public void onSuccess(GetTokenResult getTokenResult) {
+                String tokenID= getTokenResult.getToken();
+                String uid= mAuth.getInstance().getUid();
+
+                Map<String,Object> user_updateToken = new HashMap<>();
+                user_updateToken.put("TokenID",tokenID);
+                firebaseFirestore.collection("users").document(uid).update(user_updateToken)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(Login.this,"token is here",Toast.LENGTH_LONG).show();
+                            }
+                        });
+            }
+        });// end og getting token by fatimah
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }// end of googleSignIn
@@ -237,7 +286,28 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                                         Toast.LENGTH_SHORT).show();
 
                                 if (mAuth.getCurrentUser().isEmailVerified()) {
+                                    //Token ID
+                                    mAuth.getCurrentUser().getIdToken(true).addOnSuccessListener(new OnSuccessListener<GetTokenResult>() {
+                                        @Override
+                                        public void onSuccess(GetTokenResult getTokenResult) {
+                                            String tokenID= getTokenResult.getToken();
+                                            String uid= mAuth.getInstance().getUid();
 
+                                            Map<String,Object> user_updateToken = new HashMap<>();
+                                            user_updateToken.put("TokenID",tokenID);
+                                            firebaseFirestore.collection("users").document(uid).update(user_updateToken)
+                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+                                                            Toast.makeText(Login.this,"token is here",Toast.LENGTH_LONG).show();
+                                                        }
+                                                    });
+                                        }
+                                    });// end og getting token by fatimah
+                                    SharedPreferences.Editor editor = pref.edit();
+                                    editor.putString(USER_EMAIL,entered_email);
+                                    editor.putString(USER_PASS,entered_password);
+                                    editor.commit();
                                     startActivity(new Intent(Login.this, MainActivity.class));
                                 } else {
                                     showDialogWithOkButton("تحقق من الرابط المرسل على بريدك لإكمال عملية تسجيل الدخول ");
@@ -250,11 +320,27 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                                     Log.d(TAG, "admin"+userID);
                                     startActivity(new Intent(Login.this, AdminActivity.class));
                                 }
-                                else
-                                    startActivity(new Intent(Login.this, MainActivity.class));
-                                //    startActivity(new Intent(Login.this, AdminActivity.class));
+                                else {
+                                    //Token ID
 
-                                //updateUI(user);
+                                    FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
+                                        @Override
+                                        public void onSuccess(InstanceIdResult instanceIdResult) {
+                                            String newToken = instanceIdResult.getToken();
+                                            Map<String,Object> user_updateToken = new HashMap<>();
+                                            user_updateToken.put("TokenID",newToken);
+                                            firebaseFirestore.collection("users").document(mAuth.getCurrentUser().getUid()).update(user_updateToken);
+
+                                        }
+                                    });
+                                    // end og getting token by fatimah
+
+
+                                    startActivity(new Intent(Login.this, MainActivity.class));
+                                    //    startActivity(new Intent(Login.this, AdminActivity.class));
+
+                                    //updateUI(user);
+                                }
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w(TAG, "signInWithEmail:failure", task.getException());
@@ -277,6 +363,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            // User is signed in
+            Intent i = new Intent(Login.this, MainActivity.class);
+        }
         //updateUI(currentUser);
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         mAuth.addAuthStateListener(authStateListener);

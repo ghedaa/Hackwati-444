@@ -409,22 +409,20 @@ public class StoryActivity extends AppCompatActivity implements View.OnClickList
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
 
-                   //     String rate = (String) document.get("rate") ;            //if the field is Integer
+                        String rate =  document.get("rate").toString();//if the field is Integer
+                        Float rate1 = Float.parseFloat(rate);
+                        Long rateCounter =  (Long) document.get("rateCounter");
 
-                       // Float rate = document.getFloat("rate");
-                     //   int rateCounter = (int) document.get("rateCounter");
-                    //    Float rate1 = rate.floatValue();
-                    //    Float rate1 = Float.parseFloat(valueOf(rate));
-                      //  Float Rate = ((Float) rate1 / rateCounter);
+                        if(rate1==null||rateCounter==null) {
+                            ratingBar.setRating(0);
+                            ratingBar.setEnabled(false);
+                        }
 
-
-                        ratingBar.setRating(3);
+                       else {
+                           Float Rate=rate1/rateCounter;
+                        ratingBar.setRating(Rate);
                         ratingBar.setEnabled(false);
-
-
-                      /*  Map<String, Object> story = new HashMap<>();
-                        story.put("finalrate", Rate);
-                        firebaseFirestore.collection("publishedStories").document(storyId).set(story);*/
+                       }
 
 
                     }

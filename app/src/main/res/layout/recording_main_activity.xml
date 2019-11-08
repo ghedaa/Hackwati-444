@@ -18,7 +18,7 @@
         app:elevation="6dp"
         app:title=" "
         app:layout_collapseMode="pin"
-        app:titleTextColor="#fff"
+        app:titleTextColor="#A9020000"
 
 
         />

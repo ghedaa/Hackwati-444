@@ -34,6 +34,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -51,7 +52,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import sa.ksu.swe444.hackwati.Draft.ViewDraft;
 import sa.ksu.swe444.hackwati.list_adabter.CustomPojo;
@@ -197,6 +200,14 @@ public class UserProfile extends BaseActivity {
     }// end onCreate()
 
     private void signOut() {
+        //Token ID
+                String uid= mAuth.getInstance().getUid();
+                Map<String,Object> user_updateToken = new HashMap<>();
+                user_updateToken.put("TokenID","");
+                firebaseFirestore.collection("users").document(uid).update(user_updateToken);
+                // done by fatimah clearing token id
+
+
         FirebaseAuth.getInstance().signOut();
         startActivity(new Intent(UserProfile.this, SplashActivity.class));
     }//end of signOut

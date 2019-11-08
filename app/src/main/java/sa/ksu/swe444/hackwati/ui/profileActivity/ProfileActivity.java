@@ -60,7 +60,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        //getSupportActionBar().setTitle("ملف شخصي");
+        getSupportActionBar().setTitle("الملف شخصي");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(false);
 

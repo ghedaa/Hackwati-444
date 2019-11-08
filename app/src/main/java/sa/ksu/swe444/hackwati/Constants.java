@@ -21,6 +21,7 @@ public class Constants {
         String PUBLISHED = "published";
         String REJECTED = "rejected";
         String PROCESSING = "processing";
+        String LOGGED="is_logged_in";
 
 
 

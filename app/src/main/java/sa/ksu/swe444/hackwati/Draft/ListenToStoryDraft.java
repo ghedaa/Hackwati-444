@@ -140,7 +140,7 @@ public class ListenToStoryDraft extends AppCompatActivity implements View.OnClic
         storyCover = findViewById(R.id.story_cover);
         backwardCover = findViewById(R.id.story_cover2);
         //  myService = new MyService();
-        RL = findViewById(R.id.Dialog);
+        RL = findViewById(R.id.voice_controller);
         storage = FirebaseStorage.getInstance();
         user_name = findViewById(R.id.userName);
         story_name = findViewById(R.id.story_name);
