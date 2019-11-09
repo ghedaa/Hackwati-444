@@ -82,7 +82,7 @@
                     android:layout_height="wrap_content"
                     android:text="مرحبا"
 android:layout_gravity="center"
-                    android:textColor="#fff"
+                    android:textColor="@color/orange_hak2"
                     android:textSize="25sp"
                     android:textStyle="bold" />
 
@@ -92,7 +92,7 @@ android:layout_gravity="center"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:layout_gravity="center"
-                    android:textColor="#fff"
+                    android:textColor="@color/orange_hak2"
                     android:textSize="20sp" />
             </LinearLayout>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
