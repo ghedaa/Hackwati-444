@@ -2,14 +2,18 @@ package sa.ksu.swe444.hackwati.ui.profileActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
@@ -60,9 +64,18 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("الملف شخصي");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(false);
+
+        //subscribe = findViewById(R.id.subscribe);
+        subscribe = (Button) toolbar.findViewById(R.id.subscribe);
+
+        subscribe.setVisibility(View.VISIBLE);
+        subscribe.setText("اشتراك");
+        ViewCompat.setBackgroundTintList(subscribe, ContextCompat.getColorStateList(ProfileActivity.this,R.color.white_hak));
+
+
+
 
         getExtras();
 
@@ -94,14 +107,20 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
 
-        subscribe = findViewById(R.id.subscribe);
-        subscribe.setOnClickListener(this);
-        subscribe.setVisibility(View.VISIBLE);
-        subscribe.setText("اشتراك");
+
         subscribeUser();
         retriveUserData();
 
-
+        subscribe.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (subscribe.getText().equals("اشتراك"))
+                    subscribUser();
+                else if (subscribe.getText().equals("مشترك")) {
+                    unsubscribUser();
+                } else
+                    subscribe.setVisibility(View.INVISIBLE);
+            }
+        });
     }
 
     private void getExtras() {
@@ -151,6 +170,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onSuccess(Void aVoid) {
                 subscribe.setText("مشترك");
+                ViewCompat.setBackgroundTintList(subscribe, ContextCompat.getColorStateList(ProfileActivity.this,R.color.green_hak));
+
 
 
             }
@@ -165,6 +186,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onSuccess(Void aVoid) {
                 subscribe.setText("اشتراك");
+                ViewCompat.setBackgroundTintList(subscribe, ContextCompat.getColorStateList(ProfileActivity.this,R.color.white_hak));
+
             }
         });
 
@@ -205,6 +228,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                                 break;
                             } else if (userStoryId.equals(subscribedUsers) ) {
                                 subscribe.setText("مشترك");
+                                ViewCompat.setBackgroundTintList(subscribe, ContextCompat.getColorStateList(ProfileActivity.this,R.color.green_hak));
+
                                 //subscribe.setBackgroundColor(Color.YELLOW);
                                 break;
                             }
@@ -214,6 +239,30 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             }
         });
 
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch ( item.getItemId() ) {
+            case android.R.id.home:
+                super.onBackPressed();
+                break;
+            case R.id.subscribeBtn:
+
+                if (subscribe.getText().equals("اشتراك"))
+                    subscribUser();
+                else if (subscribe.getText().equals("مشترك")) {
+                    unsubscribUser();
+                } else
+                    subscribe.setVisibility(View.INVISIBLE);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

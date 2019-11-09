@@ -58,6 +58,7 @@
                 android:src="@drawable/ic_favorite_black_24dp"
                 android:tint="#979797"
                 android:clickable="true"
+
                 android:contentDescription="اضف للقائمة" />
 
         </RelativeLayout>
@@ -278,7 +279,7 @@
             android:backgroundTint="@color/yellow_hak"
             android:gravity="center"
             app:title="   "
-            app:titleTextColor="#fff"
+            app:titleTextColor="#4D3C13"
 
             />
 

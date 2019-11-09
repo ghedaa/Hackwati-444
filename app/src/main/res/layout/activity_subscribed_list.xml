@@ -23,7 +23,7 @@
             android:gravity="center"
             android:backgroundTint="@color/yellow_hak"
             app:title="   "
-            app:titleTextColor="#fff"
+            app:titleTextColor="@color/orange_hak2"
 
             />
 

@@ -1,28 +1,21 @@
-package sa.ksu.swe444.hackwati.ui.profileActivity;
+package sa.ksu.swe444.hackwati.user_profile_activity;
 
-import android.app.Activity;
 import android.content.res.Resources;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,12 +27,13 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import sa.ksu.swe444.hackwati.Item;
 import sa.ksu.swe444.hackwati.MainActivity;
 import sa.ksu.swe444.hackwati.R;
-import sa.ksu.swe444.hackwati.explor.fragmentadapter;
+import sa.ksu.swe444.hackwati.StoryActivity;
 import sa.ksu.swe444.hackwati.storyAdapter;
 
 
@@ -74,7 +68,7 @@ public class Tab3Fragment extends Fragment {
         emptyStories =view.findViewById(R.id.empty);
 
         if (getArguments() != null) {
-            userStoryId = getArguments().getString("userStoryId");
+            userUid = getArguments().getString("userUid");
         }
 
         initRecyclerView();
@@ -97,7 +91,7 @@ public class Tab3Fragment extends Fragment {
 
     public void retrieveFavoritStories() {
 
-        DocumentReference docRef = firebaseFirestore.collection("users").document(userStoryId);
+        DocumentReference docRef = firebaseFirestore.collection("users").document(userUid);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -157,6 +151,7 @@ public class Tab3Fragment extends Fragment {
             }
         });
     }
+    //4
     public void retriveStories(final String userID, final String userName, final String thumbnail,String StoryID) {
 
 
@@ -169,21 +164,21 @@ public class Tab3Fragment extends Fragment {
                     DocumentSnapshot document2 = task.getResult();
                     if (document2.exists()) {
 
-                        Log.d(TAG, " 1 => test");
+                                Log.d(TAG, " 1 => test");
 
 
 
-                        document2.getData();
-                        String title = (String) document2.get("title");
-                        String userId = (String) document2.get("userId");
-                        String storyId = (String) document2.getId();
-                        String pic = (String) document2.get("pic");
-                        String sound = (String) document2.get("sound");
+                                    document2.getData();
+                                    String title = (String) document2.get("title");
+                                    String userId = (String) document2.get("userId");
+                                    String storyId = (String) document2.getId();
+                                    String pic = (String) document2.get("pic");
+                                    String sound = (String) document2.get("sound");
 
 
-                        Item item = new Item(true,storyId, title, pic,sound, userId, userName, thumbnail);
-                        itemList.add(item);
-                        adapter.notifyDataSetChanged();
+                                    Item item = new Item(true,storyId, title, pic,sound, userId, userName, thumbnail);
+                                    itemList.add(item);
+                                    adapter.notifyDataSetChanged();
 
 
                     }
