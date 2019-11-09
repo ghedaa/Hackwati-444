@@ -78,23 +78,21 @@
 
                 <TextView
                     android:id="@+id/Hi"
-                    android:layout_width="112dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
                     android:text="مرحبا"
-
-                    android:textColor="@color/colorAccent"
+android:layout_gravity="center"
+                    android:textColor="#fff"
                     android:textSize="25sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/userName"
-                    android:layout_width="64dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
-
-                    android:layout_alignParentRight="true"
-                    android:textColor="#FFFFFF"
+                    android:layout_gravity="center"
+                    android:textColor="#fff"
                     android:textSize="20sp" />
             </LinearLayout>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
