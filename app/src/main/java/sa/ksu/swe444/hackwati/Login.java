@@ -25,6 +25,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -39,6 +40,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -67,30 +69,25 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     private FirebaseAuth.AuthStateListener authStateListener;
     private boolean verify = false;
     private MySharedPreference pref1;
-    SharedPreferences pref;
 
     // ...
     private final String TAG = "Login";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.login);
-        pref =getSharedPreferences("user_details",MODE_PRIVATE);
-        Intent intent = new Intent(Login.this,MainActivity.class);
-        //3
-        if(pref.contains(USER_EMAIL) && pref.contains(USER_PASS)){
-            startActivity(intent);
-        }
-        init();
-       // save the user loggong by fatimah
+        // save the user loggong by fatimah
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
-            // User is signed in
+            Log.d("here","user not null");
             Intent i = new Intent(Login.this, MainActivity.class);
-
         }
         //end by fatimah
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.login);
+
+
+        init();
+
         FirebaseUser mFirebaseUser = mAuth.getCurrentUser();
         if(mFirebaseUser != null) {
             userID = mFirebaseUser.getUid();
@@ -246,9 +243,44 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                         });
             }
         });// end og getting token by fatimah
+        createUserCollection();
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }// end of googleSignIn
+
+    private void createUserCollection() {
+
+        Map<String,Object> user = new HashMap<>();
+        //user.put("username",register_name.getText().toString());
+        //user.put("email",register_email.getText().toString());
+        user.put("info","");
+        user.put("favorite", Arrays.asList());
+        user.put("subscribedUsers", Arrays.asList());
+        user.put("thumbnail","https://firebasestorage.googleapis.com/v0/b/hackwati444.appspot.com/o/Hakawati%2Fdefult_thumbnail.png?alt=media&token=be4ed812-e028-493c-a703-593e4a993c1f");
+
+        MySharedPreference.clearData(this);
+        MySharedPreference.putString(this, Constants.Keys.ID, mAuth.getInstance().getUid());
+
+
+
+
+        firebaseFirestore.collection("users").document(mAuth.getInstance().getUid()).set(user)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(Login.this, "user added", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(Login.this, "Error_add_user", Toast.LENGTH_SHORT).show();
+                        Log.d(TAG,e.toString());
+                    }
+                });
+
+        //Token ID Method:
+    }
 
     private void signIn() {
         //input
@@ -304,10 +336,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                                                     });
                                         }
                                     });// end og getting token by fatimah
-                                    SharedPreferences.Editor editor = pref.edit();
-                                    editor.putString(USER_EMAIL,entered_email);
-                                    editor.putString(USER_PASS,entered_password);
-                                    editor.commit();
+
                                     startActivity(new Intent(Login.this, MainActivity.class));
                                 } else {
                                     showDialogWithOkButton("تحقق من الرابط المرسل على بريدك لإكمال عملية تسجيل الدخول ");
@@ -335,11 +364,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                                     });
                                     // end og getting token by fatimah
 
-
                                     startActivity(new Intent(Login.this, MainActivity.class));
-                                    //    startActivity(new Intent(Login.this, AdminActivity.class));
-
-                                    //updateUI(user);
                                 }
                             } else {
                                 // If sign in fails, display a message to the user.

@@ -1,8 +1,10 @@
 package sa.ksu.swe444.hackwati;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -48,6 +50,9 @@ import java.util.Map;
 import sa.ksu.swe444.hackwati.Recording.RecordingActivity;
 import sa.ksu.swe444.hackwati.explor.ExploreActivity;
 
+import static sa.ksu.swe444.hackwati.Constants.Keys.USER_EMAIL;
+import static sa.ksu.swe444.hackwati.Constants.Keys.USER_PASS;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -80,12 +85,6 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("الصفحة الرئيسية");
 
 
-/*        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_subscription, R.id.navigation_explore, R.id.navigation_record)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(navView, navController);*/
 
 
         userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -180,6 +179,7 @@ public class MainActivity extends AppCompatActivity {
                                     public void onClick(DialogInterface dialog, int id) {
 
                                         FirebaseAuth.getInstance().signOut();
+                                 
                                         startActivity(new Intent(MainActivity.this, SplashActivity.class));
                                         //Token ID
                                         String uid= mAuth.getInstance().getUid();

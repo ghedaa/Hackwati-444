@@ -48,7 +48,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
     private  FirebaseUser user;
     public FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     FirebaseStorage storage = FirebaseStorage.getInstance();
-    StorageReference storageRef;
+
     private DatabaseReference mDatabase;
 
     @Override
@@ -136,19 +136,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                                         Toast.LENGTH_SHORT).show();
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 //send email by email to verify user account
-                              /*  user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
-                                         //  Toast.makeText(SignUp.this, "check your email " Toast.LENGTH_SHORT).show();
-                                            showDialogWithOkButton("الرجاء توثيق بريدك الإلكتروني");
 
-                                        } else {
-                                            Toast.makeText(SignUp.this, "check your NOT email ",
-                                                    Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                                });*/
                                 createUserCollection();
                             startActivity(new Intent(SignUp.this, Login.class));
                                 //updateUI(user);
@@ -241,59 +229,9 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         //Token ID Method:
     }
 
-
-
-    // [START basic_write]
-
 }// end of class
 
-  /*  public void addNewUser(){/// اللي بتعدل بجلدها
-        Map<String,Object> user= new HashMap<>();
 
-        String email= register_email.getText().toString();
-        String  password = register_password.getText().toString();
-        String  name = register_user_name.getText().toString();
-
-        user.put("email",email);
-        user.put("username", name);
-
-        MySharedPreference.putString(SignUp.this, Constants.Keys.ID,mAuth.getInstance().getUid());
-        Log.d(TAG,mAuth.getInstance().getUid()+" fofo");
-
-
-
-
-        firebaseFirestore.collection("users").document(mAuth.getInstance().getUid()).set(user)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(SignUp.this,"successful", Toast.LENGTH_LONG).show();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(SignUp.this,"failed", Toast.LENGTH_LONG).show();
-
-
-            }
-        });
-    }*/
-
-  /*  private  void addUser (){
-        //FirebaseStorage uploadTask = FirebaseStorage.getInstance().ch;
-
-        StorageReference filepath = storageRef.child("newUser").child(userId);
-        Uri uri = Uri.fromFile(new File(fileName));
-        filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Toast.makeText(getContext(), "success", Toast.LENGTH_SHORT);
-
-            }
-        });
-
-
-    }*/
 
 
 
