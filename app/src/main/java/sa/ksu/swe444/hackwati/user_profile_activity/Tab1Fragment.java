@@ -241,7 +241,7 @@ public class Tab1Fragment extends Fragment {
                                     .load(thumbnail + "")
                                     .into(img);
 
-                            subscribedno.setText(list.size() - 1+ "");
+                            subscribedno.setText(list.size() + "");
 
                             info.setText(infoU);
 
