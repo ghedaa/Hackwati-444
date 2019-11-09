@@ -94,7 +94,7 @@ public class UserProfile extends BaseActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("ملفي الشخصي");
+        getSupportActionBar().setTitle("ملفِ الشخصي");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(false);
 
