@@ -49,6 +49,7 @@ import java.util.Map;
 
 import sa.ksu.swe444.hackwati.Recording.RecordingActivity;
 import sa.ksu.swe444.hackwati.explor.ExploreActivity;
+import sa.ksu.swe444.hackwati.user_profile_activity.UserProfileActivity;
 
 import static sa.ksu.swe444.hackwati.Constants.Keys.USER_EMAIL;
 import static sa.ksu.swe444.hackwati.Constants.Keys.USER_PASS;
@@ -201,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
 
                         break;
                     case 2:
-                        startActivity(new Intent(MainActivity.this, UserProfile.class));
+                        startActivity(new Intent(MainActivity.this, UserProfileActivity.class));
                         break;
                     case 3:
                         break;

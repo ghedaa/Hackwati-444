@@ -41,16 +41,18 @@
         <activity android:name=".explor.ExploreActivity" />
         <activity android:name=".ConcatUsActivity" />
         <activity android:name=".exploreActivity" />
-        <activity android:name=".SplashActivity" />
+        <activity android:name=".Login" />
         <activity android:name=".AdminActivity" >
 
         </activity>
 
         <activity android:name=".AdminStoryActivity" />
+        <activity android:name=".user_profile_activity.UserProfileActivity"
+        android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".ui.profileActivity.ProfileActivity"
             android:label="@string/app_name"
-            android:parentActivityName=".MainActivity" />
+          />
         <activity
             android:name=".UserProfile"
             android:parentActivityName=".MainActivity"
@@ -58,8 +60,7 @@
         <activity android:name=".MainActivity">
 
         </activity>
-        <activity android:name=".Login" >
-            <intent-filter>
+        <activity android:name=".SplashActivity" >         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
 
             <category android:name="android.intent.category.LAUNCHER" />
