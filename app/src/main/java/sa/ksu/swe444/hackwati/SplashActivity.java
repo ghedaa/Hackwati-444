@@ -31,7 +31,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
                 startActivity(intent); // to start another activity
                 finish();
             }
-        }, 2000);
+        }, 3000);
 
 
     }//end OnCreate()

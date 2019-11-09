@@ -39,7 +39,7 @@
                 android:id="@+id/relImg"
                 android:layout_width="105dp"
                 android:layout_height="73dp"
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="0dp"
 
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true">
@@ -313,27 +313,8 @@
 
 
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/icon_shape_botum"
-        android:backgroundTint="@color/yellow_hak"
-        android:theme="@style/AppTheme.AppBarOverlay">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@drawable/icon_shape_botum"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:backgroundTint="@color/yellow_hak"
-            app:title="   "
-            app:titleTextColor="#4D3C13"
 
-            />
-
-    </com.google.android.material.appbar.AppBarLayout>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
