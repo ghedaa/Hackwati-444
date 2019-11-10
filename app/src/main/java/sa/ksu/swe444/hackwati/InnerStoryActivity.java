@@ -375,5 +375,4 @@ public class InnerStoryActivity extends AppCompatActivity implements View.OnClic
     }
 
 
-
 }// end class

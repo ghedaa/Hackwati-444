@@ -76,11 +76,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // save the user loggong by fatimah
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            Log.d("here","user not null");
-            Intent i = new Intent(Login.this, MainActivity.class);
-        }
+
         //end by fatimah
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
@@ -314,8 +310,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d(TAG, "signInWithEmail:success");
-                                Toast.makeText(Login.this, "Authentication succeeded",
-                                        Toast.LENGTH_SHORT).show();
+
 
                                 if (mAuth.getCurrentUser().isEmailVerified()) {
                                     //Token ID
@@ -331,7 +326,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                         @Override
                                                         public void onSuccess(Void aVoid) {
-                                                            Toast.makeText(Login.this,"token is here",Toast.LENGTH_LONG).show();
+                                                            Log.d(TAG,"token is here");
                                                         }
                                                     });
                                         }
@@ -369,8 +364,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w(TAG, "signInWithEmail:failure", task.getException());
-                                Toast.makeText(Login.this, "Authentication failed google.",
-                                        Toast.LENGTH_SHORT).show();
+                               Toast.makeText(Login.this, "Authentication failed google.",
+                                      Toast.LENGTH_SHORT).show();
                                 showDialogWithOkButton("البريد الإلكتروني أو كلمة المرور غير صحيحة");
                                 // updateUI(null);
                             }

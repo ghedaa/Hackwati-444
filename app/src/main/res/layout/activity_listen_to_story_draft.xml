@@ -80,7 +80,7 @@
 
             <Button
                 android:id="@+id/approve"
-                android:layout_width="159dp"
+                android:layout_width="140dp"
                 android:layout_height="50dp"
                 android:layout_margin="10dp"
                 android:background="@drawable/shape"
@@ -89,7 +89,7 @@
 
             <Button
                 android:id="@+id/reject"
-                android:layout_width="159dp"
+                android:layout_width="140dp"
                 android:layout_height="50dp"
                 android:layout_margin="10dp"
                 android:layout_toLeftOf="@id/approve"

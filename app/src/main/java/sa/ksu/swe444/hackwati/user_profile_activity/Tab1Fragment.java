@@ -116,7 +116,7 @@ public class Tab1Fragment extends Fragment {
             }
         });
         stories = v.findViewById(R.id.story);
-        stories.setOnClickListener(new View.OnClickListener() {
+       stories.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getContext(), UserUploadedStories.class));
@@ -270,7 +270,7 @@ public class Tab1Fragment extends Fragment {
                 contentURI = data.getData();
                 try {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), contentURI);
-                    Toast.makeText(getContext(), "Image Saved!", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getContext(), "Image Saved!", Toast.LENGTH_SHORT).show();
                     img.setImageBitmap(bitmap);
                     isSelectImage = true;
                     persistImage(bitmap);

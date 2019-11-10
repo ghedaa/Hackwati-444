@@ -66,9 +66,9 @@ public class UserUploadedStories extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("القصص المرفوعة");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(false);
+      //  getSupportActionBar().setTitle("القصص المرفوعة");
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setHomeButtonEnabled(false);
 
 
         status = findViewById(R.id.subscribeBtn);
