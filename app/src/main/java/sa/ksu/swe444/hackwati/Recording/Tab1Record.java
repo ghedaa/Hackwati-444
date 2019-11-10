@@ -190,15 +190,17 @@ public class Tab1Record extends Fragment implements View.OnClickListener, IOnFoc
         handler = new Handler();
         updater = new Runnable() {
             public void run() {
+               // Toast.makeText(getContext(), "run", Toast.LENGTH_SHORT).show();
                 handler.postDelayed(this, 1);
                 if (isRecording) {  /**/
                     int maxAmplitude = recorder.getMaxAmplitude();
                     if (maxAmplitude != 0) {
-                        mVisualizer.setAudioSessionId(maxAmplitude);
+//                        mVisualizer.setAudioSessionId(maxAmplitude);
                         visualizerView.addAmplitude(maxAmplitude);
                         elapsedTime = System.currentTimeMillis() - start;
                         t = milliSecondsToTimer(elapsedTime);
                         timer.setText(t);
+                        timer.setTextColor(R.color.gray);
                         if (t.equals("0 : 3")) {
                             recorder.stop();
                             isRecording = false;
@@ -207,7 +209,9 @@ public class Tab1Record extends Fragment implements View.OnClickListener, IOnFoc
                     }
                 }
             }// run
+
         };
+        handler.postDelayed(updater , 1000);
 
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -330,21 +334,19 @@ public class Tab1Record extends Fragment implements View.OnClickListener, IOnFoc
 
                 if (checkForPermission()) {
                     if (startRecording ) {
+                        isRecording = true;
                         recorder.start();
                         start = System.currentTimeMillis();
                         startRecording = false;
-                        isRecording = true;
                         nextBtn.setEnabled(false);
                         ViewCompat.setBackgroundTintList(nextBtn, ContextCompat.getColorStateList(getContext(), R.color.gray));
-
-
 
                     } else if(isRecording){
                         recorder.stop();
                         duration = elapsedTime;
                         isRecording = false;
                         nextBtn.setEnabled(true);
-                        timer.setText(t);
+                        //timer.setText(t);
                         recordButton.setEnabled(false);
                         ViewCompat.setBackgroundTintList(nextBtn, ContextCompat.getColorStateList(getContext(), R.color.yellow_hak));
 
@@ -379,7 +381,6 @@ public class Tab1Record extends Fragment implements View.OnClickListener, IOnFoc
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
-        if(isRecording && !startRecording)
             handler.post(updater);
 
     }//onWindowFocusChanged()
@@ -446,7 +447,7 @@ public class Tab1Record extends Fragment implements View.OnClickListener, IOnFoc
                         startActivity(new Intent(getContext(), MainActivity.class));
                         if(isRecording){
                             recorder.stop();
-                            isRecording = false;
+                          //  isRecording = false;
                         }
                     }
                 }).setNegativeButton("إلغاء", new DialogInterface.OnClickListener() {
@@ -462,7 +463,6 @@ public class Tab1Record extends Fragment implements View.OnClickListener, IOnFoc
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        if(isRecording && !startRecording)
           listener = (SecondFragmentListener) getActivity();
     }
 
@@ -481,8 +481,7 @@ public class Tab1Record extends Fragment implements View.OnClickListener, IOnFoc
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if(isRecording)
-            recorder.stop();
+
         super.onDestroy();
         if (mVisualizer != null)
             mVisualizer.release();
