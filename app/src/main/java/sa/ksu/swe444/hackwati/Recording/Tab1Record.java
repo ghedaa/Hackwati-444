@@ -211,7 +211,22 @@ public class Tab1Record extends Fragment implements View.OnClickListener, IOnFoc
             }// run
 
         };
+
+        /**
+         *
+         * DO NOT YOU EVER TOUCH THE CODE DOWN THEIR !!!!
+         *
+         */
+
         handler.postDelayed(updater , 1000);
+
+
+        /**
+         *
+         * DO NOT YOU EVER TOUCH CODE ABOVE THEIR !!!!
+         *
+         */
+
 
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override

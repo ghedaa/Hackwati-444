@@ -112,13 +112,13 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         };
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
-
         loginBtn.setOnClickListener(this);
         createAccount.setOnClickListener(this);
         loginGoogleBtn.setOnClickListener(this);
         forgetPassword.setOnClickListener(this);
 
         progressBar.setVisibility(View.GONE);
+       // loginGoogleBtn.setEnabled(false);
 
     }// end of onCreate()
 

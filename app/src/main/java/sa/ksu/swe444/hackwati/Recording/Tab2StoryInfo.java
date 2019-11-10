@@ -181,6 +181,7 @@ public class Tab2StoryInfo extends Fragment {
 
     public void bottomNavigation() {
         navView = view.findViewById(R.id.nav_view_rec);
+        navView.setSelectedItemId(R.id.navigation_record);
         navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
