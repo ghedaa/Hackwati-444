@@ -69,18 +69,22 @@ public class ViewDraft extends AppCompatActivity {
 
         emptyStories =findViewById(R.id.emptyStories);
         navView = findViewById(R.id.nav_view);
-        toolbarMain = (Toolbar) findViewById(R.id.toolbarMain);
+        toolbarMain = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbarMain);
 
         getSupportActionBar().setTitle("المسودات");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(false);
 
+
+
+
+
         auth = FirebaseAuth.getInstance();
 
       //  setSupportActionBar(toolbarMain);
 
-        installButton110to250();
+        //installButton110to250();
 
         userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -106,7 +110,7 @@ public class ViewDraft extends AppCompatActivity {
 
 
 
-    private void installButton110to250() {
+/*    private void installButton110to250() {
 
 
         final AllAngleExpandableButton button = (AllAngleExpandableButton) findViewById(R.id.button_expandable_110_250);
@@ -125,9 +129,9 @@ public class ViewDraft extends AppCompatActivity {
         }
         button.setButtonDatas(buttonDatas);
         setListener(button);
-    }
+    }*/
 
-    private void setListener(final AllAngleExpandableButton button) {
+   /* private void setListener(final AllAngleExpandableButton button) {
         button.setButtonEventListener(new ButtonEventListener() {
             @Override
             public void onButtonClicked(int index) {
@@ -175,7 +179,7 @@ public class ViewDraft extends AppCompatActivity {
             }
         });
     }
-
+*/
 
     private int dpToPx(int dp) {
         Resources r = getResources();

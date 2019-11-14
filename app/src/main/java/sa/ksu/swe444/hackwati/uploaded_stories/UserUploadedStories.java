@@ -66,9 +66,10 @@ public class UserUploadedStories extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-      //  getSupportActionBar().setTitle("القصص المرفوعة");
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //getSupportActionBar().setHomeButtonEnabled(false);
+
+        getSupportActionBar().setTitle("القصص المرفوعة");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(false);
 
 
         status = findViewById(R.id.subscribeBtn);
@@ -86,12 +87,12 @@ public class UserUploadedStories extends AppCompatActivity {
         retrievePublishedStories();
         retrieveRejectedStories();
         retrieveUnderProcessingStories();
-        installButton110to250();
-        bottomNavigation();
+        //installButton110to250();
+        //bottomNavigation();
 
     }//end onCreate()
 
-    public void bottomNavigation() {
+/*    public void bottomNavigation() {
         navView = findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -114,7 +115,7 @@ public class UserUploadedStories extends AppCompatActivity {
                 return true;
             }
         });
-    }
+    }*/
 
 
     public void retrievePublishedStories() {
@@ -226,7 +227,7 @@ public class UserUploadedStories extends AppCompatActivity {
 
     }//end of retrieveUnderProcessingStories
 
-    private void installButton110to250() {
+   /* private void installButton110to250() {
 
 
         final AllAngleExpandableButton button = (AllAngleExpandableButton) findViewById(R.id.button_expandable_110_250);
@@ -246,8 +247,8 @@ public class UserUploadedStories extends AppCompatActivity {
         button.setButtonDatas(buttonDatas);
         setListener(button);
     }
-
-    private void setListener(final AllAngleExpandableButton button) {
+*/
+ /*   private void setListener(final AllAngleExpandableButton button) {
         button.setButtonEventListener(new ButtonEventListener() {
             @Override
             public void onButtonClicked(int index) {
@@ -297,6 +298,6 @@ public class UserUploadedStories extends AppCompatActivity {
             public void onCollapse() {
             }
         });
-    }
+    }*/
 
 }// class

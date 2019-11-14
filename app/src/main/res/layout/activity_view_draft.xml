@@ -7,16 +7,38 @@
     android:id="@+id/htab_maincontent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#C6E9E9"
+    android:background="#FFFFFF"
     android:fitsSystemWindows="true">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/icon_shape_botum"
+        android:backgroundTint="@color/yellow_hak"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_gravity="center"
+            android:background="@drawable/icon_shape_botum"
+            android:backgroundTint="@color/yellow_hak"
+            android:gravity="center"
+            app:title="   "
+            app:titleTextColor="@color/orange_hak2"
+
+            />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
     <RelativeLayout
         android:layout_width="390dp"
         android:layout_height="708dp"
         android:layout_gravity="center"
         android:background="@drawable/icon_shape"
         android:backgroundTint="#ffff"
-        android:layout_marginTop="70dp"
-
         android:gravity="center"
 
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
@@ -24,15 +46,13 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
-            android:layout_width="363dp"
-            android:layout_height="505dp"
+            android:layout_width="365dp"
+            android:layout_height="589dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
-
             android:layout_centerInParent="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="70dp"
-            android:layout_marginRight="17dp"
+            android:layout_marginLeft="11dp"
+            android:layout_marginRight="14dp"
             android:foregroundGravity="center"
             android:padding="10dp"
             tools:ignore="NotSibling">
@@ -49,7 +69,7 @@
         android:gravity="center"
         android:text="" />
 
-    <include layout="@layout/toolbar_main" />
+
 
 
 

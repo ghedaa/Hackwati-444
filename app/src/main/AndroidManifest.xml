@@ -30,7 +30,8 @@
         <activity android:name=".SubscribedListActivity"
             android:parentActivityName=".UserProfile"/>
         <activity android:name=".Draft.ListenToStoryDraft" />
-        <activity android:name=".Draft.ViewDraft" />
+        <activity android:name=".Draft.ViewDraft"
+            android:parentActivityName=".UserProfile"/>
         <activity android:name=".StoryActivity" />
         <activity android:name=".SignUp" />
         <activity
@@ -57,10 +58,10 @@
             android:name=".UserProfile"
             android:parentActivityName=".MainActivity"
             android:label="@string/app_name" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".SplashActivity">
 
         </activity>
-        <activity android:name=".SplashActivity" >         <intent-filter>
+        <activity android:name=".MainActivity" >         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
 
             <category android:name="android.intent.category.LAUNCHER" />
