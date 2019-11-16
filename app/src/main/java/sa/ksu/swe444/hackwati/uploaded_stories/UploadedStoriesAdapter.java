@@ -2,6 +2,7 @@ package sa.ksu.swe444.hackwati.uploaded_stories;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Build;
@@ -160,11 +161,7 @@ public class UploadedStoriesAdapter extends RecyclerView.Adapter<UploadedStories
                         public boolean onMenuItemClick(MenuItem item) {
                             switch (item.getItemId()) {
                                 case R.id.menu_item_delete:
-                                    String id = storyList.get(getAdapterPosition()).getStoryId();
-                                    String col = storyList.get(getAdapterPosition()).getStatus();
-                                    int position =  getAdapterPosition();
-                                    Toast.makeText(context, "pop", Toast.LENGTH_SHORT).show();
-                                    deleteStory(id, col , position);
+                                    showDialogWithOkButton("هل أنت متأكد من حذف القصة ؟");
                                     return true;
                                 default:
                                     return false;
@@ -179,7 +176,27 @@ public class UploadedStoriesAdapter extends RecyclerView.Adapter<UploadedStories
 
         }
 
-
+        public void showDialogWithOkButton(String msg) {
+            final androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(context);
+            builder.setMessage(msg)
+                    .setCancelable(false)
+                    .setPositiveButton("حسناً", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            String sid = storyList.get(getAdapterPosition()).getStoryId();
+                            String col = storyList.get(getAdapterPosition()).getStatus();
+                            int position = getAdapterPosition();
+                            Toast.makeText(context, "pop", Toast.LENGTH_SHORT).show();
+                            deleteStory(sid, col, position);
+                        }
+                    }).setNegativeButton("إلغاء", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            androidx.appcompat.app.AlertDialog alert = builder.create();
+            alert.show();
+        }
         }//MyViewHolder class
 
 

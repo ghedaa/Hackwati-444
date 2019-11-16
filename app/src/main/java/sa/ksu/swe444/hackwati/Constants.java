@@ -1,6 +1,5 @@
 package sa.ksu.swe444.hackwati;
 
-import com.google.firebase.auth.FirebaseAuth;
 
 public class Constants {
 

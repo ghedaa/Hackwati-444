@@ -103,13 +103,12 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.navigation_record:
                         startActivity(new Intent(MainActivity.this, RecordingActivity.class));
                        // navView.setSelectedItemId(R.id.navigation_record);
-                      //  navView.getMenu().getItem(R.id.navigation_record).setChecked(true);
-
+                       //  navView.getMenu().getItem(R.id.navigation_record).setChecked(true);
                         break;
 
                     case R.id.navigation_subscription:
                         startActivity(new Intent(MainActivity.this, MainActivity.class));
-                      //  navView.setSelectedItemId(R.id.navigation_subscription);
+                      //navView.setSelectedItemId(R.id.navigation_subscription);
 
                         break;
 

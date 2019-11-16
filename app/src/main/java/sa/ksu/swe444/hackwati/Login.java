@@ -133,6 +133,13 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         // [END config_signin]
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        mGoogleSignInClient.silentSignIn().addOnCompleteListener(new OnCompleteListener<GoogleSignInAccount>() {
+            @Override
+            public void onComplete(@NonNull Task<GoogleSignInAccount> task) {
+              // String name = task.getResult().getDisplayName();
+              // String email = task.getResult().getEmail();
+            }
+        });
 
         // [START initialize_auth]
         // Initialize Firebase Auth
