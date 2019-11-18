@@ -178,15 +178,18 @@ public class MainActivity extends AppCompatActivity {
                                 .setPositiveButton("أنا متأكد", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
 
-                                        FirebaseAuth.getInstance().signOut();
 
-                                        startActivity(new Intent(MainActivity.this, SplashActivity.class));
                                         //Token ID
                                         String uid= mAuth.getInstance().getUid();
                                         Map<String,Object> user_updateToken = new HashMap<>();
                                         user_updateToken.put("TokenID","");
                                         firebaseFirestore.collection("users").document(uid).update(user_updateToken);
                                         // done by fatimah clearing token id
+
+                                        FirebaseAuth.getInstance().signOut();
+                                        MySharedPreference.clearData(MainActivity.this);
+
+                                        startActivity(new Intent(MainActivity.this, SplashActivity.class));
                                     }
 
                                 });

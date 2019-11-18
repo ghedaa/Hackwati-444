@@ -21,6 +21,8 @@ public class Constants {
         String REJECTED = "rejected";
         String PROCESSING = "processing";
         String LOGGED="is_logged_in";
+        String IS_LOGIN="is_login";
+
 
 
 

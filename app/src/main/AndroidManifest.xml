@@ -42,7 +42,7 @@
         <activity android:name=".explor.ExploreActivity" />
         <activity android:name=".ConcatUsActivity" />
         <activity android:name=".exploreActivity" />
-        <activity android:name=".Login" >
+        <activity android:name=".SplashActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -64,7 +64,7 @@
             android:name=".UserProfile"
             android:parentActivityName=".MainActivity"
             android:label="@string/app_name" />
-        <activity android:name=".SplashActivity">
+        <activity android:name=".Login">
 
         </activity>
         <activity android:name=".MainActivity" >

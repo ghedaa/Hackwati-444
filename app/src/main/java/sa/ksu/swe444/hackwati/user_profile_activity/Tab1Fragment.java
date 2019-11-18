@@ -187,13 +187,13 @@ public class Tab1Fragment extends Fragment {
             }
         });
 
-        log_out = v.findViewById(R.id.logout_profile);
+       /* log_out = v.findViewById(R.id.logout_profile);
         log_out.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 signOut();
             }
-        });
+        });*/
 
         retriveUserData();
         countStories();
@@ -204,19 +204,46 @@ public class Tab1Fragment extends Fragment {
     }
 
 
-    private void signOut() {
-        //Token ID
-        String uid = mAuth.getInstance().getUid();
-        Map<String, Object> user_updateToken = new HashMap<>();
-        user_updateToken.put("TokenID", "");
-        firebaseFirestore.collection("users").document(uid).update(user_updateToken);
+   /* private void signOut() {
+
+
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(getContext());
+        builder.setMessage("هل أنت متأكد من أنك تريد تسجيل الخروج؟")
+                .setCancelable(false)
+                .setPositiveButton("أنا متأكد", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+
+                        //Token ID
+                        String uid= mAuth.getInstance().getUid();
+                        Map<String,Object> user_updateToken = new HashMap<>();
+                        user_updateToken.put("TokenID","");
+                        firebaseFirestore.collection("users").document(uid).update(user_updateToken);
+                        // done by fatimah clearing token id
+                        MySharedPreference.clearData(getContext());
+
+                        FirebaseAuth.getInstance().signOut();
+                        MySharedPreference.clearData(getContext());
+
+                        startActivity(new Intent(getContext(), SplashActivity.class));
+                    }
+
+                });
+        builder.setNeutralButton("إلغاء", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+            }
+        });
+
+        androidx.appcompat.app.AlertDialog alert = builder.create();
+        alert.show();
+
         // done by fatimah clearing token id
 
 
         FirebaseAuth.getInstance().signOut();
         startActivity(new Intent(getContext(), SplashActivity.class));
     }//end of signOut
-
+*/
 
     public void retriveUserData() {
         DocumentReference docRef = firebaseFirestore.collection("users").document(userUid);
@@ -467,9 +494,10 @@ public class Tab1Fragment extends Fragment {
                 .setTitle(title + "");
 
         final EditText userInputDialogEditText = (EditText) mView.findViewById(R.id.userInputDialog);
+        userInputDialogEditText.setText(title);
         alertDialogBuilderUserInput
                 .setCancelable(false)
-                .setPositiveButton("send", new DialogInterface.OnClickListener() {
+                .setPositiveButton("تأكييد", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogBox, int id) {
                         // ToDo get user input here
 
@@ -494,7 +522,7 @@ public class Tab1Fragment extends Fragment {
                     }
                 })
 
-                .setNegativeButton("Cancel",
+                .setNegativeButton("إلغاء",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialogBox, int id) {
                                 dialogBox.cancel();

@@ -138,7 +138,9 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                                 //send email by email to verify user account
 
                                 createUserCollection();
-                            startActivity(new Intent(SignUp.this, Login.class));
+                       startActivity(new Intent(SignUp.this, Login.class));
+
+
                                 //updateUI(user);
                             } else {
                                 // If sign in fails, display a message to the user.
@@ -228,6 +230,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         
         //Token ID Method:
     }
+
 
 }// end of class
 
