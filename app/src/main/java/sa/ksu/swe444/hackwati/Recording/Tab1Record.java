@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
@@ -47,6 +49,8 @@ import sa.ksu.swe444.hackwati.SplashActivity;
 import sa.ksu.swe444.hackwati.explor.ExploreActivity;
 import sa.ksu.swe444.hackwati.uploaded_stories.UserUploadedStories;
 
+import static android.app.Activity.RESULT_OK;
+
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class Tab1Record extends Fragment implements View.OnClickListener, IOnFocusListenable {
@@ -54,7 +58,7 @@ public class Tab1Record extends Fragment implements View.OnClickListener, IOnFoc
     private static final String LOG_TAG = "AudioRecordTest";
     private static final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
     private static String fileName = null;
-
+    Uri audioFatimah;
     private ImageButton recordButton;
     private MediaRecorder recorder;
     private MediaPlayer playerDog;
@@ -93,6 +97,7 @@ public class Tab1Record extends Fragment implements View.OnClickListener, IOnFoc
     private ImageButton stopPlayRecord;
     private MediaPlayer player = null;
     private Button cancelRecording;
+    private Button uploadrecorded;
     private WaveVisualizer mVisualizer;
     private static final int MY_PERMISSIONS_RECORD_AUDIO = 33;
     // pass this att to
@@ -106,6 +111,21 @@ public class Tab1Record extends Fragment implements View.OnClickListener, IOnFoc
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.recording_fragment_one, container, false);
+        //fatimah upload
+        uploadrecorded=view.findViewById(R.id.uploadaudio);
+        uploadrecorded.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ContextCompat.checkSelfPermission(getActivity(),Manifest.permission.READ_EXTERNAL_STORAGE)==PackageManager.PERMISSION_GRANTED){
+                    selectAudio();
+                }
+                else
+                    ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},9);
+
+            }
+        });
+
+        //end fatimah
         // Record to the external cache directory for visibility
         fileName = getActivity().getExternalCacheDir().getAbsolutePath();
         fileName += "/audiorecordtest.3gp";
@@ -220,14 +240,6 @@ public class Tab1Record extends Fragment implements View.OnClickListener, IOnFoc
 
         handler.postDelayed(updater , 1000);
 
-
-        /**
-         *
-         * DO NOT YOU EVER TOUCH CODE ABOVE THEIR !!!!
-         *
-         */
-
-
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -241,10 +253,6 @@ public class Tab1Record extends Fragment implements View.OnClickListener, IOnFoc
                 } else {
                     showDialogWithOkButton("لم تسجل القصة بعد");
                 }
-
-
-
-
             }
         });
 
@@ -257,6 +265,23 @@ public class Tab1Record extends Fragment implements View.OnClickListener, IOnFoc
         bottomNavigation();
         return view;
     }//onCreateView()
+
+    private void selectAudio() {
+        Intent intent=new Intent();
+        intent.setType("audio/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent,99);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if(requestCode==99&&resultCode==RESULT_OK&&data!=null){
+                audioFatimah=data.getData();
+        }
+        else
+            Toast.makeText(getContext(), "نرجوا اختيار ملف أو تسجيل قصه", Toast.LENGTH_LONG).show();
+
+    }
 
     public void bottomNavigation() {
         navView = view.findViewById(R.id.nav_view_rec);
@@ -321,8 +346,7 @@ public class Tab1Record extends Fragment implements View.OnClickListener, IOnFoc
     }//initRecorder()
 
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
             case MY_PERMISSIONS_RECORD_AUDIO: {
                 if (grantResults.length > 0
@@ -335,7 +359,15 @@ public class Tab1Record extends Fragment implements View.OnClickListener, IOnFoc
                     // functionality that depends on this permission.
                     Toast.makeText(getContext(), "Permissions Denied to record audio", Toast.LENGTH_LONG).show();
                 }
+
                 return;
+            }
+            case 9:{
+                if (grantResults.length > 0&& grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    selectAudio();
+                } else
+                    Toast.makeText(getContext(), "Permissions Denied to upload audio file", Toast.LENGTH_LONG).show();
+
             }
         }
     }
