@@ -294,7 +294,7 @@
 
 
 
-            <Button
+       <!--     <Button
                 android:id="@+id/logout_profile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -303,7 +303,7 @@
 
                 android:background="@drawable/box_shape"
                 android:backgroundTint="#F1675C"
-                android:text="تسجيل االخروج" />
+                android:text="تسجيل االخروج" />-->
 
 
         </RelativeLayout>

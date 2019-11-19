@@ -92,30 +92,7 @@ public class UserUploadedStories extends AppCompatActivity {
 
     }//end onCreate()
 
-/*    public void bottomNavigation() {
-        navView = findViewById(R.id.nav_view);
-        navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
 
-                    case R.id.navigation_record:
-                        startActivity(new Intent(UserUploadedStories.this, RecordingActivity.class));
-                        break;
-
-                    case R.id.navigation_subscription:
-                        startActivity(new Intent(UserUploadedStories.this, MainActivity.class));
-                        break;
-
-                    case R.id.navigation_explore:
-                        startActivity(new Intent(UserUploadedStories.this, ExploreActivity.class));
-                        break;
-
-                }// end of switch
-                return true;
-            }
-        });
-    }*/
 
 
     public void retrievePublishedStories() {
@@ -227,77 +204,6 @@ public class UserUploadedStories extends AppCompatActivity {
 
     }//end of retrieveUnderProcessingStories
 
-   /* private void installButton110to250() {
 
-
-        final AllAngleExpandableButton button = (AllAngleExpandableButton) findViewById(R.id.button_expandable_110_250);
-        final List<ButtonData> buttonDatas = new ArrayList<>();
-        int[] drawable = {R.drawable.defult_thumbnail, R.drawable.ic_power_settings_new_black_24dp, R.drawable.defult_thumbnail, R.drawable.ic_search_black_24dp, R.drawable.ic_error_outline_black_24dp};// gray is some thing else
-        int[] color = {R.color.yellow_hak, R.color.gray_hak, R.color.gray_hak, R.color.gray_hak, R.color.gray_hak};
-        for (int i = 0; i < 5; i++) {
-            ButtonData buttonData;
-            if (i == 0) {
-                buttonData = ButtonData.buildIconButton(this, drawable[i], 7);
-            } else {
-                buttonData = ButtonData.buildIconButton(this, drawable[i], 0);
-            }
-            buttonData.setBackgroundColorId(this, color[i]);
-            buttonDatas.add(buttonData);
-        }
-        button.setButtonDatas(buttonDatas);
-        setListener(button);
-    }
-*/
- /*   private void setListener(final AllAngleExpandableButton button) {
-        button.setButtonEventListener(new ButtonEventListener() {
-            @Override
-            public void onButtonClicked(int index) {
-                switch (index) {
-                    case 1:
-
-
-                        AlertDialog.Builder builder = new AlertDialog.Builder(UserUploadedStories.this);
-                        builder.setMessage("هل أنت متأكد من أنك تريد تسجيل الخروج؟")
-                                .setCancelable(false)
-                                .setPositiveButton("أنا متأكد", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-
-                                        FirebaseAuth.getInstance().signOut();
-                                        startActivity(new Intent(UserUploadedStories.this, SplashActivity.class));
-                                    }
-
-                                });
-                        builder.setNeutralButton("إلغاء", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                            }
-                        });
-
-                        AlertDialog alert = builder.create();
-                        alert.show();
-
-
-                        break;
-                    case 2:
-                        startActivity(new Intent(UserUploadedStories.this, UserProfile.class));
-                        break;
-                    case 3:
-                        break;
-                    case 4:
-                        startActivity(new Intent(UserUploadedStories.this, ConcatUsActivity.class));
-                        break;
-                }
-            }
-
-            @Override
-            public void onExpand() {
-
-
-            }
-
-            @Override
-            public void onCollapse() {
-            }
-        });
-    }*/
 
 }// class

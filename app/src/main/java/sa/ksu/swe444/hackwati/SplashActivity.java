@@ -27,10 +27,13 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashActivity.this, Login.class); // from where? and to the distanation
+               /* Intent intent = new Intent(SplashActivity.this, Login.class); // from where? and to the distanation
                 startActivity(intent); // to start another activity
-                finish();
+                finish();*/
+                checkIsLogin();
+
             }
+
         }, 2500);
 
 
@@ -46,7 +49,15 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 
     } // end onClick
 
-
+    private void checkIsLogin() {
+        if (MySharedPreference.getBoolean(this, "IS_LOGIN", false)) {
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+        } else {
+            startActivity(new Intent(this, Login.class));
+            finish();
+        }
+    }// end checkIsLogin
 
 }//end class
 

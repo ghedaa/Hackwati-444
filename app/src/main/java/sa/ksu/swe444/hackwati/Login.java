@@ -95,8 +95,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if (firebaseAuth.getCurrentUser() != null) {
                     if (verify) {
+                        executeLogin();
 
-                        startActivity(new Intent(Login.this, MainActivity.class));
+                      //  startActivity(new Intent(Login.this, MainActivity.class));
 
                     }
 
@@ -133,6 +134,13 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         // [END config_signin]
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        mGoogleSignInClient.silentSignIn().addOnCompleteListener(new OnCompleteListener<GoogleSignInAccount>() {
+            @Override
+            public void onComplete(@NonNull Task<GoogleSignInAccount> task) {
+              // String name = task.getResult().getDisplayName();
+              // String email = task.getResult().getEmail();
+            }
+        });
 
         // [START initialize_auth]
         // Initialize Firebase Auth
@@ -332,7 +340,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                                         }
                                     });// end og getting token by fatimah
 
-                                    startActivity(new Intent(Login.this, MainActivity.class));
+                                    executeLogin();
+                                  //  startActivity(new Intent(Login.this, MainActivity.class));
                                 } else {
                                     showDialogWithOkButton("تحقق من الرابط المرسل على بريدك لإكمال عملية تسجيل الدخول ");
                                 }
@@ -359,7 +368,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                                     });
                                     // end og getting token by fatimah
 
-                                    startActivity(new Intent(Login.this, MainActivity.class));
+
+                                    executeLogin();
+                                   // startActivity(new Intent(Login.this, MainActivity.class));
                                 }
                             } else {
                                 // If sign in fails, display a message to the user.
@@ -468,6 +479,18 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         AlertDialog alert = builder.create();
         alert.show();
     }
+    public void executeLogin() {
 
+        MySharedPreference.putBoolean(this, "IS_LOGIN", true);
+
+
+        Intent i = new Intent(this, MainActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(i);
+        finish();
+
+
+    }
 
 }// end of class

@@ -1,6 +1,5 @@
 package sa.ksu.swe444.hackwati;
 
-import com.google.firebase.auth.FirebaseAuth;
 
 public class Constants {
 
@@ -22,6 +21,8 @@ public class Constants {
         String REJECTED = "rejected";
         String PROCESSING = "processing";
         String LOGGED="is_logged_in";
+        String IS_LOGIN="is_login";
+
 
 
 

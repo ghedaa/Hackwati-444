@@ -16,6 +16,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.StrictMode;
+import android.provider.SyncStateContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -33,8 +34,9 @@ import com.google.firebase.storage.StorageReference;
 import java.io.File;
 import java.util.concurrent.TimeUnit;
 
+
 import sa.ksu.swe444.hackwati.Constants;
-import sa.ksu.swe444.hackwati.InnerStoryActivity;
+import sa.ksu.swe444.hackwati.Constants.*;
 import sa.ksu.swe444.hackwati.R;
 
 public class ListenToUserStory extends AppCompatActivity implements View.OnClickListener  {
@@ -322,7 +324,7 @@ public class ListenToUserStory extends AppCompatActivity implements View.OnClick
     }// end shareStory()
 
 
-
+/*
     private void downloadFile(InnerStoryActivity context, String fileName, String fileExtention, String destinationDir, String url) {
         DownloadManager downloadManager =
                 (DownloadManager) context.getSystemService(context.DOWNLOAD_SERVICE);
@@ -335,14 +337,14 @@ public class ListenToUserStory extends AppCompatActivity implements View.OnClick
 
         downloadManager.enqueue(request);
     }
-
+*/
 
     private void getExtras() {
 
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
 
-            uri = Uri.parse(intent.getExtras().getString(Constants.Keys.STORY_AUDIO));
+            uri = Uri.parse(intent.getExtras().getString(Keys.STORY_AUDIO));
             img = Uri.parse(intent.getExtras().getString(Constants.Keys.STORY_COVER));
             storyID = intent.getExtras().getString(Constants.Keys.STORY_ID);
             title = intent.getExtras().getString(Constants.Keys.STORY_TITLE);
