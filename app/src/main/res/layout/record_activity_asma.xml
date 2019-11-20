@@ -12,6 +12,7 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" >
 
+
         <LinearLayout
             android:layout_width="568dp"
             android:layout_height="882dp"
@@ -65,6 +66,7 @@
 
         </RelativeLayout>
 
+
         <RelativeLayout
             android:layout_width="170dp"
             android:layout_height="200dp"
@@ -74,6 +76,8 @@
             android:background="@drawable/box_shape"
             android:backgroundTint="@color/blue_hak">
 
+
+
             <Button
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="150dp"
@@ -81,6 +85,7 @@
                 android:layout_below="@+id/recordImg2"
                 android:layout_centerInParent="true"
                 android:onClick="recordAudio"
+                android:id="@+id/uploadBtn"
                 android:text="ارفع صوت"
 
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -95,6 +100,16 @@
                 android:layout_centerInParent="true"
                 android:layout_marginTop="20dp"
                 android:src="@drawable/uploadddd" />
+
+            <pl.droidsonroids.gif.GifImageView
+                android:id="@+id/shining"
+                android:layout_width="121dp"
+                android:layout_height="126dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_centerInParent="true"
+                android:src="@drawable/shinig"
+                android:tint="#fff" />
         </RelativeLayout>
 
     </RelativeLayout>
@@ -111,11 +126,13 @@
         android:id="@+id/title"
         android:textStyle="bold" />
 
+
     <RelativeLayout
         android:id="@+id/timeLine"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_marginTop="20dp">
+
         <View
             android:id="@+id/separator2"
             android:layout_width="350dp"
@@ -126,6 +143,7 @@
             android:alpha=".3"
             android:background="#A0A0A0" />
 
+
         <LinearLayout
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -134,7 +152,6 @@
             android:layout_marginLeft="20dp"
             android:background="@drawable/circle"
             android:backgroundTint="@color/blue_hak">
-
 
             <TextView
                 android:layout_width="match_parent"
@@ -145,6 +162,10 @@
                 android:textSize="25dp"
                 android:textStyle="bold" />
 
+
+
+
+
         </LinearLayout>
 
         <LinearLayout
@@ -152,7 +173,7 @@
             android:layout_height="30dp"
             android:layout_centerInParent="true"
             android:layout_marginLeft="20dp"
-            android:background="@drawable/circle" />
+            android:background="@drawable/circle_withou_border" />
 
         <LinearLayout
             android:layout_width="30dp"
@@ -160,15 +181,20 @@
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
             android:layout_marginRight="20dp"
-            android:background="@drawable/circle" />
-
-
-
+            android:background="@drawable/circle_withou_border" />
 
 
 
     </RelativeLayout>
-
+    <pl.droidsonroids.gif.GifImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="15dp"
+        android:src="@drawable/circle_gif"
+        android:tint="@color/blue_hak2"
+        android:layout_below="@id/title"
+        />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
 

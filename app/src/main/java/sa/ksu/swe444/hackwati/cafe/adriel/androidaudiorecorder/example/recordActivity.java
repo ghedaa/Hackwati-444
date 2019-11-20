@@ -10,6 +10,8 @@ import android.os.Environment;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,6 +23,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import cafe.adriel.androidaudiorecorder.model.AudioChannel;
 import cafe.adriel.androidaudiorecorder.model.AudioSampleRate;
 import cafe.adriel.androidaudiorecorder.model.AudioSource;
+import pl.droidsonroids.gif.GifImageView;
 import sa.ksu.swe444.hackwati.MainActivity;
 import sa.ksu.swe444.hackwati.R;
 import sa.ksu.swe444.hackwati.cafe.adriel.androidaudiorecorder.AndroidAudioRecorder;
@@ -33,7 +36,9 @@ public class recordActivity extends AppCompatActivity {
     private static final String AUDIO_FILE_PATH =
             Environment.getExternalStorageDirectory().getPath() + "/recorded_audio.3gp";
 
+    private Button uploadBtn;
     public BottomNavigationView navView;
+    private GifImageView shining;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,8 +75,17 @@ public class recordActivity extends AppCompatActivity {
                 return true;
             }
         });
-        Log.d(TAG, "buy "+AUDIO_FILE_PATH);
 
+        //Buttons:
+
+        shining = findViewById(R.id.shining);
+        uploadBtn = findViewById(R.id.uploadBtn);
+        uploadBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                shining.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     @Override
