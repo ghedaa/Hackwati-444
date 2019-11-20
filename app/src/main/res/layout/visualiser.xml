@@ -2,15 +2,33 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="180dp"
-    android:background="#ffffff" >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#ffffff">
 
-    <sa.ksu.swe444.hackwati.Recording.VisualizerView
+<!--    <sa.ksu.swe444.hackwati.Recording.VisualizerView
         android:layout_centerInParent="true"
         android:id="@+id/visualizer"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_centerHorizontal="true"
         android:layout_margin="5dp"
-        android:scaleY="-1"/>
+        android:scaleY="-1"/>-->
+
+
+    <com.cleveroad.audiovisualization.GLAudioVisualizationView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/visualizer_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:av_bubblesSize="@dimen/bubble_size"
+        app:av_bubblesRandomizeSizes="true"
+        app:av_wavesHeight="@dimen/wave_height"
+        app:av_wavesFooterHeight="@dimen/footer_height"
+        app:av_wavesCount="7"
+        app:av_layersCount="4"
+        app:av_backgroundColor="@color/av_color_bg"
+        app:av_bubblesPerLayer="16"
+        />
 
 </RelativeLayout>

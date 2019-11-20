@@ -1,15 +1,12 @@
 package sa.ksu.swe444.hackwati;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Bundle;
 
-import com.bumptech.glide.Glide;
 import com.fangxu.allangleexpandablebutton.AllAngleExpandableButton;
 import com.fangxu.allangleexpandablebutton.ButtonData;
 import com.fangxu.allangleexpandablebutton.ButtonEventListener;
@@ -26,10 +23,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -39,7 +32,6 @@ import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import java.util.ArrayList;
@@ -47,12 +39,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import sa.ksu.swe444.hackwati.Recording.RecordingActivity;
+import sa.ksu.swe444.hackwati.cafe.adriel.androidaudiorecorder.example.recordActivity;
 import sa.ksu.swe444.hackwati.explor.ExploreActivity;
 import sa.ksu.swe444.hackwati.user_profile_activity.UserProfileActivity;
-
-import static sa.ksu.swe444.hackwati.Constants.Keys.USER_EMAIL;
-import static sa.ksu.swe444.hackwati.Constants.Keys.USER_PASS;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -80,10 +69,12 @@ public class MainActivity extends AppCompatActivity {
         emptyStories = findViewById(R.id.emptyStories);
         userNameText=findViewById(R.id.userName);
         navView = findViewById(R.id.nav_view);
+        navView.setSelectedItemId(R.id.navigation_subscription);
 
-        toolbarMain = (Toolbar) findViewById(R.id.toolbarMain);
+
+        toolbarMain = (Toolbar) findViewById(R.id.anim_toolbar);
         setSupportActionBar(toolbarMain);
-        getSupportActionBar().setTitle("الصفحة الرئيسية");
+    getSupportActionBar().setTitle("");
 
 
 
@@ -101,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
 
                     case R.id.navigation_record:
-                        startActivity(new Intent(MainActivity.this, RecordingActivity.class));
+                        startActivity(new Intent(MainActivity.this, recordActivity.class));
                        // navView.setSelectedItemId(R.id.navigation_record);
                        //  navView.getMenu().getItem(R.id.navigation_record).setChecked(true);
                         break;
@@ -148,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
 
         final AllAngleExpandableButton button = (AllAngleExpandableButton) findViewById(R.id.button_expandable_110_250);
         final List<ButtonData> buttonDatas = new ArrayList<>();
-        int[] drawable = {R.drawable.defult_thumbnail, R.drawable.ic_power_settings_new_black_24dp, R.drawable.defult_thumbnail, R.drawable.ic_search_black_24dp, R.drawable.mail};// gray is some thing else
+        int[] drawable = {R.drawable.ic_menu_black_24dp, R.drawable.ic_power_settings_new_black_24dp, R.drawable.defult_thumbnail, R.drawable.ic_search_black_24dp, R.drawable.mail};// gray is some thing else
         int[] color = {R.color.yellow_hak, R.color.gray_hak, R.color.gray_hak, R.color.gray_hak, R.color.gray_hak};
         for (int i = 0; i < 5; i++) {
             ButtonData buttonData;
