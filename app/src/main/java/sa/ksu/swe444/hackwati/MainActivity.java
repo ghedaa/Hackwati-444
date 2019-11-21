@@ -130,8 +130,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         retrieveSubscribedUsers();
-
-
     }
 
     private void installButton110to250() {
@@ -139,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
 
         final AllAngleExpandableButton button = (AllAngleExpandableButton) findViewById(R.id.button_expandable_110_250);
         final List<ButtonData> buttonDatas = new ArrayList<>();
-        int[] drawable = {R.drawable.ic_menu_black_24dp, R.drawable.ic_power_settings_new_black_24dp, R.drawable.defult_thumbnail, R.drawable.ic_search_black_24dp, R.drawable.mail};// gray is some thing else
+        int[] drawable = {R.drawable.ic_menu_black_24dp, R.drawable.ic_power_settings_new_black_24dp, R.drawable.defult_thumbnail, R.drawable.ic_search_black_24dp, R.drawable.ic_mail};// gray is some thing else
         int[] color = {R.color.yellow_hak, R.color.gray_hak, R.color.gray_hak, R.color.gray_hak, R.color.gray_hak};
         for (int i = 0; i < 5; i++) {
             ButtonData buttonData;

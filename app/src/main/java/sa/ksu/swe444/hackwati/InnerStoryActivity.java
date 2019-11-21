@@ -1,14 +1,18 @@
 package sa.ksu.swe444.hackwati;
 
 
+import android.Manifest;
 import android.app.DownloadManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +23,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,12 +38,14 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
+import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 
 public class InnerStoryActivity extends AppCompatActivity implements View.OnClickListener {
+    private static final int PERMISSION_STORAG_CODE = 1000;
     private ImageView share,backwardCover;
     private ImageView close;
     private SeekBar seekBar;
@@ -50,7 +57,6 @@ public class InnerStoryActivity extends AppCompatActivity implements View.OnClic
     private MediaPlayer mediaPlayer;
     private TextView remainingTime;
     private TextView currentTime;
-    // private MyService myService;
     private TextView upload;
     private RelativeLayout RL;
     File localFile = null;
@@ -64,6 +70,7 @@ public class InnerStoryActivity extends AppCompatActivity implements View.OnClic
     Uri img;
     private String title;
     private String storyID;
+    private String link;
 
     ImageView storyCover;
     private TextView titleView;
@@ -271,12 +278,48 @@ public class InnerStoryActivity extends AppCompatActivity implements View.OnClic
                 }// if
                 break;
             case R.id.download:
-                // startActivity(new Intent(InnerStoryActivity.this , Test.class));
+                /*
+                InputStream fileInputStream = null;
+                try {
+                    fileInputStream= getApplicationContext().getContentResolver().openInputStream(uri);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+           */
+
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                    if(checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)== PackageManager.PERMISSION_DENIED){
+                        String [] permission = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                        requestPermissions(permission , PERMISSION_STORAG_CODE);
+
+                    }else {
+                        startDownloading();
+                    }
+                }
+
+
+
 
         }// end switch
 
 
     }// onClick()
+
+    private void startDownloading() {
+        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(link));
+        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
+        request.setTitle(title);
+        request.setDescription("downloading story");
+        request.allowScanningByMediaScanner();
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS , "story"+System.currentTimeMillis());
+
+
+        DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+        manager.enqueue(request);
+
+
+    }
 
     private String milliSecondsToTimer(long milliseconds) {
         String finalTimerString = "";
@@ -365,6 +408,7 @@ public class InnerStoryActivity extends AppCompatActivity implements View.OnClic
         if (intent.getExtras() != null) {
 
             uri = Uri.parse(intent.getExtras().getString(Constants.Keys.STORY_AUDIO));
+            link = intent.getExtras().getString(Constants.Keys.STORY_AUDIO);
             img = Uri.parse(intent.getExtras().getString(Constants.Keys.STORY_COVER));
             storyID = intent.getExtras().getString(Constants.Keys.STORY_ID);
             title = intent.getExtras().getString(Constants.Keys.STORY_TITLE);
@@ -375,4 +419,17 @@ public class InnerStoryActivity extends AppCompatActivity implements View.OnClic
     }
 
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+
+        switch (requestCode){
+            case PERMISSION_STORAG_CODE:
+                if(grantResults.length>0 && grantResults[0]== PackageManager.PERMISSION_GRANTED){
+                    startDownloading();
+
+                }
+
+        }
+    }
 }// end class
