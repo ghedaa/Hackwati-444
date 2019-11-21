@@ -37,7 +37,6 @@ import sa.ksu.swe444.hackwati.Constants;
 import sa.ksu.swe444.hackwati.Item;
 import sa.ksu.swe444.hackwati.MainActivity;
 import sa.ksu.swe444.hackwati.R;
-import sa.ksu.swe444.hackwati.Recording.RecordingActivity;
 import sa.ksu.swe444.hackwati.SplashActivity;
 import sa.ksu.swe444.hackwati.SubscribedListActivity;
 import sa.ksu.swe444.hackwati.UserProfile;

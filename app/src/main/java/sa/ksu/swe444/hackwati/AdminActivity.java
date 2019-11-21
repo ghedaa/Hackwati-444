@@ -43,7 +43,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-import sa.ksu.swe444.hackwati.Recording.RecordingActivity;
 import sa.ksu.swe444.hackwati.explor.ExploreActivity;
 
 
@@ -71,7 +70,7 @@ public class AdminActivity extends AppCompatActivity {
         setContentView(R.layout.admin_activity_main);
         emptyStories =findViewById(R.id.emptyStories);
         navView = findViewById(R.id.nav_view);
-        toolbarMain = (Toolbar) findViewById(R.id.toolbarMain);
+        toolbarMain = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbarMain);
 
         installButton110to250();
@@ -133,9 +132,9 @@ public class AdminActivity extends AppCompatActivity {
                                     public void onClick(DialogInterface dialog, int id) {
 
                                         FirebaseAuth.getInstance().signOut();
-                                        startActivity(new Intent(AdminActivity.this, SplashActivity.class));
+                                        MySharedPreference.clearData(AdminActivity.this);
 
-                                        finish();
+                                        startActivity(new Intent(AdminActivity.this, SplashActivity.class));
 
                                     }
 

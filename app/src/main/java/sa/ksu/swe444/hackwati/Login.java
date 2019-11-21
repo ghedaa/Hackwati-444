@@ -351,6 +351,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                                 if (mAuth.getCurrentUser().getUid().equalsIgnoreCase("DUbp3gH497gydI7fJodUfRz9A2K3")
                                         || mAuth.getCurrentUser().getUid() == "DUbp3gH497gydI7fJodUfRz9A2K3") {
                                     Log.d(TAG, "admin"+userID);
+                                    executeLogin();
                                     startActivity(new Intent(Login.this, AdminActivity.class));
                                 }
                                 else {
@@ -446,6 +447,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             if (mAuth.getCurrentUser().isEmailVerified()) {
+                                executeLogin();
                                 startActivity(new Intent(Login.this, MainActivity.class));
                             } else {
                                /* Toast.makeText(Login.this, "email not verified",

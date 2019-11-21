@@ -17,7 +17,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import sa.ksu.swe444.hackwati.MainActivity;
 import sa.ksu.swe444.hackwati.R;
-import sa.ksu.swe444.hackwati.Recording.RecordingActivity;
+import sa.ksu.swe444.hackwati.cafe.adriel.androidaudiorecorder.example.recordActivity;
 
 public class ExploreActivity extends AppCompatActivity {
 
@@ -65,7 +65,7 @@ public class ExploreActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
 
                     case R.id.navigation_record:
-                        startActivity(new Intent(ExploreActivity.this, RecordingActivity.class));
+                        startActivity(new Intent(ExploreActivity.this, recordActivity.class));
 
                         break;
 

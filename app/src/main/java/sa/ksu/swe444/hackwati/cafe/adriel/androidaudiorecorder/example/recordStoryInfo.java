@@ -1,4 +1,4 @@
-package sa.ksu.swe444.hackwati.Recording;
+package sa.ksu.swe444.hackwati.cafe.adriel.androidaudiorecorder.example;
 
 
 import android.Manifest;
@@ -9,18 +9,16 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,6 +27,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
@@ -49,7 +48,6 @@ import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -65,12 +63,11 @@ import sa.ksu.swe444.hackwati.MainActivity;
 import sa.ksu.swe444.hackwati.MySharedPreference;
 import sa.ksu.swe444.hackwati.R;
 import sa.ksu.swe444.hackwati.explor.ExploreActivity;
-import sa.ksu.swe444.hackwati.uploaded_stories.UserUploadedStories;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
 
-public class Tab2StoryInfo extends Fragment {
+public class recordStoryInfo extends AppCompatActivity {
 
     private View view;
     private EditText storyTitle;
@@ -104,18 +101,34 @@ public class Tab2StoryInfo extends Fragment {
     private Button saveToDraft;
     private Spinner spinner;
     public BottomNavigationView navView;
-
+    private static final String AUDIO_FILE_PATH =
+            Environment.getExternalStorageDirectory().getPath() + "/recorded_audio.3gp";
 
 // should be removed
 
-    @SuppressLint("ResourceAsColor")
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.recording_fragment_two, container, false);
-        storyDiscription = view.findViewById(R.id.pp);
-        storyTitle = view.findViewById(R.id.name);
-        saveToDraft = view.findViewById(R.id.draft);
-        spinner = view.findViewById(R.id.codeSpinner);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.recording_fragment_two);
+
+
+        Intent intent = getIntent();
+        if (intent.getExtras() != null){
+           // fileName = intent.getExtras().getString("path");
+
+
+        }
+
+        //fileName = Environment.getExternalStorageDirectory().getPath() + "/recorded_audio.3gp";
+        Log.d(TAG, "hello n"+AUDIO_FILE_PATH);
+        fileName = AUDIO_FILE_PATH;
+
+        Log.d(getClass().getSimpleName(), "queen "+fileName); Log.d(getClass().getSimpleName(), "queen "+AUDIO_FILE_PATH);
+
+        storyDiscription = findViewById(R.id.pp);
+        storyTitle = findViewById(R.id.name);
+        saveToDraft = findViewById(R.id.draft);
+        spinner = findViewById(R.id.codeSpinner);
 
         List<String> list = new ArrayList<>();
         list.add("نوع القصة");
@@ -126,7 +139,7 @@ public class Tab2StoryInfo extends Fragment {
         list.add("قصص خيال علمي");
 
 
-        ArrayAdapter adapter = new ArrayAdapter<>(getContext(), R.layout.spinner_layout,R.id.textview, list);
+        ArrayAdapter adapter = new ArrayAdapter<>(this, R.layout.spinner_layout,R.id.textview, list);
         spinner.setAdapter(adapter);
 
 
@@ -143,14 +156,13 @@ public class Tab2StoryInfo extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         id =  mAuth.getUid();
 
-        fileName = getActivity().getExternalCacheDir().getAbsolutePath();
-        fileName += "/audiorecordtest.3gp";
+        //fileName = Environment.getExternalStorageDirectory().getPath() + "/recorded_audio.3gp";
         // storyDiscription.setText(storyTitle.getText().toString());
         userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         storageRef = storage.getReference();
 
 
-        publishStory = view.findViewById(R.id.submit);
+        publishStory = findViewById(R.id.submit);
         publishStory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -158,12 +170,15 @@ public class Tab2StoryInfo extends Fragment {
                     storyId = storyTitleToStoryId();
                     uploadAudio();
                     uploadImageWithUri();
+
+                  //  startActivity(new Intent(recordStoryInfo.this,recordComplitaion.class));
+
                 }
 
             }
         });
 
-        img = view.findViewById(R.id.Img);
+        img = findViewById(R.id.Img);
 
 
         img.setOnClickListener(new View.OnClickListener() {
@@ -175,12 +190,13 @@ public class Tab2StoryInfo extends Fragment {
         });
         bottomNavigation();
 
-        return view;
+
+
     }//end of onCreate()
 
 
     public void bottomNavigation() {
-        navView = view.findViewById(R.id.nav_view_rec);
+        navView = findViewById(R.id.nav_view_rec);
         navView.setSelectedItemId(R.id.navigation_record);
         navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -191,11 +207,11 @@ public class Tab2StoryInfo extends Fragment {
                         break;
 
                     case R.id.navigation_subscription:
-                        showDialogWithOkButton("هل تريد حقاً ترك القصة؟",  new Intent(getContext(), MainActivity.class));
+                        showDialogWithOkButton("هل تريد حقاً ترك القصة؟",  new Intent(recordStoryInfo.this, MainActivity.class));
                         break;
 
                     case R.id.navigation_explore:
-                        showDialogWithOkButton("هل تريد حقاً ترك القصة؟",  new Intent(getContext(), ExploreActivity.class));
+                        showDialogWithOkButton("هل تريد حقاً ترك القصة؟",  new Intent(recordStoryInfo.this, ExploreActivity.class));
                         break;
 
                 }// end of switch
@@ -258,7 +274,7 @@ public class Tab2StoryInfo extends Fragment {
         uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Toast.makeText(getContext(), "success", Toast.LENGTH_SHORT);
+                Toast.makeText(recordStoryInfo.this, "success", Toast.LENGTH_SHORT);
                 taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
@@ -311,14 +327,14 @@ return isValid;
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == getActivity().RESULT_CANCELED) {
+        if (resultCode == this.RESULT_CANCELED) {
             return;
         }//end if statement
         if (requestCode == INTENT_GALLERY) {
             if (data != null) {
                 contentURI = data.getData();
                 try {
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), contentURI);
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(recordStoryInfo.this.getContentResolver(), contentURI);
                     // String path = saveImage(bitmap);
                     img.setImageBitmap(bitmap);
                     isSelectImage = true;
@@ -328,7 +344,7 @@ return isValid;
 
                 } catch (IOException e) {
                     e.printStackTrace();
-                    Toast.makeText(getContext(), "Failed!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(recordStoryInfo.this, "Failed!", Toast.LENGTH_SHORT).show();
                 }// end catch
             }//end if statement
 
@@ -339,7 +355,7 @@ return isValid;
             if (data != null)
                 contentURI = bitmapToUriConverter(thumbnail);
             else
-                Toast.makeText(getContext(), "NULLLLLLLLL", Toast.LENGTH_LONG).show();
+                Toast.makeText(recordStoryInfo.this, "NULLLLLLLLL", Toast.LENGTH_LONG).show();
 
 
             // saveImage(thumbnail);
@@ -348,7 +364,7 @@ return isValid;
 
 
     private void persistImage(Bitmap bitmap) {
-        File fileDir = getActivity().getFilesDir();
+        File fileDir = recordStoryInfo.this.getFilesDir();
         String name = "image";
 
         imgFile = new File(fileDir, name + ".png");
@@ -366,8 +382,8 @@ return isValid;
 
 
     private void openCameraChooser() {
-        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, 100);
+        if (ActivityCompat.checkSelfPermission(recordStoryInfo.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(recordStoryInfo.this, new String[]{Manifest.permission.CAMERA}, 100);
         }// end if
 
         showPhotoOptionsDialog();
@@ -375,7 +391,7 @@ return isValid;
 
     private void showPhotoOptionsDialog() {
         final CharSequence[] items = {"Gallery"};
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int item) {
@@ -441,12 +457,13 @@ return isValid;
         uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Toast.makeText(getContext(), "success", Toast.LENGTH_SHORT);
+                Toast.makeText(recordStoryInfo.this, "success", Toast.LENGTH_SHORT);
                 taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
                         audioUri = uri.toString();
                         addStoryToCollection();
+
 
                     }
                 });
@@ -465,8 +482,8 @@ return isValid;
         String rate = "5";
         String title = storyTitle.getText().toString();
         String userId = id;
-        String pic = MySharedPreference.getString(getContext(), Constants.Keys.STORY_COVER, "");
-        String sound = MySharedPreference.getString(getContext(), Constants.Keys.STORY_AUDIO, "");
+        String pic = MySharedPreference.getString(recordStoryInfo.this, Constants.Keys.STORY_COVER, "");
+        String sound = MySharedPreference.getString(recordStoryInfo.this, Constants.Keys.STORY_AUDIO, "");
 
         story.put("description", description);
         story.put("rate", "0");
@@ -488,7 +505,8 @@ return isValid;
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        startActivity(new Intent(getContext(), MainActivity.class));
+
+                        startActivity(new Intent(recordStoryInfo.this,recordComplitaion.class));
 
 
                     }
@@ -496,7 +514,7 @@ return isValid;
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getContext(), "Error_add_story", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(recordStoryInfo.this, "Error_add_story", Toast.LENGTH_SHORT).show();
                         Log.d(TAG, e.toString());
                     }
                 });
@@ -526,7 +544,7 @@ return isValid;
 
             //uploading the image
             if (contentURI == null)
-                Toast.makeText(getContext(), "NULLLLLLLLL!!!!!!!!!!!!!", Toast.LENGTH_LONG).show();
+                Toast.makeText(recordStoryInfo.this, "NULLLLLLLLL!!!!!!!!!!!!!", Toast.LENGTH_LONG).show();
 
             final UploadTask uploadTask = filepathImg.putFile(contentURI);
 
@@ -570,8 +588,8 @@ return isValid;
         String rate = "5";
         String title = storyTitle.getText().toString();
         String userId = id;
-        String pic = MySharedPreference.getString(getContext(), Constants.Keys.STORY_COVER, "");
-        String sound = MySharedPreference.getString(getContext(), Constants.Keys.STORY_AUDIO, "");
+        String pic = MySharedPreference.getString(recordStoryInfo.this, Constants.Keys.STORY_COVER, "");
+        String sound = MySharedPreference.getString(recordStoryInfo.this, Constants.Keys.STORY_AUDIO, "");
 
         story.put("pic", imgUri);
 
@@ -615,7 +633,7 @@ return isValid;
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        startActivity(new Intent(getContext(), MainActivity.class));
+                        startActivity(new Intent(recordStoryInfo.this, MainActivity.class));
 
 
                     }
@@ -623,7 +641,7 @@ return isValid;
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getContext(), "Error_add_story", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(recordStoryInfo.this, "Error_add_story", Toast.LENGTH_SHORT).show();
                         Log.d(TAG, e.toString());
                     }
                 });
@@ -631,7 +649,7 @@ return isValid;
     }
 
     private void showDialogWithOkButton(String msg, final Intent intent) {
-        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(getContext());
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(recordStoryInfo.this);
         builder.setMessage(msg)
                 .setCancelable(false)
                 .setPositiveButton("حسنًا", new DialogInterface.OnClickListener() {
@@ -650,7 +668,7 @@ return isValid;
     }
 
     private void showDialogWithOkButton(String msg) {
-        final androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(getContext());
+        final androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(recordStoryInfo.this);
         builder.setMessage(msg)
                 .setCancelable(false)
                 .setPositiveButton("حسناً", new DialogInterface.OnClickListener() {
@@ -673,9 +691,9 @@ return isValid;
             options.inJustDecodeBounds = false;
             Bitmap newBitmap = Bitmap.createScaledBitmap(mBitmap, 200, 200,
                     true);
-            File file = new File(getActivity().getFilesDir(), "Image"
+            File file = new File(recordStoryInfo.this.getFilesDir(), "Image"
                     + new Random().nextInt() + ".png");
-            FileOutputStream out = getActivity().openFileOutput(file.getName(),
+            FileOutputStream out = recordStoryInfo.this.openFileOutput(file.getName(),
                     Context.MODE_WORLD_READABLE);
             newBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
             out.flush();

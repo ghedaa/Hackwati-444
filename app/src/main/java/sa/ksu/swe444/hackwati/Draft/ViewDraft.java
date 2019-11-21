@@ -38,7 +38,6 @@ import sa.ksu.swe444.hackwati.ConcatUsActivity;
 import sa.ksu.swe444.hackwati.Item;
 import sa.ksu.swe444.hackwati.MainActivity;
 import sa.ksu.swe444.hackwati.R;
-import sa.ksu.swe444.hackwati.Recording.RecordingActivity;
 import sa.ksu.swe444.hackwati.SplashActivity;
 import sa.ksu.swe444.hackwati.UserProfile;
 import sa.ksu.swe444.hackwati.explor.ExploreActivity;
