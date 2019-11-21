@@ -15,6 +15,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.FileUtils;
 import android.os.StrictMode;
 import android.provider.SyncStateContract;
 import android.util.Log;
@@ -32,6 +33,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 
@@ -52,8 +54,7 @@ public class ListenToUserStory extends AppCompatActivity implements View.OnClick
     private TextView remainingTime;
     private TextView currentTime;
     // private MyService myService;
-    private TextView upload;
-    private RelativeLayout RL;
+
     File localFile = null;
     FirebaseStorage storage;
     StorageReference storageReference;
@@ -266,7 +267,11 @@ public class ListenToUserStory extends AppCompatActivity implements View.OnClick
                 }// if
                 break;
             case R.id.download:
-                download();
+                            // download();
+                Intent intent = new Intent(ListenToUserStory.this , uri.getClass());
+                startActivity(intent);
+
+
                 break;
 
                 // startActivity(new Intent(InnerStoryActivity.this , Test.class));
