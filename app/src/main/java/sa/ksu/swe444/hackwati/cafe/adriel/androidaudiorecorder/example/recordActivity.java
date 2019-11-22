@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,14 +20,13 @@ import androidx.core.content.ContextCompat;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-
+import cafe.adriel.androidaudiorecorder.model.AudioChannel;
+import cafe.adriel.androidaudiorecorder.model.AudioSampleRate;
+import cafe.adriel.androidaudiorecorder.model.AudioSource;
 import pl.droidsonroids.gif.GifImageView;
 import sa.ksu.swe444.hackwati.MainActivity;
 import sa.ksu.swe444.hackwati.R;
 import sa.ksu.swe444.hackwati.cafe.adriel.androidaudiorecorder.AndroidAudioRecorder;
-import sa.ksu.swe444.hackwati.cafe.adriel.androidaudiorecorder.model.AudioChannel;
-import sa.ksu.swe444.hackwati.cafe.adriel.androidaudiorecorder.model.AudioSampleRate;
-import sa.ksu.swe444.hackwati.cafe.adriel.androidaudiorecorder.model.AudioSource;
 import sa.ksu.swe444.hackwati.explor.ExploreActivity;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
@@ -39,7 +39,6 @@ public class recordActivity extends AppCompatActivity {
     private Button uploadBtn;
     public BottomNavigationView navView;
     private GifImageView shining;
-    private Button check;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,8 +86,6 @@ public class recordActivity extends AppCompatActivity {
                 shining.setVisibility(View.VISIBLE);
             }
         });
-
-
     }
 
     @Override
@@ -114,7 +111,7 @@ public class recordActivity extends AppCompatActivity {
         AndroidAudioRecorder.with(this)
                 // Required
                 .setFilePath(AUDIO_FILE_PATH)
-               // .setColor(ContextCompat.getColor(this, R.color.green_hak))
+                .setColor(ContextCompat.getColor(this, R.color.green_hak))
                 .setRequestCode(REQUEST_RECORD_AUDIO)
 
                 // Optional
@@ -131,7 +128,6 @@ public class recordActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(recordActivity.this, recordActivity.class);
-        startActivity(intent);
+
     }
 }

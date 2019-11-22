@@ -94,6 +94,7 @@ public class recordStoryInfo extends AppCompatActivity {
     Uri contentURI;
     private String audioUri;
     private String imgUri;
+    private String uploadedAudio;
     private String downloadURLA;
     String id;
     String docId;
@@ -115,7 +116,12 @@ public class recordStoryInfo extends AppCompatActivity {
 
         Intent intent = getIntent();
         if (intent.getExtras() != null){
-           // fileName = intent.getExtras().getString("path");
+
+            uploadedAudio=intent.getExtras().getString("FatimahAudio");
+           // if(intent.getExtras().getString("isFull").equals("true"))
+
+          fileName=uploadedAudio;
+
 
 
         }

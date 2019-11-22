@@ -69,6 +69,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     private FirebaseAuth.AuthStateListener authStateListener;
     private boolean verify = false;
     private MySharedPreference pref1;
+    private String nameGoogle;
 
     // ...
     private final String TAG = "Login";
@@ -98,7 +99,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                         executeLogin();
 
                       //  startActivity(new Intent(Login.this, MainActivity.class));
-
                     }
 
                 }
@@ -229,12 +229,18 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     private void googleSignIn() {
         progressBar.setVisibility(View.VISIBLE);
+        mAuth = FirebaseAuth.getInstance();
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+
+
         //Token ID
         mAuth.getCurrentUser().getIdToken(true).addOnSuccessListener(new OnSuccessListener<GetTokenResult>() {
             @Override
             public void onSuccess(GetTokenResult getTokenResult) {
                 String tokenID= getTokenResult.getToken();
                 String uid= mAuth.getInstance().getUid();
+                nameGoogle = mAuth.getCurrentUser().getDisplayName();
 
                 Map<String,Object> user_updateToken = new HashMap<>();
                 user_updateToken.put("TokenID",tokenID);
@@ -243,13 +249,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 Toast.makeText(Login.this,"token is here",Toast.LENGTH_LONG).show();
+
                             }
                         });
             }
         });// end og getting token by fatimah
         createUserCollection();
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, RC_SIGN_IN);
     }// end of googleSignIn
 
     private void createUserCollection() {
@@ -258,6 +263,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         //user.put("username",register_name.getText().toString());
         //user.put("email",register_email.getText().toString());
         user.put("info","");
+        user.put("username" , nameGoogle);
+        
         user.put("favorite", Arrays.asList());
         user.put("subscribedUsers", Arrays.asList());
         user.put("thumbnail","https://firebasestorage.googleapis.com/v0/b/hackwati444.appspot.com/o/Hakawati%2Fdefult_thumbnail.png?alt=media&token=be4ed812-e028-493c-a703-593e4a993c1f");

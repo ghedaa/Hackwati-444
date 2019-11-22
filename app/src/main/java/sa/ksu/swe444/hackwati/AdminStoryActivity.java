@@ -423,7 +423,7 @@ public class AdminStoryActivity extends AppCompatActivity implements View.OnClic
 
     }
 
-    private void sendApprovedNotifications(String userId, String title) {
+    private void  sendApprovedNotifications(String userId, String title) {
         final String[] username = {""};
                   firebaseFirestore.collection("users").document(userId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
               @Override

@@ -78,6 +78,7 @@ public class AndroidAudioRecorder {
     public AndroidAudioRecorder setSampleRate(AudioSampleRate sampleRate) {
         this.sampleRate = sampleRate;
         return this;
+
     }
 
     public AndroidAudioRecorder setAutoStart(boolean autoStart) {
