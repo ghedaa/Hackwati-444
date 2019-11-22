@@ -39,7 +39,7 @@
         <activity
             android:name=".InnerStoryActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".Recording.RecordingActivity" />
+        <activity android:name=".cafe.adriel.androidaudiorecorder.AudioRecorderActivity" />
         <activity android:name=".explor.ExploreActivity" />
         <activity android:name=".ConcatUsActivity" />
         <activity android:name=".exploreActivity" />
@@ -52,7 +52,8 @@
         </activity>
         <activity android:name=".AdminActivity"></activity>
         <activity android:name=".AdminStoryActivity" />
-        <activity android:name=".cafe.adriel.androidaudiorecorder.example.recordActivity" />
+        <activity android:name=".cafe.adriel.androidaudiorecorder.example.recordActivity"
+            android:parentActivityName=".cafe.adriel.androidaudiorecorder.example.recordActivity"/>
         <activity android:name=".cafe.adriel.androidaudiorecorder.example.recordStoryInfo" />
         <activity
             android:name=".user_profile_activity.UserProfileActivity"
@@ -60,10 +61,6 @@
         <activity
             android:name=".ui.profileActivity.ProfileActivity"
             android:label="@string/app_name" />
-        <activity
-            android:name=".UserProfile"
-            android:label="@string/app_name"
-            android:parentActivityName=".MainActivity" />
         <activity android:name=".Login"></activity>
         <activity android:name=".MainActivity"></activity>
 

@@ -49,6 +49,7 @@
                 android:layout_centerInParent="true"
                 android:backgroundTint="@color/lightYellow"
                 android:onClick="recordAudio"
+                android:textStyle="bold"
                 android:text="سجّل صوتك"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="#FFFFFF"
@@ -87,7 +88,7 @@
                 android:onClick="recordAudio"
                 android:id="@+id/uploadBtn"
                 android:text="ارفع صوت"
-
+                android:textStyle="bold"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="#FFFFFF"
                 android:textSize="18dp" />
@@ -118,11 +119,10 @@
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:gravity="left"
+        android:textAlignment="center"
         android:text="حدد المصدر"
         android:textColor="@color/gray_hak2"
-        android:textSize="14dp"
+        android:textSize="18dp"
         android:id="@+id/title"
         android:textStyle="bold" />
 
@@ -130,12 +130,13 @@
     <RelativeLayout
         android:id="@+id/timeLine"
         android:layout_width="match_parent"
+        android:gravity="center"
         android:layout_height="80dp"
         android:layout_marginTop="20dp">
 
         <View
             android:id="@+id/separator2"
-            android:layout_width="350dp"
+            android:layout_width="360dp"
             android:layout_height="3dip"
             android:layout_centerInParent="true"
             android:layout_centerVertical="true"
@@ -143,12 +144,16 @@
             android:alpha=".3"
             android:background="#A0A0A0" />
 
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="80dp"
 
+  >
         <LinearLayout
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_alignParentLeft="true"
             android:layout_centerInParent="true"
+            android:layout_alignParentLeft="true"
             android:layout_marginLeft="20dp"
             android:background="@drawable/circle"
             android:backgroundTint="@color/blue_hak">
@@ -162,27 +167,32 @@
                 android:textSize="25dp"
                 android:textStyle="bold" />
 
-
-
-
-
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_centerInParent="true"
-            android:layout_marginLeft="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="130dp"
             android:background="@drawable/circle_withou_border" />
 
         <LinearLayout
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
-            android:layout_marginRight="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="130dp"
             android:background="@drawable/circle_withou_border" />
 
+        <LinearLayout
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerInParent="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/circle_withou_border" />
+</RelativeLayout>
 
 
     </RelativeLayout>

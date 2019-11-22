@@ -1,42 +1,53 @@
 package sa.ksu.swe444.hackwati.cafe.adriel.androidaudiorecorder;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 
+
+import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.cleveroad.audiovisualization.DbmHandler;
 import com.cleveroad.audiovisualization.GLAudioVisualizationView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.File;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import cafe.adriel.androidaudiorecorder.Util;
-import cafe.adriel.androidaudiorecorder.VisualizerHandler;
-import cafe.adriel.androidaudiorecorder.model.AudioChannel;
-import cafe.adriel.androidaudiorecorder.model.AudioSampleRate;
-import cafe.adriel.androidaudiorecorder.model.AudioSource;
+
 import omrecorder.AudioChunk;
 import omrecorder.OmRecorder;
 import omrecorder.PullTransport;
 import omrecorder.Recorder;
+import sa.ksu.swe444.hackwati.MainActivity;
 import sa.ksu.swe444.hackwati.R;
+import sa.ksu.swe444.hackwati.cafe.adriel.androidaudiorecorder.example.recordActivity;
+import sa.ksu.swe444.hackwati.cafe.adriel.androidaudiorecorder.example.recordStoryInfo;
+import sa.ksu.swe444.hackwati.cafe.adriel.androidaudiorecorder.model.AudioChannel;
+import sa.ksu.swe444.hackwati.cafe.adriel.androidaudiorecorder.model.AudioSampleRate;
+import sa.ksu.swe444.hackwati.cafe.adriel.androidaudiorecorder.model.AudioSource;
+import sa.ksu.swe444.hackwati.explor.ExploreActivity;
 
 public class AudioRecorderActivity extends AppCompatActivity
-        implements PullTransport.OnAudioChunkPulledListener, MediaPlayer.OnCompletionListener {
+        implements PullTransport.OnAudioChunkPulledListener, MediaPlayer.OnCompletionListener ,  View.OnClickListener{
 
     private String filePath;
     private AudioSource source;
@@ -45,6 +56,7 @@ public class AudioRecorderActivity extends AppCompatActivity
     private int color;
     private boolean autoStart;
     private boolean keepDisplayOn;
+    public BottomNavigationView navView;
 
     private ImageButton dog;
     private ImageButton monkey;
@@ -60,7 +72,7 @@ public class AudioRecorderActivity extends AppCompatActivity
     private VisualizerHandler visualizerHandler;
 
     private Timer timer;
-    private MenuItem saveMenuItem;
+    private ImageButton saveMenuItem,backBtn;
     private int recorderSecondsElapsed;
     private int playerSecondsElapsed;
     private boolean isRecording;
@@ -108,27 +120,27 @@ public class AudioRecorderActivity extends AppCompatActivity
             getSupportActionBar().setBackgroundDrawable(
                     new ColorDrawable(Util.getDarkerColor(color)));
             getSupportActionBar().setHomeAsUpIndicator(
-                    ContextCompat.getDrawable(this, cafe.adriel.androidaudiorecorder.R.drawable.aar_ic_clear));
+                    ContextCompat.getDrawable(this, R.drawable.aar_ic_clear));
         }
 
         visualizerView = new GLAudioVisualizationView.Builder(this)
                 .setLayersCount(1)
                 .setWavesCount(6)
-                .setWavesHeight(cafe.adriel.androidaudiorecorder.R.dimen.aar_wave_height)
-                .setWavesFooterHeight(cafe.adriel.androidaudiorecorder.R.dimen.aar_footer_height)
+                .setWavesHeight(R.dimen.aar_wave_height)
+                .setWavesFooterHeight(R.dimen.aar_footer_height)
                 .setBubblesPerLayer(20)
-                .setBubblesSize(cafe.adriel.androidaudiorecorder.R.dimen.aar_bubble_size)
+                .setBubblesSize(R.dimen.aar_bubble_size)
                 .setBubblesRandomizeSize(true)
                 .setBackgroundColor(Util.getDarkerColor(color))
                 .setLayerColors(new int[]{color})
                 .build();
 
-        contentLayout = (RelativeLayout) findViewById(cafe.adriel.androidaudiorecorder.R.id.content);
-        statusView = (TextView) findViewById(cafe.adriel.androidaudiorecorder.R.id.status);
-        timerView = (TextView) findViewById(cafe.adriel.androidaudiorecorder.R.id.timer);
-        restartView = (ImageButton) findViewById(cafe.adriel.androidaudiorecorder.R.id.restart);
-        recordView = (ImageButton) findViewById(cafe.adriel.androidaudiorecorder.R.id.record);
-        playView = (ImageButton) findViewById(cafe.adriel.androidaudiorecorder.R.id.play);
+        contentLayout = (RelativeLayout) findViewById(R.id.content);
+        statusView = (TextView) findViewById(R.id.status);
+        timerView = (TextView) findViewById(R.id.timer);
+        restartView = (ImageButton) findViewById(R.id.restart);
+        recordView = (ImageButton) findViewById(R.id.record);
+        playView = (ImageButton) findViewById(R.id.play);
 
         contentLayout.setBackgroundColor(Util.getDarkerColor(color));
         contentLayout.addView(visualizerView, 0);
@@ -136,7 +148,7 @@ public class AudioRecorderActivity extends AppCompatActivity
         playView.setVisibility(View.INVISIBLE);
 
 
-        dog = findViewById(R.id.record_dog);
+        dog = (ImageButton) findViewById(R.id.record_dog);
         playerDog = MediaPlayer.create(this, R.raw.bark);
         dog.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,7 +156,7 @@ public class AudioRecorderActivity extends AppCompatActivity
                 playerDog.start();
             }
         });
-        monkey = findViewById(R.id.record_monkey);
+        monkey = (ImageButton) findViewById(R.id.record_monkey);
         playerMonkey = MediaPlayer.create(this, R.raw.rmonkeycolobus);
         monkey.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,7 +165,7 @@ public class AudioRecorderActivity extends AppCompatActivity
 
             }
         });
-        lion = findViewById(R.id.record_lion);
+        lion = (ImageButton) findViewById(R.id.record_lion);
         playerLion = MediaPlayer.create(this, R.raw.lion4);
         lion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,7 +174,7 @@ public class AudioRecorderActivity extends AppCompatActivity
             }
         });
 
-        bird = findViewById(R.id.record_bird);
+        bird =(ImageButton) findViewById(R.id.record_bird);
         playerBird = MediaPlayer.create(this, R.raw.bird);
         bird.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -173,9 +185,9 @@ public class AudioRecorderActivity extends AppCompatActivity
 
 
         if(Util.isBrightColor(color)) {
-            ContextCompat.getDrawable(this, cafe.adriel.androidaudiorecorder.R.drawable.aar_ic_clear)
+            ContextCompat.getDrawable(this, R.drawable.aar_ic_clear)
                     .setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_ATOP);
-            ContextCompat.getDrawable(this, cafe.adriel.androidaudiorecorder.R.drawable.aar_ic_check)
+            ContextCompat.getDrawable(this, R.drawable.aar_ic_check)
                     .setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_ATOP);
             statusView.setTextColor(Color.BLACK);
             timerView.setTextColor(Color.BLACK);
@@ -183,6 +195,35 @@ public class AudioRecorderActivity extends AppCompatActivity
             recordView.setColorFilter(Color.BLACK);
             playView.setColorFilter(Color.BLACK);
         }
+
+        saveMenuItem = (ImageButton) findViewById(R.id.action_save);
+        saveMenuItem.setOnClickListener(this);
+
+        backBtn = (ImageButton) findViewById(R.id.backBtn);
+        backBtn.setOnClickListener(this);
+
+        //NavView
+        navView = findViewById(R.id.navigation_record);
+        navView.setSelectedItemId(R.id.navigation_record);
+        navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+
+                    case R.id.navigation_record:
+                        startActivity(new Intent(AudioRecorderActivity.this, recordActivity.class));
+                        break;
+                    case R.id.navigation_subscription:
+                        showDialogWithOkButton("هل تريد حقاً إلغاء التسجيل؟",  new Intent(AudioRecorderActivity.this, MainActivity.class));
+                        break;
+                    case R.id.navigation_explore:
+                        showDialogWithOkButton("هل تريد حقاً إلغاء التسجيل؟",  new Intent(AudioRecorderActivity.this, ExploreActivity.class));
+                        break;
+
+                }// end of switch
+                return true;
+            }
+        });
     }
 
     @Override
@@ -227,23 +268,43 @@ public class AudioRecorderActivity extends AppCompatActivity
         super.onSaveInstanceState(outState);
     }
 
-    @Override
+
+
+   /* @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(cafe.adriel.androidaudiorecorder.R.menu.aar_audio_recorder, menu);
-        saveMenuItem = menu.findItem(cafe.adriel.androidaudiorecorder.R.id.action_save);
-        saveMenuItem.setIcon(ContextCompat.getDrawable(this, cafe.adriel.androidaudiorecorder.R.drawable.aar_ic_check));
+        getMenuInflater().inflate(R.menu.aar_audio_recorder, menu);
+        saveMenuItem = menu.findItem(R.id.action_save);
+        saveMenuItem.setIcon(ContextCompat.getDrawable(this, R.drawable.aar_ic_check));
+        saveMenuItem.setEnabled(true);
         return super.onCreateOptionsMenu(menu);
     }
 
+
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int i = item.getItemId();
-        if (i == android.R.id.home) {
-            finish();
-        } else if (i == cafe.adriel.androidaudiorecorder.R.id.action_save) {
-            selectAudio();
+    public boolean onPrepareOptionsMenu(Menu menu) {
+
+         inflater = getMenuInflater();
+        inflater.inflate(R.menu.aar_audio_recorder, menu);
+        saveMenuItem = menu.findItem(R.id.action_save);
+        Log.d("MenuItem", saveMenuItem.toString());
+        saveMenuItem.setIcon(ContextCompat.getDrawable(this, R.drawable.aar_ic_check));
+        return super.onPrepareOptionsMenu(menu);
+    }
+*/
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.action_save:
+                selectAudio();
+                break;
+
+                case R.id.backBtn:
+                onBackPressed();
+                break;
+
+
         }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -304,11 +365,11 @@ public class AudioRecorderActivity extends AppCompatActivity
                 visualizerHandler.stop();
             }
         }
-        saveMenuItem.setVisible(false);
+        saveMenuItem.setVisibility(View.INVISIBLE);
         statusView.setVisibility(View.INVISIBLE);
         restartView.setVisibility(View.INVISIBLE);
         playView.setVisibility(View.INVISIBLE);
-        recordView.setImageResource(cafe.adriel.androidaudiorecorder.R.drawable.aar_ic_rec);
+        recordView.setImageResource(R.drawable.aar_ic_rec);
         timerView.setText("00:00:00");
         recorderSecondsElapsed = 0;
         playerSecondsElapsed = 0;
@@ -316,13 +377,13 @@ public class AudioRecorderActivity extends AppCompatActivity
 
     private void resumeRecording() {
         isRecording = true;
-        saveMenuItem.setVisible(false);
+        saveMenuItem.setVisibility(View.INVISIBLE);
         statusView.setText("جاري التسجيل");
         statusView.setVisibility(View.VISIBLE);
         restartView.setVisibility(View.INVISIBLE);
         playView.setVisibility(View.INVISIBLE);
-        recordView.setImageResource(cafe.adriel.androidaudiorecorder.R.drawable.aar_ic_pause);
-        playView.setImageResource(cafe.adriel.androidaudiorecorder.R.drawable.aar_ic_play);
+        recordView.setImageResource(R.drawable.aar_ic_pause);
+        playView.setImageResource(R.drawable.aar_ic_play);
 
         visualizerHandler = new VisualizerHandler();
         visualizerView.linkTo(visualizerHandler);
@@ -342,14 +403,14 @@ public class AudioRecorderActivity extends AppCompatActivity
     private void pauseRecording() {
         isRecording = false;
         if(!isFinishing()) {
-            saveMenuItem.setVisible(true);
+            saveMenuItem.setVisibility(View.VISIBLE);
         }
         statusView.setText("إيقاف مؤقت");
         statusView.setVisibility(View.VISIBLE);
         restartView.setVisibility(View.VISIBLE);
         playView.setVisibility(View.VISIBLE);
-        recordView.setImageResource(cafe.adriel.androidaudiorecorder.R.drawable.aar_ic_rec);
-        playView.setImageResource(cafe.adriel.androidaudiorecorder.R.drawable.aar_ic_play);
+        recordView.setImageResource(R.drawable.aar_ic_rec);
+        playView.setImageResource(R.drawable.aar_ic_play);
 
         visualizerView.release();
         if(visualizerHandler != null) {
@@ -395,9 +456,9 @@ public class AudioRecorderActivity extends AppCompatActivity
             });
 
             timerView.setText("00:00:00");
-            statusView.setText("جاري التشغيل");
+            statusView.setText("تشغيل");
             statusView.setVisibility(View.VISIBLE);
-            playView.setImageResource(cafe.adriel.androidaudiorecorder.R.drawable.aar_ic_stop);
+            playView.setImageResource(R.drawable.aar_ic_stop);
 
             playerSecondsElapsed = 0;
             startTimer();
@@ -409,7 +470,7 @@ public class AudioRecorderActivity extends AppCompatActivity
     private void stopPlaying(){
         statusView.setText("");
         statusView.setVisibility(View.INVISIBLE);
-        playView.setImageResource(cafe.adriel.androidaudiorecorder.R.drawable.aar_ic_play);
+        playView.setImageResource(R.drawable.aar_ic_play);
 
         visualizerView.release();
         if(visualizerHandler != null) {
@@ -466,5 +527,35 @@ public class AudioRecorderActivity extends AppCompatActivity
                 }
             }
         });
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        if (!isRecording && !isPlaying())
+            super.onBackPressed();
+        else {
+           showDialogWithOkButton("هل تريد حقاً إلغاء التسجيل؟", new Intent(AudioRecorderActivity.this, recordActivity.class));
+        }
+
+    }
+
+    private void showDialogWithOkButton(String msg, final Intent intent) {
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(AudioRecorderActivity.this);
+        builder.setMessage(msg)
+                .setCancelable(false)
+                .setPositiveButton("حسنًا", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        startActivity(intent);
+                    }
+                }).setNegativeButton("إلغاء", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+
+            }
+        });
+        androidx.appcompat.app.AlertDialog alert = builder.create();
+        alert.show();
     }
 }

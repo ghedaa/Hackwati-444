@@ -1,27 +1,21 @@
 package sa.ksu.swe444.hackwati.Draft;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.TypedValue;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.fangxu.allangleexpandablebutton.AllAngleExpandableButton;
-import com.fangxu.allangleexpandablebutton.ButtonData;
-import com.fangxu.allangleexpandablebutton.ButtonEventListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -34,14 +28,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import sa.ksu.swe444.hackwati.AdminActivity;
-import sa.ksu.swe444.hackwati.ConcatUsActivity;
 import sa.ksu.swe444.hackwati.Item;
-import sa.ksu.swe444.hackwati.MainActivity;
 import sa.ksu.swe444.hackwati.R;
-import sa.ksu.swe444.hackwati.SplashActivity;
-import sa.ksu.swe444.hackwati.UserProfile;
-import sa.ksu.swe444.hackwati.explor.ExploreActivity;
 import sa.ksu.swe444.hackwati.storyAdapter;
+import sa.ksu.swe444.hackwati.user_profile_activity.UserProfileActivity;
 
 public class ViewDraft extends AppCompatActivity {
 
@@ -224,7 +214,7 @@ public class ViewDraft extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(ViewDraft.this, UserProfile.class); // from where? and to the distanation
+        Intent intent = new Intent(ViewDraft.this, UserProfileActivity.class); // from where? and to the distanation
         startActivity(intent); // to start another activity
     }
 

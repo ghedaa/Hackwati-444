@@ -1,13 +1,11 @@
 package sa.ksu.swe444.hackwati.uploaded_stories;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,16 +13,10 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.fangxu.allangleexpandablebutton.AllAngleExpandableButton;
-import com.fangxu.allangleexpandablebutton.ButtonData;
-import com.fangxu.allangleexpandablebutton.ButtonEventListener;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -32,17 +24,11 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-import sa.ksu.swe444.hackwati.ConcatUsActivity;
 import sa.ksu.swe444.hackwati.Constants;
 import sa.ksu.swe444.hackwati.Item;
 import sa.ksu.swe444.hackwati.MainActivity;
 import sa.ksu.swe444.hackwati.R;
-import sa.ksu.swe444.hackwati.SplashActivity;
-import sa.ksu.swe444.hackwati.SubscribedListActivity;
-import sa.ksu.swe444.hackwati.UserProfile;
-import sa.ksu.swe444.hackwati.explor.ExploreActivity;
-import sa.ksu.swe444.hackwati.list_adabter.CustomAdapter;
-import sa.ksu.swe444.hackwati.list_adabter.CustomPojo;
+import sa.ksu.swe444.hackwati.cafe.adriel.androidaudiorecorder.example.recordComplitaion;
 
 public class UserUploadedStories extends AppCompatActivity {
     private String userUid;
@@ -204,5 +190,19 @@ public class UserUploadedStories extends AppCompatActivity {
     }//end of retrieveUnderProcessingStories
 
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch ( item.getItemId() ) {
+            case android.R.id.home:
+                super.onBackPressed();
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 }// class

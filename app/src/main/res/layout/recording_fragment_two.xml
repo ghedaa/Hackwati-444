@@ -7,6 +7,7 @@
     android:orientation="vertical">
 
 
+
     <LinearLayout
         android:layout_width="568dp"
         android:layout_height="882dp"
@@ -16,55 +17,28 @@
         android:background="#C9C9C9"
         android:rotation="30" />
 
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="عرّف بقصتك"
+        android:textColor="@color/gray_hak2"
+        android:textSize="18dp"
+        android:id="@+id/title"
+        android:textStyle="bold" />
+
+
     <RelativeLayout
         android:id="@+id/timeLine"
         android:layout_width="match_parent"
+        android:gravity="center"
         android:layout_height="80dp"
         android:layout_marginTop="20dp">
 
-        <LinearLayout
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="20dp"
-            android:background="@drawable/circle_withou_border">
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="20dp"
-            android:background="@drawable/circle"
-            android:backgroundTint="@color/green_hak">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="2"
-                android:textColor="#fff"
-                android:textSize="25dp"
-                android:textStyle="bold" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerInParent="true"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/circle_withou_border" />
-
-
         <View
             android:id="@+id/separator2"
-            android:layout_width="350dp"
+            android:layout_width="360dp"
             android:layout_height="3dip"
             android:layout_centerInParent="true"
             android:layout_centerVertical="true"
@@ -72,9 +46,69 @@
             android:alpha=".3"
             android:background="#A0A0A0" />
 
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+
+            >
+            <LinearLayout
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerInParent="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/circle_withou_border"
+               />
+
+            <LinearLayout
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerInParent="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="130dp"
+                android:background="@drawable/circle_withou_border" />
+
+            <LinearLayout
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="130dp"
+                android:background="@drawable/circle"
+                android:backgroundTint="@color/green_hak">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="3"
+                    android:textColor="#fff"
+                    android:textSize="25dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerInParent="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/circle_withou_border" />
+        </RelativeLayout>
+
 
     </RelativeLayout>
-
+    <pl.droidsonroids.gif.GifImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_centerInParent="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="130dp"
+        android:src="@drawable/circle_gif"
+        android:tint="@color/blue_hak2"
+        android:layout_below="@id/title"
+        />
 
     <RelativeLayout
         android:id="@+id/re"
@@ -157,17 +191,7 @@
 
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="left"
-        android:text="عرّف بقصتك"
-        android:textAlignment="center"
-        android:textColor="@color/gray_hak2"
-        android:textSize="14dp"
-        android:textStyle="bold" />
+
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/submit"
@@ -211,12 +235,5 @@
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
-    <pl.droidsonroids.gif.GifImageView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_below="@id/title"
-        android:layout_centerInParent="true"
-        android:layout_marginLeft="15dp"
-        android:src="@drawable/circle_gif"
-        android:tint="@color/green_hak2" />
+
 </RelativeLayout>

@@ -45,19 +45,14 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import sa.ksu.swe444.hackwati.Constants;
 import sa.ksu.swe444.hackwati.Draft.ViewDraft;
-import sa.ksu.swe444.hackwati.MainActivity;
 import sa.ksu.swe444.hackwati.MySharedPreference;
 import sa.ksu.swe444.hackwati.R;
-import sa.ksu.swe444.hackwati.SplashActivity;
 import sa.ksu.swe444.hackwati.SubscribedListActivity;
 import sa.ksu.swe444.hackwati.SubscribersListActivity;
-import sa.ksu.swe444.hackwati.UserProfile;
 import sa.ksu.swe444.hackwati.uploaded_stories.UserUploadedStories;
 
 

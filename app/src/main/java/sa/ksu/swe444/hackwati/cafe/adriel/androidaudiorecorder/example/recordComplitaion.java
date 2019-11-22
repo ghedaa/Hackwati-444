@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -15,11 +16,13 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import sa.ksu.swe444.hackwati.MainActivity;
 import sa.ksu.swe444.hackwati.R;
 import sa.ksu.swe444.hackwati.explor.ExploreActivity;
+import sa.ksu.swe444.hackwati.uploaded_stories.UserUploadedStories;
 
 public class recordComplitaion extends AppCompatActivity {
 
     public BottomNavigationView navView;
     TextView done,discriprion;
+    Button stories;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +46,26 @@ public class recordComplitaion extends AppCompatActivity {
                 discriprion.setVisibility(View.VISIBLE);
             }
 
-        }, 2500);
+        }, 2700);
+
+        //Button
+        stories = findViewById(R.id.stories);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                stories.setVisibility(View.VISIBLE);
+            }
+
+        }, 3300);
+        stories.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(recordComplitaion.this, UserUploadedStories.class));
+            }
+        });
+
+
 
         //NavView
         navView = findViewById(R.id.navigation_record);
@@ -67,11 +89,17 @@ public class recordComplitaion extends AppCompatActivity {
                 return true;
             }
         });
+
+
     }
+
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+
+       startActivity(new Intent(recordComplitaion.this, MainActivity.class));
+       finish();
+
 
     }
 

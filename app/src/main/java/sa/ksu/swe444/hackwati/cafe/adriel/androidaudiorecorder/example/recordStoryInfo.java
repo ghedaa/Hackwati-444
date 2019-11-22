@@ -62,6 +62,7 @@ import sa.ksu.swe444.hackwati.Constants;
 import sa.ksu.swe444.hackwati.MainActivity;
 import sa.ksu.swe444.hackwati.MySharedPreference;
 import sa.ksu.swe444.hackwati.R;
+import sa.ksu.swe444.hackwati.cafe.adriel.androidaudiorecorder.AudioRecorderActivity;
 import sa.ksu.swe444.hackwati.explor.ExploreActivity;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
@@ -732,4 +733,14 @@ return isValid;
 
         return inSampleSize;
     }
+
+    @Override
+    public void onBackPressed() {
+
+        showDialogWithOkButton("هل تريد حقاً إلغاء ترك القصة؟", new Intent(recordStoryInfo.this, recordActivity.class));
+
+
+    }
+
+
 }
