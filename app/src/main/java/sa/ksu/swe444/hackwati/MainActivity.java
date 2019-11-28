@@ -85,6 +85,9 @@ public class MainActivity extends AppCompatActivity {
         initRecyclerView();
         installButton110to250();
 
+
+
+
         navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
