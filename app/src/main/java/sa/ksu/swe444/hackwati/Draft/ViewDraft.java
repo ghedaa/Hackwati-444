@@ -1,21 +1,26 @@
 package sa.ksu.swe444.hackwati.Draft;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.TypedValue;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.fangxu.allangleexpandablebutton.AllAngleExpandableButton;
+import com.fangxu.allangleexpandablebutton.ButtonEventListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -25,11 +30,19 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import sa.ksu.swe444.hackwati.AdminActivity;
+import sa.ksu.swe444.hackwati.ConcatUsActivity;
 import sa.ksu.swe444.hackwati.Item;
+import sa.ksu.swe444.hackwati.MainActivity;
+import sa.ksu.swe444.hackwati.MySharedPreference;
 import sa.ksu.swe444.hackwati.R;
+import sa.ksu.swe444.hackwati.SplashActivity;
+import sa.ksu.swe444.hackwati.cafe.adriel.androidaudiorecorder.example.recordActivity;
+import sa.ksu.swe444.hackwati.explor.ExploreActivity;
 import sa.ksu.swe444.hackwati.storyAdapter;
 import sa.ksu.swe444.hackwati.user_profile_activity.UserProfileActivity;
 
@@ -47,6 +60,8 @@ public class ViewDraft extends AppCompatActivity {
     public FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     private static final String TAG = "AdminActivity";
     private FirebaseAuth auth;
+    public FirebaseAuth mAuth= FirebaseAuth.getInstance();
+
 
 
     public String userName, userTumbnail;
@@ -71,18 +86,47 @@ public class ViewDraft extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
 
-      //  setSupportActionBar(toolbarMain);
+        setSupportActionBar(toolbarMain);
 
-        //installButton110to250();
 
         userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         initRecyclerView();
 
 
+        navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
+                switch (item.getItemId()) {
+
+                    case R.id.navigation_record:
+                        startActivity(new Intent(ViewDraft.this, recordActivity.class));
+                        // navView.setSelectedItemId(R.id.navigation_record);
+                        //  navView.getMenu().getItem(R.id.navigation_record).setChecked(true);
+                        break;
+
+                    case R.id.navigation_subscription:
+                        startActivity(new Intent(ViewDraft.this, MainActivity.class));
+                        //navView.setSelectedItemId(R.id.navigation_subscription);
+
+                        break;
+
+                    case R.id.navigation_explore:
+                        startActivity(new Intent(ViewDraft.this, ExploreActivity.class));
+                        //   navView.setSelectedItemId(R.id.navigation_explore);
+
+                        break;
+
+                }// end of switch
+
+                return true;
+            }
+        });
 
     }//end onCreate
+
+
 
     private void initRecyclerView() {
 
@@ -141,7 +185,7 @@ public class ViewDraft extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(ViewDraft.this, UserProfileActivity.class); // from where? and to the distanation
+        Intent intent = new Intent(getBaseContext(), UserProfileActivity.class); // from where? and to the distanation
         startActivity(intent); // to start another activity
     }
 
@@ -183,6 +227,64 @@ public class ViewDraft extends AppCompatActivity {
 
     }
 
+    private void setListener(final AllAngleExpandableButton button) {
+        button.setButtonEventListener(new ButtonEventListener() {
+            @Override
+            public void onButtonClicked(int index) {
+                switch (index) {
+                    case 1:
+                        AlertDialog.Builder builder = new AlertDialog.Builder(ViewDraft.this);
+                        builder.setMessage("هل أنت متأكد من أنك تريد تسجيل الخروج؟")
+                                .setCancelable(false)
+                                .setPositiveButton("أنا متأكد", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
 
+
+                                        //Token ID
+                                        String uid= mAuth.getInstance().getUid();
+                                        Map<String,Object> user_updateToken = new HashMap<>();
+                                        user_updateToken.put("TokenID","");
+                                        firebaseFirestore.collection("users").document(uid).update(user_updateToken);
+                                        // done by fatimah clearing token id
+
+                                        FirebaseAuth.getInstance().signOut();
+                                        MySharedPreference.clearData(ViewDraft.this);
+
+                                        startActivity(new Intent(ViewDraft.this, SplashActivity.class));
+                                    }
+
+                                });
+                        builder.setNeutralButton("إلغاء", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                            }
+                        });
+
+                        AlertDialog alert = builder.create();
+                        alert.show();
+
+
+                        break;
+                    case 2:
+                        startActivity(new Intent(ViewDraft.this, UserProfileActivity.class));
+                        break;
+                    case 3:
+                        break;
+                    case 4:
+                        startActivity(new Intent(ViewDraft.this, ConcatUsActivity.class));
+                        break;
+                }
+            }
+
+            @Override
+            public void onExpand() {
+
+
+            }
+
+            @Override
+            public void onCollapse() {
+            }
+        });
+    }
 
 }

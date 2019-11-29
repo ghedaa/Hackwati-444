@@ -240,11 +240,9 @@ public class InnerStoryActivity extends AppCompatActivity implements View.OnClic
                 if (mediaPlayer.isPlaying()) {
                     pause.setImageResource(R.drawable.ic_play_button);
                     mediaPlayer.pause();
-                    // stopService(new Intent(getApplicationContext(), MyService.class));
                 } else {
                     pause.setImageResource(R.drawable.ic_pause);
                     mediaPlayer.start();
-                    //startService(new Intent(getApplicationContext(), MyService.class));
 
                     //record();
                 }// else
@@ -358,29 +356,6 @@ public class InnerStoryActivity extends AppCompatActivity implements View.OnClic
         sendIntent.setType("text/plain");
         startActivity(Intent.createChooser(sendIntent, "SEND"));
     }// end shareStory()
-
-
-
-
-
-
-    private void getAudio() {
-
-        // Create a storage reference from our app
-        StorageReference storageRef = storage.getReference();
-
-// Create a reference with an initial file path and name
-        StorageReference pathReference = storageRef.child("story_audio/new_record.3gp");
-
-// Create a reference to a file from a Google Cloud Storage URI
-        StorageReference gsReference = storage.getReferenceFromUrl("gs://bucket/tory_audio/new_record.3gp");
-
-// Create a reference from an HTTPS URL
-// Note that in the URL, characters are URL escaped!
-        // StorageReference httpsReference = storage.getReferenceFromUrl("https://firebasestorage.googleapis.com/b/bucket/o/images%20stars.jpg");
-    }
-
-
 
     private void getExtras() {
 
