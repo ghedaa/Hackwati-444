@@ -78,15 +78,13 @@ public class UserUploadedStories extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(UserUploadedStories.this);
         recyclerView.setLayoutManager(mLayoutManager);
         ItemTouchHelper itemTouchHelper = new
-                ItemTouchHelper(new SwipeToDeleteCallback(mAdapter, coordinatorLayout));
+                ItemTouchHelper(new SwipeToDeleteCallback(mAdapter));
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
         recyclerView.setAdapter(mAdapter);
         retrievePublishedStories();
         retrieveRejectedStories();
         retrieveUnderProcessingStories();
-        //installButton110to250();
-        //bottomNavigation();
 
         navView = findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

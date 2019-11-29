@@ -199,8 +199,8 @@ public class AudioRecorderActivity extends AppCompatActivity
         saveMenuItem = (ImageButton) findViewById(R.id.action_save);
         saveMenuItem.setOnClickListener(this);
 
-        backBtn = (ImageButton) findViewById(R.id.backBtn);
-        backBtn.setOnClickListener(this);
+     //   backBtn = (ImageButton) findViewById(R.id.backBtn);
+     //   backBtn.setOnClickListener(this);
 
         //NavView
         navView = findViewById(R.id.navigation_record);
@@ -299,9 +299,9 @@ public class AudioRecorderActivity extends AppCompatActivity
                 selectAudio();
                 break;
 
-                case R.id.backBtn:
-                onBackPressed();
-                break;
+            //    case R.id.backBtn:
+            //    onBackPressed();
+             //   break;
 
 
         }
