@@ -57,12 +57,12 @@ public class UserUploadedStories extends AppCompatActivity {
         setContentView(R.layout.activity_user_uploaded_stories);
         userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+      //  Toolbar toolbar = findViewById(R.id.toolbar);
+       // setSupportActionBar(toolbar);
 
-        getSupportActionBar().setTitle("القصص المرفوعة");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(false);
+//        getSupportActionBar().setTitle("القصص المرفوعة");
+  //      getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+  //      getSupportActionBar().setHomeButtonEnabled(false);
 
 
         status = findViewById(R.id.subscribeBtn);
