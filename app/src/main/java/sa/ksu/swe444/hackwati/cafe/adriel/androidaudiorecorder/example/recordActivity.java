@@ -113,7 +113,7 @@ public class recordActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_RECORD_AUDIO) {
             if (resultCode == RESULT_OK) {
-                Toast.makeText(this, "Audio recorded successfully!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "تم تسجيل الصوت بنجاح", Toast.LENGTH_SHORT).show();
 
                 Intent intint = new Intent(recordActivity.this, recordStoryInfo.class);
                 intint.putExtra("path", AUDIO_FILE_PATH);
@@ -122,7 +122,7 @@ public class recordActivity extends AppCompatActivity {
 
 
             } else if (resultCode == RESULT_CANCELED) {
-                Toast.makeText(this, "Audio was not recorded", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "تم إلغاء التسجيل", Toast.LENGTH_SHORT).show();
             }
         }
         else if(requestCode==99&&resultCode==RESULT_OK&&data!=null){

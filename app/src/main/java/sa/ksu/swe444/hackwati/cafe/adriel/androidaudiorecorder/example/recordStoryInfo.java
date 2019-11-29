@@ -661,6 +661,7 @@ return isValid;
                 .setCancelable(false)
                 .setPositiveButton("حسنًا", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        Toast.makeText(recordStoryInfo.this, "تم إلغاء القصة", Toast.LENGTH_SHORT).show();
                         startActivity(intent);
                     }
                 }).setNegativeButton("إلغاء", new DialogInterface.OnClickListener() {
@@ -743,7 +744,7 @@ return isValid;
     @Override
     public void onBackPressed() {
 
-        showDialogWithOkButton("هل تريد حقاً إلغاء ترك القصة؟", new Intent(recordStoryInfo.this, recordActivity.class));
+        showDialogWithOkButton("هل تريد حقاً إلغاء رفع القصة؟", new Intent(recordStoryInfo.this, recordActivity.class));
 
 
     }

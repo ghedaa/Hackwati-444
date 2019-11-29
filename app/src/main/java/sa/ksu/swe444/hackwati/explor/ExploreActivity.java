@@ -22,15 +22,16 @@ import sa.ksu.swe444.hackwati.R;
 import sa.ksu.swe444.hackwati.cafe.adriel.androidaudiorecorder.example.recordActivity;
 import sa.ksu.swe444.hackwati.search;
 
-public class ExploreActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
+public class ExploreActivity extends AppCompatActivity implements PopularStories.FirstFragmentListener, SearchView.OnQueryTextListener {
 
     private fragmentadapter adapter;
     private fragmentadapter adapter2;
     private ViewPager viewPager;
     private ViewPager viewPager2;
-    private AllStories allStories;
-    private PopularStories popularStories;
+     AllStories allStories;
+     PopularStories popularStories;
     public BottomNavigationView navView;
+    public String title;
     SearchView editsearch;
 
 
@@ -39,6 +40,9 @@ public class ExploreActivity extends AppCompatActivity implements SearchView.OnQ
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_explore);
+
+
+
 
 
 
@@ -52,12 +56,19 @@ public class ExploreActivity extends AppCompatActivity implements SearchView.OnQ
 
         allStories=new AllStories();
         popularStories=new PopularStories();
+
+        //Step 10
+        popularStories.setListener(this);
+
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         viewPager2= (ViewPager) findViewById(R.id.viewPager2);
+
         adapter = new fragmentadapter(getSupportFragmentManager());
         adapter2=new  fragmentadapter(getSupportFragmentManager());
+
         adapter2.addFragment(allStories);
         adapter.addFragment(popularStories);
+
         viewPager.setAdapter(adapter);
         viewPager2.setAdapter(adapter2);
 
@@ -89,13 +100,22 @@ public class ExploreActivity extends AppCompatActivity implements SearchView.OnQ
             }
         });
     }
+    // step9
+    @Override
+    public void onClassificationItemSelected1(String name) {
+        Log.d("here ","onClick on ExploreActivity"+name);
+
+        allStories.setName(name);
+    }
 
     @Override
     public boolean onQueryTextSubmit(String query) {
+
         Intent intent=new Intent(ExploreActivity.this, search.class);
         intent.putExtra("SearchText",query);
         Log.d("g","query submitted");
         startActivity(intent);
+
         return false;
     }
 

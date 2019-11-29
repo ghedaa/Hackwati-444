@@ -29,15 +29,11 @@
             android:name=".cafe.adriel.androidaudiorecorder.example.recordComplitaion"
             android:parentActivityName=".MainActivity" />
         <activity android:name=".uploaded_stories.ListenToUserStory" />
-        <activity
-            android:name=".uploaded_stories.UserUploadedStories"
-            android:parentActivityName=".UserProfile">
-            <intent-filter>
-                <action android:name="fatimah.firebase.TARGETNOTIFICATION" />
 
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".explor.ClassificationAdapter"></activity>
+        <activity android:name=".explor.AllStories"></activity>
+        <activity android:name=".explor.PopularStories"></activity>
+
         <activity
             android:name=".SubscribersListActivity"
             android:parentActivityName=".UserProfile" />
