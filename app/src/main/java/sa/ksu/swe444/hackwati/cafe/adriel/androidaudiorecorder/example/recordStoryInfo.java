@@ -429,7 +429,7 @@ return isValid;
     public void uploadAudio() {
 
         StorageMetadata metadata = new StorageMetadata.Builder()
-                .setContentType("audio/3gp")
+                .setContentType("audio/*")
                 .build();
 
         String userId = mAuth.getCurrentUser().getUid();

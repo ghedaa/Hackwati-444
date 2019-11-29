@@ -12,10 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-
         android:padding="20dp">
-
-
 
         <ImageView
             android:id="@+id/close"
@@ -115,7 +112,6 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_centerHorizontal="true"
-
             android:clickable="true"
             app:srcCompat="@drawable/ic_play_button"
             tools:ignore="VectorDrawableCompat" />
@@ -147,10 +143,9 @@
             android:layout_alignParentBottom="true"
             app:srcCompat="@drawable/ic_download"
             tools:ignore="VectorDrawableCompat" />
+
         <ImageView
             android:id="@+id/share"
-
-
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_alignParentBottom="true"

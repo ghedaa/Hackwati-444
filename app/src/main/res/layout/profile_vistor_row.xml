@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -21,19 +22,6 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp">
 
-
-            <Button
-                android:id="@+id/uploadImg"
-                android:layout_width="70dp"
-                android:layout_height="50dp"
-                android:layout_below="@id/relImg"
-                android:layout_centerInParent="true"
-                android:layout_marginTop="-57dp"
-                android:layout_marginRight="-5dp"
-                android:layout_toLeftOf="@id/relImg"
-                android:background="@drawable/box_shape"
-                android:backgroundTint="#F7E459"
-                android:text="ارفع" />
 
             <RelativeLayout
                 android:id="@+id/relImg"
@@ -69,31 +57,35 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/relImg"
                 android:layout_marginTop="25dp"
-                android:layout_toLeftOf="@id/nameSignUpHin"
+                android:layout_marginLeft="10dp"
                 app:srcCompat="@drawable/ic_edit_black_24dp"
-                android:layout_alignParentLeft="true"
-                />
+                android:layout_alignParentLeft="true"/>
 
             <TextView
                 android:id="@+id/nameSignUp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/relImg"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
                 android:layout_marginTop="25dp"
                 android:text="الاسم:   "
                 android:textColor="#94B9B8"
                 android:textStyle="bold"
-                android:textSize="18dp" />
+                android:textSize="18dp"
+                 />
 
             <TextView
                 android:id="@+id/nameSignUpHin"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
                 android:layout_width="254dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/relImg"
                 android:layout_marginTop="25dp"
+                android:layout_marginRight="60dp"
                 android:layout_toLeftOf="@+id/nameSignUp"
                 android:ems="10"
-                android:gravity="left"
                 android:hint="اسم المستخدم"
                 android:textSize="18dp" />
 
@@ -103,6 +95,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/nameSignUp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
                 android:layout_marginTop="25dp"
                 android:text="الايميل: "
                 android:textColor="#94B9B8"
@@ -110,29 +104,17 @@
                 android:textSize="18dp" />
 
             <TextView
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
                 android:id="@+id/emailSignUpHin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/nameSignUp"
-                android:layout_marginTop="25dp"
-                android:layout_toLeftOf="@+id/emailSignUp"
-                android:ems="10"
-                android:gravity="left"
-                android:hint="البريد الالكتروني"
-                android:textSize="18dp" />
-
-            <ImageView
-                android:id="@+id/edit2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/emailSignUp"
-                android:layout_centerInParent="true"
+                android:layout_below="@+id/nameSignUpHin"
                 android:layout_marginTop="25dp"
-                android:layout_toLeftOf="@id/nameSignUpHin"
-                app:srcCompat="@drawable/ic_edit_black_24dp"
-                android:layout_alignParentLeft="true"
-                />
-
+                android:layout_marginEnd="60dp"
+                android:hint="البريد الالكتروني"
+                android:textSize="18dp"
+                android:layout_marginRight="60dp" />
 
             <TextView
                 android:id="@+id/infoSignUp"
@@ -141,20 +123,23 @@
                 android:layout_below="@+id/emailSignUp"
                 android:layout_marginTop="25dp"
                 android:text="النبذة:   "
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
                 android:textColor="#94B9B8"
                 android:textStyle="bold"
                 android:textSize="18dp" />
 
             <TextView
                 android:id="@+id/infoUpHin"
-                android:layout_width="280dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/emailSignUpHin"
-                android:layout_marginTop="25dp"
+                android:layout_below="@+id/nameSignUpHin"
                 android:layout_toLeftOf="@+id/nameSignUp"
                 android:ems="10"
                 android:gravity="left"
-                android:hint="     "
+                android:hint="   "
                 android:textSize="18dp" />
 
             <TextView
@@ -170,6 +155,18 @@
                 android:textSize="18dp"
                 android:background="@drawable/box_shape"
                 android:backgroundTint="#F5F5F5" />
+
+            <ImageView
+                android:id="@+id/edit2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/draft_page"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="-80dp"
+                android:layout_marginLeft="10dp"
+                app:srcCompat="@drawable/ic_edit_black_24dp"
+                android:layout_alignParentLeft="true" />
+
             <Button
                 android:id="@+id/draft_page"
                 android:layout_width="match_parent"
@@ -178,27 +175,17 @@
                 android:layout_below="@id/infotext"
                 android:text="مسودات"/>
 
-            <View
-                android:id="@+id/separator"
-                android:layout_width="fill_parent"
-                android:layout_height="1dip"
-                android:layout_below="@id/infotext"
-                android:layout_centerVertical="true"
-                android:layout_marginTop="25dp"
-                android:background="#A0A0A0" />
-
         </RelativeLayout>
 
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/rel2"
+            android:layout_centerInParent="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/rel1"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp">
+            android:layout_margin="20dp"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/subscriber"
@@ -207,8 +194,7 @@
                 android:layout_marginTop="25dp"
                 android:text=" المتابعين"
                 android:textSize="18dp"
-                android:textColor="#94B9B8"
-               />
+                android:textColor="#94B9B8"/>
 
             <TextView
                 android:id="@+id/subscriberno"
@@ -230,7 +216,6 @@
                 android:layout_marginTop="25dp"
                 android:text=" المتابعون"
                 android:textColor="#94B9B8"
-
                 android:textSize="18dp" />
 
             <TextView
@@ -259,7 +244,7 @@
 
             <TextView
                 android:id="@+id/storyno"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
                 android:layout_toLeftOf="@id/story"
@@ -276,10 +261,18 @@
                 android:layout_height="1dip"
                 android:layout_below="@id/storyno"
                 android:layout_centerVertical="true"
-                android:layout_marginTop="25dp"
                 android:background="#A0A0A0" />
+        </LinearLayout>
 
-        </RelativeLayout>
+        <View
+            android:id="@+id/separator"
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:layout_below="@id/rel1"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="25dp"
+            android:background="#A0A0A0"
+            tools:ignore="NotSibling" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -291,19 +284,16 @@
             android:layout_marginRight="20dp"
             android:gravity="center">
 
-
-
-
-       <!--     <Button
+            <Button
                 android:id="@+id/logout_profile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
-
+                android:layout_alignParentBottom="true"
                 android:background="@drawable/box_shape"
                 android:backgroundTint="#F1675C"
-                android:text="تسجيل االخروج" />-->
+                android:text="تسجيل االخروج" />
 
 
         </RelativeLayout>

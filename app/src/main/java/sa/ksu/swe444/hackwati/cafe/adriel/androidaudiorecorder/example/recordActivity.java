@@ -4,7 +4,9 @@ package sa.ksu.swe444.hackwati.cafe.adriel.androidaudiorecorder.example;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -15,15 +17,16 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 
 import pl.droidsonroids.gif.GifImageView;
 import sa.ksu.swe444.hackwati.MainActivity;
 import sa.ksu.swe444.hackwati.R;
 import sa.ksu.swe444.hackwati.cafe.adriel.androidaudiorecorder.AndroidAudioRecorder;
+
 import sa.ksu.swe444.hackwati.cafe.adriel.androidaudiorecorder.model.AudioChannel;
 import sa.ksu.swe444.hackwati.cafe.adriel.androidaudiorecorder.model.AudioSampleRate;
 import sa.ksu.swe444.hackwati.cafe.adriel.androidaudiorecorder.model.AudioSource;
@@ -33,13 +36,14 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class recordActivity extends AppCompatActivity {
     private static final int REQUEST_RECORD_AUDIO = 0;
+    private static final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
     private static final String AUDIO_FILE_PATH =
             Environment.getExternalStorageDirectory().getPath() + "/recorded_audio.3gp";
 
     private Button uploadBtn;
     public BottomNavigationView navView;
     private GifImageView shining;
-    private Button check;
+    private Uri audioFatimah;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,10 +89,23 @@ public class recordActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 shining.setVisibility(View.VISIBLE);
-            }
+
+                    if (ContextCompat.checkSelfPermission(recordActivity.this,Manifest.permission.READ_EXTERNAL_STORAGE)== PackageManager.PERMISSION_GRANTED){
+                        selectAudio();
+                    }
+                    else
+                        ActivityCompat.requestPermissions(recordActivity.this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},9);
+
+
+                }
         });
+    }
 
-
+    private void selectAudio() {
+        Intent intent=new Intent();
+        intent.setType("audio/3gp");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent,99);
     }
 
     @Override
@@ -108,19 +125,46 @@ public class recordActivity extends AppCompatActivity {
                 Toast.makeText(this, "Audio was not recorded", Toast.LENGTH_SHORT).show();
             }
         }
+        else if(requestCode==99&&resultCode==RESULT_OK&&data!=null){
+            audioFatimah=data.getData();
+
+            String fatimah=audioFatimah.getPath()+"/recorded_audio.3gp";
+            Log.d("here","click"+fatimah);
+            Intent intent = new Intent(recordActivity.this,recordStoryInfo.class);
+            intent.putExtra("FatimahAudio",audioFatimah);
+            intent.putExtra("isFull",true);
+            startActivity(intent);
+
+        }
+        else {
+            Toast.makeText(recordActivity.this, "نرجوا اختيار ملف أو تسجيل قصه", Toast.LENGTH_LONG).show();
+        }
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+
+            case 9:{
+                if (grantResults.length > 0&& grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    selectAudio();
+                } else
+                    Toast.makeText(recordActivity.this, "Permissions Denied to upload audio file", Toast.LENGTH_LONG).show();
+
+            }
+        }
     }
 
     public void recordAudio(View v) {
         AndroidAudioRecorder.with(this)
                 // Required
                 .setFilePath(AUDIO_FILE_PATH)
-                // .setColor(ContextCompat.getColor(this, R.color.green_hak))
+                .setColor(ContextCompat.getColor(this, R.color.green_hak))
                 .setRequestCode(REQUEST_RECORD_AUDIO)
 
                 // Optional
                 .setSource(AudioSource.MIC)
                 .setChannel(AudioChannel.STEREO)
-                .setSampleRate(AudioSampleRate.HZ_48000)
+                .setSampleRate(AudioSampleRate.HZ_8000)
                 .setAutoStart(false)
                 .setKeepDisplayOn(true)
 
@@ -131,7 +175,6 @@ public class recordActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(recordActivity.this, recordActivity.class);
-        startActivity(intent);
+
     }
 }
