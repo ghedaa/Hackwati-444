@@ -8,28 +8,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/icon_shape_botum"
-        android:backgroundTint="@color/yellow_hak"
-        android:theme="@style/AppTheme.AppBarOverlay">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:layout_gravity="center"
-            android:background="@drawable/icon_shape_botum"
-            android:backgroundTint="@color/yellow_hak"
-            android:gravity="center"
-            app:title="   "
-            app:titleTextColor="@color/orange_hak2"
-
-            />
-
-    </com.google.android.material.appbar.AppBarLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"

@@ -22,14 +22,19 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.mikhaellopez.circularimageview.CircularImageView;
 
 import java.util.List;
 
 import sa.ksu.swe444.hackwati.Constants;
 import sa.ksu.swe444.hackwati.R;
+import sa.ksu.swe444.hackwati.SubscribedListActivity;
+import sa.ksu.swe444.hackwati.SubscribersListActivity;
 
 
-public class UserProfileActivity extends AppCompatActivity  {
+public class UserProfileActivity extends AppCompatActivity {
 
     private TabAdapter adapter;
     private TabLayout tabLayout;
@@ -37,6 +42,7 @@ public class UserProfileActivity extends AppCompatActivity  {
     private Tab1Fragment tab1Fragment;
     private Tab2Fragment tab2Fragment;
     private Tab3Fragment tab3Fragment;
+    private Tab4Fragment tab4Fragment;
     private String userStoryId;
     private ImageView userImg;
     private TextView userName;
@@ -44,6 +50,9 @@ public class UserProfileActivity extends AppCompatActivity  {
     Button subscribe;
     String userUid;
 
+    ///
+    private TextView  storyno, subscribed, subscriber, subscriberno, stories, userNameText, subscribedno;
+    private CircularImageView img;
 
 
 
@@ -53,16 +62,14 @@ public class UserProfileActivity extends AppCompatActivity  {
         setContentView(R.layout.user_profile_activity_main);
 
         userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                //"0gsAM4f2eqfppuCtWFex8kmmMHB2";
-                //
+        //"0gsAM4f2eqfppuCtWFex8kmmMHB2";
+        //
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+       /* Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("ملفي الشخصي");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(false);
-
-
+*/
 
 
         viewPager = (ViewPager) findViewById(R.id.viewPager);
@@ -82,21 +89,165 @@ public class UserProfileActivity extends AppCompatActivity  {
         tab2Fragment.setArguments(bundle);
         adapter.addFragment(tab2Fragment, "قصصي");
 
-      tab3Fragment = new Tab3Fragment();
+
+        tab3Fragment = new Tab3Fragment();
         tab3Fragment.setArguments(bundle);
         adapter.addFragment(tab3Fragment, "مفضلتي");
+
+        tab4Fragment = new Tab4Fragment();
+        tab4Fragment.setArguments(bundle);
+        adapter.addFragment(tab4Fragment, "مسوداتي");
+
+
 
 
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
 
 
+        // User INFO
+        img = findViewById(R.id.userImg);
+        userNameText = findViewById(R.id.nameSignUpHin);
+        subscriberno = findViewById(R.id.subscriberno);
+        subscribedno = findViewById(R.id.subscribedno);
+        subscribed = findViewById(R.id.subscribed);
+        subscribed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(UserProfileActivity.this, SubscribedListActivity.class));
+            }
+        });
+        storyno = findViewById(R.id.storyno);
+        subscriber = findViewById(R.id.subscriber);
+        subscriber.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(UserProfileActivity.this, SubscribersListActivity.class));
+            }
+        });
+
+        retriveUserData();
+        countStories();
+        Subscribers();
+
+    }
+
+    public void retriveUserData() {
+        DocumentReference docRef = firebaseFirestore.collection("users").document(userUid);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+
+                        String userName = document.get("username").toString();
+                        String email = document.get("email").toString();
+                        String thumbnail = document.get("thumbnail").toString();
+                        String infoU = document.get("info").toString();
+                        List<String> list = (List<String>) document.get("subscribedUsers");
+
+                        if (userName != null && email != null) {
+                            userNameText.setText(userName);
+
+                            Glide.with(UserProfileActivity.this)
+                                    .load(thumbnail + "")
+                                    .into(img);
+
+                            subscribedno.setText(list.size() + "");
+
+
+
+                        }
+
+                    }
+                }
+            }
+        });
 
 
     }
 
 
+    public void countStories() {
+        firebaseFirestore.collection("publishedStories")
+                .whereEqualTo("userId", userUid)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            int counter = 0;
+                            final int[] sum = {0,0,0};
 
+                            for (DocumentSnapshot document : task.getResult()) {
+                                counter++;
+                            }
+                            sum[0] +=counter;
+
+                            firebaseFirestore.collection("rejectedStories")
+                                    .whereEqualTo("userId", userUid)
+                                    .get()
+                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                int counter = 0;
+                                                for (DocumentSnapshot document : task.getResult()) {
+                                                    counter++;
+                                                }
+                                                sum[1] +=counter;
+
+                                                firebaseFirestore.collection("stories")
+                                                        .whereEqualTo("userId", userUid)
+                                                        .get()
+                                                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                            @Override
+                                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                                if (task.isSuccessful()) {
+                                                                    int counter = 0;
+                                                                    int storyNum=0;
+                                                                    for (DocumentSnapshot document : task.getResult()) {
+                                                                        counter++;
+                                                                    }
+                                                                    sum[2] +=counter;
+                                                                    for(int i =0 ; i<sum.length ; i++){
+                                                                        storyNum+=sum[i];
+                                                                    }
+                                                                    storyno.setText(storyNum + " ");
+                                                                }
+                                                            }
+                                                        });
+
+                                            }
+                                        }
+                                    });
+
+
+
+                        }
+                    }
+                });
+    }
+
+    public void Subscribers() {
+
+        firebaseFirestore.collection("users")
+                .whereArrayContains("subscribedUsers", userUid)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            int counter = 0;
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                counter++;
+                            }
+                            subscriberno.setText(counter + "");
+                        }
+                    }
+                });
+    }
 
 }
 

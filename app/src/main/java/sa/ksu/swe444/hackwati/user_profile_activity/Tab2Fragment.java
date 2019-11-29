@@ -5,18 +5,23 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -27,101 +32,169 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 import java.util.List;
 
+import sa.ksu.swe444.hackwati.Constants;
 import sa.ksu.swe444.hackwati.Item;
 import sa.ksu.swe444.hackwati.MainActivity;
 import sa.ksu.swe444.hackwati.R;
 import sa.ksu.swe444.hackwati.storyAdapter;
+import sa.ksu.swe444.hackwati.uploaded_stories.UploadedStoriesAdapter;
+import sa.ksu.swe444.hackwati.uploaded_stories.UserUploadedStories;
+import sa.ksu.swe444.hackwati.uploaded_stories.story;
 
 public class Tab2Fragment extends Fragment {
 
-    private RecyclerView recyclerView;
-    private storyAdapter adapter;
-    private List<Item> itemList;
-    private TextView emptyStories;
-
-
-    public FirebaseAuth mAuth;
-    private static final String TAG = "UserProfileTab2";
+    private String userUid;
     public FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
-    String userUid;
-    StorageReference storageRef;
-    FirebaseStorage storage = FirebaseStorage.getInstance();
-    private String userStoryId;
-
+    private List<Item> itemList = new ArrayList<>();
+    private RecyclerView recyclerView;
+    private UploadedStoriesAdapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+    private ArrayList<story> namesList;
+    private TextView emptyUsers;
+    private Button status;
+    public BottomNavigationView navView;
 
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view= inflater.inflate(R.layout.profile_fragment_two, container, false);
-        recyclerView = view.findViewById(R.id.recycler_view);
+        View view= inflater.inflate(R.layout.activity_user_uploaded_stories, container, false);
 
         userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        storageRef = storage.getReference();
-        mAuth = FirebaseAuth.getInstance();
-        emptyStories =view.findViewById(R.id.emptyStories);
 
-        if (getArguments() != null) {
-            userUid = getArguments().getString("userUid");
 
-        }
+        status = view.findViewById(R.id.subscribeBtn);
+        emptyUsers = view.findViewById(R.id.emptyUsers);
+        recyclerView = view.findViewById(R.id.recycleView);
+        namesList = new ArrayList<>();
+        mAdapter = new UploadedStoriesAdapter(getContext());
 
-        initRecyclerView();
+        //We set the array to the adapter
+        mAdapter.setListContent(itemList);
+
+        mLayoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setAdapter(mAdapter);
+        retrievePublishedStories();
+        retrieveRejectedStories();
+        retrieveUnderProcessingStories();
+        //installButton110to250();
+        //bottomNavigation();
 
         return view;
-    }
+    }//end onCreate()
 
 
-    private void initRecyclerView() {
-        itemList = new ArrayList<>();
-        adapter = new storyAdapter(getActivity(), itemList);
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext(), 2);
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.addItemDecoration(new MainActivity.GridSpacingItemDecoration(10, dpToPx(10), false));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(adapter);
-        retrieveUserStories();
-    }
-
-    private void retrieveUserStories() {
+    public void retrievePublishedStories() {
         firebaseFirestore.collection("publishedStories")
-                .whereEqualTo("userId", userUid)// <-- This line
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull final Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
+                .whereEqualTo("userId", userUid + "")// <-- This line
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (DocumentSnapshot document : task.getResult()) {
 
+                        document.getData();
 
+                        String title = (String) document.get("title");
+                        String userId = (String) document.get("userId");
+                        String storyId = (String) document.getId();
+                        String userName = "";
+                        String pic = (String) document.get("pic");
+                        String sound = (String) document.get("sound");
 
-                            for (DocumentSnapshot document : task.getResult()) {
+                        String thumbnail = "";
+                        Item item = new Item(true, storyId, title, pic, sound, userId, userName, thumbnail);
+                        item.setStatus(Constants.Keys.PUBLISHED);
+                        item.setColor(R.color.green_hak);
+                        itemList.add(item);
 
+                        mAdapter.notifyDataSetChanged();
 
-                                document.getData();
-                                String title = (String) document.get("title");
-                                String userId = (String) document.get("userId");
-                                String storyId = (String) document.getId();
-                                String userName = "";
-                                String pic = (String) document.get("pic");
-                                String sound = (String) document.get("sound");
-
-                                Item item = new Item(true,storyId, title, pic,sound, userId, "", "");
-                                itemList.add(item);
-                                adapter.notifyDataSetChanged();
-
-                            }
-
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
-                        }
                     }
-                });
-    }
+
+                }//end is successful
+
+            }
+        });
+
+    }// end of retrievePublishedStories
+
+    public void retrieveRejectedStories() {
+        firebaseFirestore.collection("rejectedStories")
+                .whereEqualTo("userId", userUid + "")
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (DocumentSnapshot document : task.getResult()) {
+
+                        Log.d("UPLOaDED STORY", " HERE");
+
+                        document.getData();
+                        String title = (String) document.get("title");
+                        String userId = (String) document.get("userId");
+                        String storyId = (String) document.getId();
+                        String userName = "";
+                        String pic = (String) document.get("pic");
+                        String sound = (String) document.get("sound");
+
+                        String thumbnail = "";
+
+                        Item item = new Item(true, storyId, title, pic, sound, userId, userName, thumbnail);
+                        item.setStatus(Constants.Keys.REJECTED);
+                        item.setColor(R.color.pink_hak2);
+                        itemList.add(item);
+
+                        mAdapter.notifyDataSetChanged();
+
+                    }
+
+                }//end is successful
+
+            }
+        });
+
+    }// end of retrieveRejectedStories
+
+    public void retrieveUnderProcessingStories() {
+        firebaseFirestore.collection("stories")
+                .whereEqualTo("userId", userUid + "")
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (DocumentSnapshot document : task.getResult()) {
+
+
+                        document.getData();
+
+                        String title = (String) document.get("title");
+                        String userId = (String) document.get("userId");
+                        String storyId = (String) document.getId();
+                        String userName = "";
+                        String pic = (String) document.get("pic");
+                        String sound = (String) document.get("sound");
+
+                        String thumbnail = "";
+
+                        Item item = new Item(true, storyId, title, pic, sound, userId, userName, thumbnail);
+                        item.setStatus(Constants.Keys.PROCESSING);
+                        item.setColor(R.color.orange_hak);
+                        itemList.add(item);
+
+                        mAdapter.notifyDataSetChanged();
+
+                    }
+
+                }//end is successful
+
+            }
+        });
+
+    }//end of retrieveUnderProcessingStories
 
 
 
-    private int dpToPx(int dp) {
-        Resources r = getResources();
-        return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
-    }
+
 }

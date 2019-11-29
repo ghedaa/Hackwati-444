@@ -65,7 +65,7 @@ public class Tab1Fragment extends Fragment {
     LinearLayout linear;
     public FirebaseAuth mAuth;
     Button log_out;
-    private TextView relImg, info, storyno, subscribed, subscriber, subscriberno;
+    private TextView relImg, info, storyno, subscribed, subscriber, subscriberno, stories;
     private static int INTENT_GALLERY = 301;
     private boolean isSelectImage;
     Uri contentURI;
@@ -74,7 +74,6 @@ public class Tab1Fragment extends Fragment {
     private String imgPath;
     private ImageView edit1, img, edit2;
     private Button draft;
-    private TextView stories;
     TextView userinfo;
 
     private static final String TAG = "Tab1Fragment";

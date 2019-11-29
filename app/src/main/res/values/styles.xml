@@ -12,7 +12,16 @@
         <item name="android:text"></item>
         <item name="imageButtonStyle">@drawable/shape</item>
 
+
         <item name="materialAlertDialogTheme">@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog</item>
+    </style>
+
+    <style name="TabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@fonts/ArbFONTS-GE_SS_Two_Light.otf</item>
+
     </style>
 
     <style name="ShapeAppearance.MyApp.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
