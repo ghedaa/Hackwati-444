@@ -2,39 +2,26 @@ package sa.ksu.swe444.hackwati;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bumptech.glide.load.model.Model;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import sa.ksu.swe444.hackwati.explor.AllStories;
-
-import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class search extends AppCompatActivity {
 
@@ -66,9 +53,9 @@ public class search extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
         if(intent!=null)
-        retrieveSubscribedUsers(intent);
+        retrieveStories(intent);
         else{
-            textView.setText("لايوجد قصص بهذا الاسم يا ورع");
+            textView.setText("لايوجد قصص بهذا لعنوان");
         }
     }
 
@@ -78,7 +65,7 @@ public class search extends AppCompatActivity {
     }
 
 
-    private void retrieveSubscribedUsers(String intent) {
+    private void retrieveStories(String intent) {
         firebaseFirestore.collection("publishedStories")
                 .whereEqualTo("title",intent)
                 .get()

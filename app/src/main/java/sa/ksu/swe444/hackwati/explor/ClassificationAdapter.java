@@ -2,6 +2,7 @@ package sa.ksu.swe444.hackwati.explor;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,6 +30,8 @@ import static sa.ksu.swe444.hackwati.R.color.pink_hak;
 public class ClassificationAdapter extends RecyclerView.Adapter<ClassificationAdapter.MyViewHolder> {
     private Context mContext;
     private List<Classifications> classificationsList;
+     MediaPlayer mp;
+
     //step2
     private ClassificationAdapterListener listener;
     //step3
@@ -57,7 +60,8 @@ public class ClassificationAdapter extends RecyclerView.Adapter<ClassificationAd
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    mp = MediaPlayer.create(mContext, R.raw.zapsplat_cartoon_bubble);
+                    mp.start();
 
                     String s= classificationsList.get(getAdapterPosition()).getClassificationTitle();
                     //step4

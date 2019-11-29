@@ -7,6 +7,7 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -19,8 +20,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import sa.ksu.swe444.hackwati.MainActivity;
 import sa.ksu.swe444.hackwati.R;
 import sa.ksu.swe444.hackwati.cafe.adriel.androidaudiorecorder.example.recordActivity;
+import sa.ksu.swe444.hackwati.search;
 
-public class ExploreActivity extends AppCompatActivity implements PopularStories.FirstFragmentListener {
+public class ExploreActivity extends AppCompatActivity implements PopularStories.FirstFragmentListener, SearchView.OnQueryTextListener {
 
     private fragmentadapter adapter;
     private fragmentadapter adapter2;
@@ -30,6 +32,7 @@ public class ExploreActivity extends AppCompatActivity implements PopularStories
      PopularStories popularStories;
     public BottomNavigationView navView;
     public String title;
+    SearchView editsearch;
 
 
 
@@ -69,6 +72,9 @@ public class ExploreActivity extends AppCompatActivity implements PopularStories
         viewPager.setAdapter(adapter);
         viewPager2.setAdapter(adapter2);
 
+        editsearch = (SearchView) findViewById(R.id.search);
+        editsearch.setOnQueryTextListener(this);
+
 
 
         navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -100,5 +106,21 @@ public class ExploreActivity extends AppCompatActivity implements PopularStories
         Log.d("here ","onClick on ExploreActivity"+name);
 
         allStories.setName(name);
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+
+        Intent intent=new Intent(ExploreActivity.this, search.class);
+        intent.putExtra("SearchText",query);
+        Log.d("g","query submitted");
+        startActivity(intent);
+
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        return false;
     }
 }
