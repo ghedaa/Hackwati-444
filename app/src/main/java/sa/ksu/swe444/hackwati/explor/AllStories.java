@@ -1,5 +1,8 @@
 package sa.ksu.swe444.hackwati.explor;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -21,26 +24,39 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
+
+import sa.ksu.swe444.hackwati.Constants;
 import sa.ksu.swe444.hackwati.Item;
 import sa.ksu.swe444.hackwati.R;
 import sa.ksu.swe444.hackwati.storyAdapter;
 
 
 public class AllStories extends Fragment {
+
     private RecyclerView recyclerView;
     private storyAdapter adapter;
     private List<Item> itemList;
     public FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     private static final String TAG = "AllStories";
 
+    String title;
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_all_stories, container, false);
         recyclerView = view.findViewById(R.id.recycler_view);
-
+        title=null;
         initRecyclerView();
         return view;
+    }
+
+    public void setName(String name){
+        Log.d("here ","onClick on AllStories"+name);
+
+        title=name;
+        retrieveSubscribedUsers();
     }
 
     private void initRecyclerView() {
@@ -54,42 +70,128 @@ public class AllStories extends Fragment {
         retrieveSubscribedUsers();
     }
 
-    private int dpToPx(int dp) {
+    public int dpToPx(int dp) {
         Resources r = getResources();
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }
 
     public void retrieveSubscribedUsers() {
-       Log.d(TAG,"All stories time"+Timestamp.now().toDate().toString()) ;
+        Log.d(TAG, "All stories time" + Timestamp.now().toDate().toString());
 
+        if (title == null||title=="جميع القصص"){
+            Log.d(TAG, "title is null");
 
-        firebaseFirestore.collection("publishedStories")
-        .orderBy("timestamp")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-
-                                String title = (String) document.get("title");
-                                String userId = (String) document.get("userId");
-                                String storyId = (String) document.getId();
-                                String userName = "";
-                                String pic = (String) document.get("pic");
-                                String sound = (String) document.get("sound");
-
-                                Log.d(TAG, document.getId() + " => " + document.getData());
-                                Item item = new Item(true,storyId, title, pic,sound, userId, "", "");
-                                itemList.add(item);
+            firebaseFirestore.collection("publishedStories")
+                    .orderBy("timestamp")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                itemList.clear();
                                 adapter.notifyDataSetChanged();
-                            }
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
+                                List<Item> newitemList = new ArrayList<>();
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    Log.d(TAG, "title is null inside");
 
+                                    String title = (String) document.get("title");
+                                    String userId = (String) document.get("userId");
+                                    String storyId = (String) document.getId();
+                                    String userName = "";
+                                    String pic = (String) document.get("pic");
+                                    String sound = (String) document.get("sound");
+
+                                    Log.d(TAG, document.getId() + " => " + document.getData());
+                                    Item item = new Item(true, storyId, title, pic, sound, userId, "", "");
+                                    newitemList.add(item);
+                                    itemList.addAll(newitemList);
+                                    adapter.notifyDataSetChanged();
+
+                                }
+                            } else {
+                                Log.d(TAG, "Error getting documents: ", task.getException());
+                            }
+                        }
+                    });
+    }
+        else if(title=="الأكثر شهرة"){
+            firebaseFirestore.collection("publishedStories")
+                    .orderBy("rate")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                itemList.clear();
+                                adapter.notifyDataSetChanged();
+                                List<Item> newitemList = new ArrayList<>();
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    Log.d(TAG, "title is null inside");
+
+                                    String title = (String) document.get("title");
+                                    String userId = (String) document.get("userId");
+                                    String storyId = (String) document.getId();
+                                    String userName = "";
+                                    String pic = (String) document.get("pic");
+                                    String sound = (String) document.get("sound");
+
+                                    Log.d(TAG, document.getId() + " => " + document.getData());
+                                    Item item = new Item(true, storyId, title, pic, sound, userId, "", "");
+                                    newitemList.add(item);
+                                    itemList.addAll(newitemList);
+                                    adapter.notifyDataSetChanged();
+
+                                }
+                            } else {
+                                Log.d(TAG, "Error getting documents: ", task.getException());
+                            }
+                        }
+                    });
+        }
+                else {
+            Log.d(TAG, "onClick title is not null");
+
+            Log.d(TAG, "onClick title is not null"+itemList.size());
+
+            firebaseFirestore.collection("publishedStories")
+                    .whereEqualTo("story_type",title)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                    itemList.clear();
+                                    adapter.notifyDataSetChanged();
+                                List<Item> newitemList = new ArrayList<>();
+
+
+
+                                try{
+
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+
+                                    String title = (String) document.get("title");
+                                    String userId = (String) document.get("userId");
+                                    String storyId = (String) document.getId();
+                                    String userName = "";
+                                    String pic = (String) document.get("pic");
+                                    String sound = (String) document.get("sound");
+
+                                    Log.d(TAG, document.getId() + " => " + document.getData());
+                                    Item item = new Item(true, storyId, title, pic, sound, userId, "", "");
+                                    newitemList.add(item);
+                                    itemList.addAll(newitemList);
+                                    adapter.notifyDataSetChanged();
+
+                                }}catch (Exception e){
+                                     e.printStackTrace();
+                                 }
+                            } else {
+                                Log.d(TAG, "Error getting documents: ", task.getException());
+                            }
+                        }
+                    });
+        }
     }
 
 

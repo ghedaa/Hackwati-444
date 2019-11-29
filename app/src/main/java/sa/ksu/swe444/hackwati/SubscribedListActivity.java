@@ -6,8 +6,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -23,8 +26,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 import java.util.List;
 
+import sa.ksu.swe444.hackwati.cafe.adriel.androidaudiorecorder.example.recordActivity;
+import sa.ksu.swe444.hackwati.explor.ExploreActivity;
 import sa.ksu.swe444.hackwati.list_adabter.CustomAdapter;
 import sa.ksu.swe444.hackwati.list_adabter.CustomPojo;
+import sa.ksu.swe444.hackwati.uploaded_stories.UserUploadedStories;
 
 public class SubscribedListActivity extends AppCompatActivity{
 
@@ -36,6 +42,8 @@ public class SubscribedListActivity extends AppCompatActivity{
     private String userUid;
     private TextView emptyUsers;
     Button subscribe;
+    public BottomNavigationView navView;
+
 
 
 
@@ -68,7 +76,39 @@ public class SubscribedListActivity extends AppCompatActivity{
 
         retrieveSubscribedUsers();
 
-    }
+        navView = findViewById(R.id.nav_view);
+        navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                switch (item.getItemId()) {
+
+                    case R.id.navigation_record:
+                        startActivity(new Intent(SubscribedListActivity.this, recordActivity.class));
+                        // navView.setSelectedItemId(R.id.navigation_record);
+                        //  navView.getMenu().getItem(R.id.navigation_record).setChecked(true);
+                        break;
+
+                    case R.id.navigation_subscription:
+                        startActivity(new Intent(SubscribedListActivity.this, MainActivity.class));
+                        //navView.setSelectedItemId(R.id.navigation_subscription);
+
+                        break;
+
+                    case R.id.navigation_explore:
+                        startActivity(new Intent(SubscribedListActivity.this, ExploreActivity.class));
+                        //   navView.setSelectedItemId(R.id.navigation_explore);
+
+                        break;
+
+                }// end of switch
+
+                return true;
+            }
+        });
+
+
+    }//onCreate
 
 
 

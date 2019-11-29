@@ -146,7 +146,7 @@ public class AdminStoryActivity extends AppCompatActivity implements View.OnClic
         user_name = findViewById(R.id.userName);
         story_name = findViewById(R.id.story_name);
       //  timer = findViewById(R.id.timer);
-        storiesAdapter = new UploadedStoriesAdapter();
+        storiesAdapter = new UploadedStoriesAdapter(getBaseContext());
         adapter = new storyAdapter();
 
 

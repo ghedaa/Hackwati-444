@@ -152,7 +152,7 @@
                     app:aebSubButtonSizeDp="35dp" />
 
 
-            </androidx.appcompat.widget.Toolbar>
+        </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
 

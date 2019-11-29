@@ -4,16 +4,13 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -40,17 +38,18 @@ import sa.ksu.swe444.hackwati.Item;
 import sa.ksu.swe444.hackwati.R;
 
 
-
 public class UploadedStoriesAdapter extends RecyclerView.Adapter<UploadedStoriesAdapter.MyViewHolder> {
     private static final String TAG = "CustomAdapter";
 
     private List<Item> storyList = new ArrayList<>();
     private LayoutInflater inflater;
+    private Item mRecentlyDeletedItem;
     View view;
     UploadedStoriesAdapter.MyViewHolder holder;
     private Context context;
-    private String userID;
+    private int mRecentlyDeletedItemPosition;
     public FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+    int position;
 
 
     public UploadedStoriesAdapter(Context context) {
@@ -58,18 +57,16 @@ public class UploadedStoriesAdapter extends RecyclerView.Adapter<UploadedStories
         inflater = LayoutInflater.from(context);
     }
 
-    public UploadedStoriesAdapter() {
 
-    }
+
 
     //This method inflates view present in the RecyclerView
     @Override
     public UploadedStoriesAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        view = inflater.inflate(R.layout.row_list_item_profile, parent, false);
+        view = inflater.inflate(R.layout.uploaded_stories, parent, false);
         holder = new UploadedStoriesAdapter.MyViewHolder(view);
         return holder;
     }
-
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -79,27 +76,19 @@ public class UploadedStoriesAdapter extends RecyclerView.Adapter<UploadedStories
         Item list_items = storyList.get(position);
         holder.user_name.setText(list_items.getTitle());
         Glide.with(context).load(list_items.getImage()).into(holder.icon);
-         holder.subscribe.setText(list_items.getStatus());
-        //holder.subscribe.setBackgroundColor(list_items.getColor());
+        holder.subscribe.setText(list_items.getStatus());
 
-        if(list_items.getStatus().equals( Constants.Keys.REJECTED)){
-           // holder.subscribe.setBackgroundColor(list_items.getColor());
-           // holder.subscribe.setBackgroundTintList(ColorStateList.valueOf(R.color.pink_hak2));
+        if (list_items.getStatus().equals(Constants.Keys.REJECTED)) {
+
             ViewCompat.setBackgroundTintList(holder.subscribe, ContextCompat.getColorStateList(context, R.color.pink_hak2));
-
-
             holder.subscribe.setText("مرفوض");
-        }
-        else if(list_items.getStatus().equals( Constants.Keys.PROCESSING)){
-            //holder.subscribe.setBackgroundColor(R.color.orange_hak);
-           // holder.subscribe.setBackgroundTintList(ColorStateList.valueOf(R.color.orange_hak));
-            ViewCompat.setBackgroundTintList(holder.subscribe,ContextCompat.getColorStateList(context, R.color.orange_hak));
+        } else if (list_items.getStatus().equals(Constants.Keys.PROCESSING)) {
+
+            ViewCompat.setBackgroundTintList(holder.subscribe, ContextCompat.getColorStateList(context, R.color.orange_hak));
             holder.subscribe.setText("مرسل");
-        }
-        else if(list_items.getStatus().equals( Constants.Keys.PUBLISHED)) {
-            //holder.subscribe.setBackgroundColor(R.color.green_hak);
-            //holder.subscribe.setBackgroundTintList(ColorStateList.valueOf(R.color.green_hak));
-            ViewCompat.setBackgroundTintList(holder.subscribe,ContextCompat.getColorStateList(context, R.color.green_hak));
+        } else if (list_items.getStatus().equals(Constants.Keys.PUBLISHED)) {
+
+            ViewCompat.setBackgroundTintList(holder.subscribe, ContextCompat.getColorStateList(context, R.color.green_hak));
             holder.subscribe.setText("منشور");
         }
 
@@ -116,6 +105,10 @@ public class UploadedStoriesAdapter extends RecyclerView.Adapter<UploadedStories
     @Override
     public int getItemCount() {
         return storyList.size();
+    }
+
+    public Context getContext() {
+        return context;
     }
 
 
@@ -150,70 +143,26 @@ public class UploadedStoriesAdapter extends RecyclerView.Adapter<UploadedStories
                 }
             });
 
-            menu = itemView.findViewById(R.id.menu);
-            menu.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    PopupMenu popup = new PopupMenu(context, holder.menu);
-                    popup.inflate(R.menu.option_menu);
-                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                        @Override
-                        public boolean onMenuItemClick(MenuItem item) {
-                            switch (item.getItemId()) {
-                                case R.id.menu_item_delete:
-                                    showDialogWithOkButton("هل أنت متأكد من حذف القصة ؟");
-                                    return true;
-                                default:
-                                    return false;
-                            }                        }
-                    });
-
-                    popup.show();
-                }
-            });
-
-
-
         }
 
-        public void showDialogWithOkButton(String msg) {
-            final androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(context);
-            builder.setMessage(msg)
-                    .setCancelable(false)
-                    .setPositiveButton("حسناً", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            String sid = storyList.get(getAdapterPosition()).getStoryId();
-                            String col = storyList.get(getAdapterPosition()).getStatus();
-                            int position = getAdapterPosition();
-                            Toast.makeText(context, "pop", Toast.LENGTH_SHORT).show();
-                            deleteStory(sid, col, position);
-                        }
-                    }).setNegativeButton("إلغاء", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
-            androidx.appcompat.app.AlertDialog alert = builder.create();
-            alert.show();
+        public int getP(){
+                    return getItemViewType();
         }
-        }//MyViewHolder class
+    }//MyViewHolder class
 
 
-    public void deleteStory(String id , String status ,int position){
+    public void deleteStory(String id, String status, int position) {
         String storyCollection = null;
 
-        if(status.equals( Constants.Keys.REJECTED)){
+        if (status.equals(Constants.Keys.REJECTED)) {
             storyCollection = "rejectedStories";
-        }
-        else if(status.equals( Constants.Keys.PROCESSING)){
+        } else if (status.equals(Constants.Keys.PROCESSING)) {
             storyCollection = "stories";
-        }
-        else if(status.equals( Constants.Keys.PUBLISHED)) {
+        } else if (status.equals(Constants.Keys.PUBLISHED)) {
             storyCollection = "publishedStories";
         }
-        
-        
+
+
         firebaseFirestore.collection(storyCollection).document(id)
                 .delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -228,13 +177,28 @@ public class UploadedStoriesAdapter extends RecyclerView.Adapter<UploadedStories
                         Log.w(TAG, "Error deleting document", e);
                     }
                 });
-        Toast.makeText(context, "deleted", Toast.LENGTH_SHORT).show();
         notifyItemRemoved(position);
 
     }
 
+    public void undoDelete() {
+        storyList.add(mRecentlyDeletedItemPosition,
+                mRecentlyDeletedItem);
+        notifyItemInserted(mRecentlyDeletedItemPosition);
+    }
 
-    }//end class
+    public void deleteItem(int position) {
+        mRecentlyDeletedItem = storyList.get(position);
+        mRecentlyDeletedItemPosition = position;
+        storyList.remove(position);
+        notifyItemRemoved(position);
+        String status =mRecentlyDeletedItem.getStatus();
+        String id =mRecentlyDeletedItem.getStoryId();
+        deleteStory(id,status,position);
+
+    }
+
+}//end class
 
 
 
