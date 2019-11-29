@@ -5,15 +5,133 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/green_hak"
+    android:background="#fff"
     android:gravity="center">
 
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+       android:textAlignment="center"
+        android:text="سجّل صوتك"
+        android:textColor="@color/gray_hak2"
+        android:textSize="18dp"
+        android:id="@+id/title"
+        android:textStyle="bold" />
+
+    <RelativeLayout
+        android:id="@+id/timeLine"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="90dp"
+        android:layout_marginTop="20dp">
+
+        <View
+            android:id="@+id/separator2"
+            android:layout_width="360dp"
+            android:layout_height="3dip"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="25dp"
+            android:alpha=".3"
+            android:background="#A0A0A0" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="90dp"
+
+            >
+            <LinearLayout
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerInParent="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/circle_withou_border"
+              >
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="130dp"
+                android:background="@drawable/circle"
+                android:backgroundTint="@color/pink_hak">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="2"
+                    android:textColor="#fff"
+                    android:textSize="25dp"
+                    android:layout_centerInParent="true"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerInParent="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="130dp"
+                android:background="@drawable/circle_withou_border" />
+
+            <LinearLayout
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerInParent="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/circle_withou_border" />
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+
+    <pl.droidsonroids.gif.GifImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/title"
+        android:layout_centerInParent="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="125dp"        android:src="@drawable/circle_gif"
+        android:tint="@color/pink_hak2" />
+
+        <ImageButton
+            android:id="@+id/action_save"
+            android:layout_width="wrap_content"
+            android:padding="20dp"
+            android:layout_below="@+id/timeBox"
+            android:layout_height="wrap_content"
+            android:src="@drawable/aar_ic_check"
+            android:visibility="invisible"/>
+
+    <ImageButton
+        android:id="@+id/backBtn"
+        android:layout_width="wrap_content"
+        android:padding="20dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/timeBox"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_fast_backword"
+        android:visibility="visible"/>
+
+
+
+
     <LinearLayout
+        android:id="@+id/timeBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="120dp"
         android:orientation="vertical">
 
         <TextView
@@ -131,5 +249,25 @@
             style="@style/Widget.AppCompat.Button.Borderless"/>
 
     </RelativeLayout>
+
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+
+        android:id="@+id/navigation_record"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:background="?android:attr/windowBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/bottom_nav_menu"
+
+        >
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
 
 </RelativeLayout>

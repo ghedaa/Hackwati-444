@@ -2,32 +2,13 @@
 
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:card_view="http://schemas.android.com/tools"
     android:id="@+id/htab_maincontent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
+    android:background="#B6D329"
     android:fitsSystemWindows="true">
     <!--  android:layout_height="584dp"-->
 
-    <TextView
-        android:id="@+id/userName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="20dp"
-        android:text="fldklgk"
-        android:textColor="#861A1A"
-        android:textSize="15sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/Hi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="مرحبا"
-        android:textColor="@color/colorAccent"
-        android:textSize="20sp"
-        android:textStyle="bold" />
 
     <FrameLayout
         android:id="@+id/frame_container"
@@ -40,7 +21,7 @@
         android:layout_width="390dp"
         android:layout_height="708dp"
         android:layout_gravity="center"
-        android:layout_marginTop="-20dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/icon_shape"
         android:backgroundTint="#ffff"
         android:gravity="center"
@@ -49,16 +30,13 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
-            android:layout_width="369dp"
-
+            android:layout_width="200dp"
             android:layout_height="678dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
-
             android:layout_centerInParent="true"
-            android:layout_marginLeft="10dp"
-
-            android:layout_marginRight="11dp"
+            android:layout_marginLeft="11dp"
+            android:layout_marginRight="15dp"
             android:foregroundGravity="center"
             android:padding="10dp">
 
@@ -73,7 +51,6 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:text="" />
-
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
@@ -90,7 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
-            app:contentScrim="@color/blue_hak"
+            app:contentScrim="#A8CD20"
             app:expandedTitleMarginStart="0dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
@@ -100,11 +77,42 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:background="@drawable/hhohoho"
+                android:background="@drawable/rsz_heder_final"
                 android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"
                 app:layout_collapseMode="parallax" />
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+
+                >
+
+                <TextView
+                    android:id="@+id/userName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@+id/Hi"
+                    android:text="fldklgk"
+                    android:textColor="#FFFEF1"
+                    android:textSize="15sp"
+
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/Hi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginRight="100dp"
+                    android:text="مرحبا"
+                    android:textColor="#FFFFFF"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -123,19 +131,16 @@
                 android:id="@+id/anim_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:backgroundTint="@color/blue_hak"
+                android:backgroundTint="#A8CD20"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-
-
-
-
 
 
                 <com.fangxu.allangleexpandablebutton.AllAngleExpandableButton
                     android:id="@+id/button_expandable_110_250"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="310dp"
                     app:aebAnimDurationMillis="175"
                     app:aebButtonElevation="4dp"
                     app:aebButtonGapDp="20dp"
@@ -144,9 +149,7 @@
                     app:aebMainButtonSizeDp="45dp"
                     app:aebRippleEffect="true"
                     app:aebStartAngleDegree="180"
-                    app:aebSubButtonSizeDp="35dp"
-                    android:layout_marginLeft="310dp"/>
-
+                    app:aebSubButtonSizeDp="35dp" />
 
 
             </androidx.appcompat.widget.Toolbar>
@@ -154,7 +157,6 @@
 
 
     </com.google.android.material.appbar.AppBarLayout>
-
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
 

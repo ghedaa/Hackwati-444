@@ -13,7 +13,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,14 +22,14 @@ import androidx.core.content.ContextCompat;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import cafe.adriel.androidaudiorecorder.model.AudioChannel;
-import cafe.adriel.androidaudiorecorder.model.AudioSampleRate;
-import cafe.adriel.androidaudiorecorder.model.AudioSource;
 import pl.droidsonroids.gif.GifImageView;
 import sa.ksu.swe444.hackwati.MainActivity;
 import sa.ksu.swe444.hackwati.R;
 import sa.ksu.swe444.hackwati.cafe.adriel.androidaudiorecorder.AndroidAudioRecorder;
 
+import sa.ksu.swe444.hackwati.cafe.adriel.androidaudiorecorder.model.AudioChannel;
+import sa.ksu.swe444.hackwati.cafe.adriel.androidaudiorecorder.model.AudioSampleRate;
+import sa.ksu.swe444.hackwati.cafe.adriel.androidaudiorecorder.model.AudioSource;
 import sa.ksu.swe444.hackwati.explor.ExploreActivity;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
@@ -114,7 +113,7 @@ public class recordActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_RECORD_AUDIO) {
             if (resultCode == RESULT_OK) {
-                Toast.makeText(this, "Audio recorded successfully!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "تم تسجيل الصوت بنجاح", Toast.LENGTH_SHORT).show();
 
                 Intent intint = new Intent(recordActivity.this, recordStoryInfo.class);
                 intint.putExtra("path", AUDIO_FILE_PATH);
@@ -123,7 +122,7 @@ public class recordActivity extends AppCompatActivity {
 
 
             } else if (resultCode == RESULT_CANCELED) {
-                Toast.makeText(this, "Audio was not recorded", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "تم إلغاء التسجيل", Toast.LENGTH_SHORT).show();
             }
         }
         else if(requestCode==99&&resultCode==RESULT_OK&&data!=null){
@@ -165,7 +164,7 @@ public class recordActivity extends AppCompatActivity {
                 // Optional
                 .setSource(AudioSource.MIC)
                 .setChannel(AudioChannel.STEREO)
-                .setSampleRate(AudioSampleRate.HZ_48000)
+                .setSampleRate(AudioSampleRate.HZ_8000)
                 .setAutoStart(false)
                 .setKeepDisplayOn(true)
 

@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -27,14 +26,10 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import sa.ksu.swe444.hackwati.Constants;
-import sa.ksu.swe444.hackwati.InnerStoryActivity;
 import sa.ksu.swe444.hackwati.R;
-import sa.ksu.swe444.hackwati.StoryActivity;
-import sa.ksu.swe444.hackwati.UserProfile;
 
 
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {

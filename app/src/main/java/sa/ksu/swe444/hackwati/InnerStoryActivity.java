@@ -278,15 +278,6 @@ public class InnerStoryActivity extends AppCompatActivity implements View.OnClic
                 }// if
                 break;
             case R.id.download:
-                /*
-                InputStream fileInputStream = null;
-                try {
-                    fileInputStream= getApplicationContext().getContentResolver().openInputStream(uri);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-           */
-
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
                     if(checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)== PackageManager.PERMISSION_DENIED){
                         String [] permission = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
@@ -370,18 +361,7 @@ public class InnerStoryActivity extends AppCompatActivity implements View.OnClic
 
 
 
-    private void downloadFile(InnerStoryActivity context, String fileName, String fileExtention, String destinationDir, String url) {
-        DownloadManager downloadManager =
-                (DownloadManager) context.getSystemService(context.DOWNLOAD_SERVICE);
-        Uri uri = Uri.parse(url);
-        DownloadManager.Request request =
-                new DownloadManager.Request(uri);
 
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-        request.setDestinationInExternalFilesDir(context, destinationDir, fileName + fileExtention);
-
-        downloadManager.enqueue(request);
-    }
 
 
     private void getAudio() {

@@ -4,9 +4,9 @@ import android.graphics.Color;
 import android.media.AudioFormat;
 import android.os.Handler;
 
-import cafe.adriel.androidaudiorecorder.model.AudioChannel;
-import cafe.adriel.androidaudiorecorder.model.AudioSampleRate;
-import cafe.adriel.androidaudiorecorder.model.AudioSource;
+import sa.ksu.swe444.hackwati.cafe.adriel.androidaudiorecorder.model.AudioChannel;
+import sa.ksu.swe444.hackwati.cafe.adriel.androidaudiorecorder.model.AudioSampleRate;
+import sa.ksu.swe444.hackwati.cafe.adriel.androidaudiorecorder.model.AudioSource;
 
 
 public class Util {

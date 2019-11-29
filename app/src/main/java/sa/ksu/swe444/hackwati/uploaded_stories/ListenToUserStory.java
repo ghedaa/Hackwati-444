@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
 import android.app.DownloadManager;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -53,6 +54,8 @@ public class ListenToUserStory extends AppCompatActivity implements View.OnClick
     private MediaPlayer mediaPlayer;
     private TextView remainingTime;
     private TextView currentTime;
+    private static final int PERMISSION_STORAG_CODE = 1000;
+    private String link;
     // private MyService myService;
 
     File localFile = null;
@@ -267,10 +270,15 @@ public class ListenToUserStory extends AppCompatActivity implements View.OnClick
                 }// if
                 break;
             case R.id.download:
-                            // download();
-                Intent intent = new Intent(ListenToUserStory.this , uri.getClass());
-                startActivity(intent);
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                    if(checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)== PackageManager.PERMISSION_DENIED){
+                        String [] permission = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                        requestPermissions(permission , PERMISSION_STORAG_CODE);
 
+                    }else {
+                        startDownloading();
+                    }
+                }
 
                 break;
 
@@ -328,21 +336,21 @@ public class ListenToUserStory extends AppCompatActivity implements View.OnClick
         startActivity(Intent.createChooser(sendIntent, "SEND"));
     }// end shareStory()
 
-
-/*
-    private void downloadFile(InnerStoryActivity context, String fileName, String fileExtention, String destinationDir, String url) {
-        DownloadManager downloadManager =
-                (DownloadManager) context.getSystemService(context.DOWNLOAD_SERVICE);
-        Uri uri = Uri.parse(url);
-        DownloadManager.Request request =
-                new DownloadManager.Request(uri);
-
+    private void startDownloading() {
+        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(link));
+        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
+        request.setTitle(title);
+        request.setDescription("downloading story");
+        request.allowScanningByMediaScanner();
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-        request.setDestinationInExternalFilesDir(context, destinationDir, fileName + fileExtention);
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS , "story"+System.currentTimeMillis());
 
-        downloadManager.enqueue(request);
+
+        DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+        manager.enqueue(request);
+
+
     }
-*/
 
     private void getExtras() {
 
@@ -351,6 +359,7 @@ public class ListenToUserStory extends AppCompatActivity implements View.OnClick
 
             uri = Uri.parse(intent.getExtras().getString(Keys.STORY_AUDIO));
             img = Uri.parse(intent.getExtras().getString(Constants.Keys.STORY_COVER));
+            link = intent.getExtras().getString(Constants.Keys.STORY_AUDIO);
             storyID = intent.getExtras().getString(Constants.Keys.STORY_ID);
             title = intent.getExtras().getString(Constants.Keys.STORY_TITLE);
             titleView.setText(title);
@@ -359,20 +368,12 @@ public class ListenToUserStory extends AppCompatActivity implements View.OnClick
 
     }
 
-    public static boolean isDownloadManagerAvailable(Context context) {
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-            return true;
-        }
-        return false;
-    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if(requestCode == REQUEST_CODE_WRITE_EXTERNAL_STORAGE_PERMISSION)
-        {
+        if(requestCode == REQUEST_CODE_WRITE_EXTERNAL_STORAGE_PERMISSION) {
             int grantResultsLength = grantResults.length;
             if(grantResultsLength > 0 && grantResults[0]==PackageManager.PERMISSION_GRANTED)
             {

@@ -62,6 +62,7 @@ import sa.ksu.swe444.hackwati.Constants;
 import sa.ksu.swe444.hackwati.MainActivity;
 import sa.ksu.swe444.hackwati.MySharedPreference;
 import sa.ksu.swe444.hackwati.R;
+import sa.ksu.swe444.hackwati.cafe.adriel.androidaudiorecorder.AudioRecorderActivity;
 import sa.ksu.swe444.hackwati.explor.ExploreActivity;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
@@ -428,7 +429,7 @@ return isValid;
     public void uploadAudio() {
 
         StorageMetadata metadata = new StorageMetadata.Builder()
-                .setContentType("audio/3gp")
+                .setContentType("audio/*")
                 .build();
 
         String userId = mAuth.getCurrentUser().getUid();
@@ -660,6 +661,7 @@ return isValid;
                 .setCancelable(false)
                 .setPositiveButton("حسنًا", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        Toast.makeText(recordStoryInfo.this, "تم إلغاء القصة", Toast.LENGTH_SHORT).show();
                         startActivity(intent);
                     }
                 }).setNegativeButton("إلغاء", new DialogInterface.OnClickListener() {
@@ -738,4 +740,14 @@ return isValid;
 
         return inSampleSize;
     }
+
+    @Override
+    public void onBackPressed() {
+
+        showDialogWithOkButton("هل تريد حقاً إلغاء رفع القصة؟", new Intent(recordStoryInfo.this, recordActivity.class));
+
+
+    }
+
+
 }

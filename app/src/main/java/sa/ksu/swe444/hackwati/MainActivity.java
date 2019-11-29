@@ -85,6 +85,9 @@ public class MainActivity extends AppCompatActivity {
         initRecyclerView();
         installButton110to250();
 
+
+
+
         navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -159,8 +162,6 @@ public class MainActivity extends AppCompatActivity {
             public void onButtonClicked(int index) {
                 switch (index) {
                     case 1:
-
-
                         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                         builder.setMessage("هل أنت متأكد من أنك تريد تسجيل الخروج؟")
                                 .setCancelable(false)
@@ -288,8 +289,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void retriveSubscribedUserStories(final String userID, final String userName, final String thumbnail) {
-
-
 
         firebaseFirestore.collection("publishedStories")
                 .whereEqualTo("userId", userID)

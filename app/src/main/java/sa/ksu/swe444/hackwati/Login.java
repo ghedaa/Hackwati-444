@@ -389,7 +389,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                                 // updateUI(null);
                             }
 
-                            // ...
                         }
                     });
 

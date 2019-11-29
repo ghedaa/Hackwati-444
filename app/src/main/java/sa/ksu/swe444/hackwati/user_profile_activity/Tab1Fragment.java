@@ -57,7 +57,6 @@ import sa.ksu.swe444.hackwati.R;
 import sa.ksu.swe444.hackwati.SplashActivity;
 import sa.ksu.swe444.hackwati.SubscribedListActivity;
 import sa.ksu.swe444.hackwati.SubscribersListActivity;
-import sa.ksu.swe444.hackwati.UserProfile;
 import sa.ksu.swe444.hackwati.uploaded_stories.UserUploadedStories;
 
 
@@ -129,16 +128,6 @@ public class Tab1Fragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
 
         relImg = v.findViewById(R.id.plus);
-        uploadImg = v.findViewById(R.id.uploadImg);
-        uploadImg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                uploadImageWithUri();
-
-
-            }
-        });
-
         subscriberno = v.findViewById(R.id.subscriberno);
         subscribedno = v.findViewById(R.id.subscribedno);
         subscribed = v.findViewById(R.id.subscribed);
@@ -155,6 +144,7 @@ public class Tab1Fragment extends Fragment {
             public void onClick(View view) {
 
                 openCameraChooser();
+               // uploadImageWithUri();
 
             }
         });
@@ -187,63 +177,19 @@ public class Tab1Fragment extends Fragment {
             }
         });
 
-       /* log_out = v.findViewById(R.id.logout_profile);
-        log_out.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                signOut();
-            }
-        });*/
-
         retriveUserData();
         countStories();
         Subscribers();
-
-
-        return v;
-    }
-
-
-   /* private void signOut() {
-
-
-        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(getContext());
-        builder.setMessage("هل أنت متأكد من أنك تريد تسجيل الخروج؟")
-                .setCancelable(false)
-                .setPositiveButton("أنا متأكد", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-
-
-                        //Token ID
-                        String uid= mAuth.getInstance().getUid();
-                        Map<String,Object> user_updateToken = new HashMap<>();
-                        user_updateToken.put("TokenID","");
-                        firebaseFirestore.collection("users").document(uid).update(user_updateToken);
-                        // done by fatimah clearing token id
-                        MySharedPreference.clearData(getContext());
-
-                        FirebaseAuth.getInstance().signOut();
-                        MySharedPreference.clearData(getContext());
-
-                        startActivity(new Intent(getContext(), SplashActivity.class));
-                    }
-
-                });
-        builder.setNeutralButton("إلغاء", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
+        log_out = v.findViewById(R.id.logout_profile);
+        log_out.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logout();
             }
         });
 
-        androidx.appcompat.app.AlertDialog alert = builder.create();
-        alert.show();
-
-        // done by fatimah clearing token id
-
-
-        FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(getContext(), SplashActivity.class));
-    }//end of signOut
-*/
+        return v;
+    }// onCreate()
 
     public void retriveUserData() {
         DocumentReference docRef = firebaseFirestore.collection("users").document(userUid);
@@ -357,6 +303,8 @@ public class Tab1Fragment extends Fragment {
                 Intent.ACTION_PICK,
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, INTENT_GALLERY);
+
+        uploadImageWithUri();
     }//END OF galleryIntent()
 
     private void uploadImageWithUri() {
@@ -450,8 +398,6 @@ public class Tab1Fragment extends Fragment {
                 .setPositiveButton("send", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogBox, int id) {
                         // ToDo get user input here
-
-
                         DocumentReference washingtonRef = firebaseFirestore.collection("users").document(userUid);
                         washingtonRef
                                 .update("username", userInputDialogEditText.getText().toString() + "")
@@ -467,7 +413,6 @@ public class Tab1Fragment extends Fragment {
                                         Log.w(TAG, "Error updating document", e);
                                     }
                                 });
-
 
                     }
                 })
@@ -517,8 +462,6 @@ public class Tab1Fragment extends Fragment {
                                         Log.w(TAG, "Error updating document", e);
                                     }
                                 });
-
-
                     }
                 })
 
@@ -542,15 +485,56 @@ public class Tab1Fragment extends Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             int counter = 0;
+                            final int[] sum = {0,0,0};
+
                             for (DocumentSnapshot document : task.getResult()) {
                                 counter++;
                             }
-                            storyno.setText(counter + "");
+                            sum[0] +=counter;
+
+                            firebaseFirestore.collection("rejectedStories")
+                                    .whereEqualTo("userId", userUid)
+                                    .get()
+                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                int counter = 0;
+                                                for (DocumentSnapshot document : task.getResult()) {
+                                                    counter++;
+                                                }
+                                                sum[1] +=counter;
+
+                                                firebaseFirestore.collection("stories")
+                                                        .whereEqualTo("userId", userUid)
+                                                        .get()
+                                                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                            @Override
+                                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                                if (task.isSuccessful()) {
+                                                                    int counter = 0;
+                                                                    int storyNum=0;
+                                                                    for (DocumentSnapshot document : task.getResult()) {
+                                                                        counter++;
+                                                                    }
+                                                                    sum[2] +=counter;
+                                                                    for(int i =0 ; i<sum.length ; i++){
+                                                                        storyNum+=sum[i];
+                                                                    }
+                                                                    storyno.setText(storyNum + " ");
+                                                                }
+                                                            }
+                                                        });
+
+                                            }
+                                        }
+                                    });
+
+
 
                         }
                     }
                 });
-
     }
 
 
@@ -568,11 +552,40 @@ public class Tab1Fragment extends Fragment {
                                 counter++;
                             }
                             subscriberno.setText(counter + "");
-
                         }
                     }
                 });
-
     }
+
+    public void logout(){
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(getContext());
+        builder.setMessage("هل أنت متأكد من أنك تريد تسجيل الخروج؟")
+                .setCancelable(false)
+                .setPositiveButton("أنا متأكد", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        //Token ID
+                        String uid= mAuth.getInstance().getUid();
+                        Map<String,Object> user_updateToken = new HashMap<>();
+                        user_updateToken.put("TokenID","");
+                        firebaseFirestore.collection("users").document(uid).update(user_updateToken);
+                        // done by fatimah clearing token id
+
+                        FirebaseAuth.getInstance().signOut();
+                        MySharedPreference.clearData(getContext());
+
+                        startActivity(new Intent(getContext(), SplashActivity.class));
+                    }
+
+                });
+        builder.setNeutralButton("إلغاء", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+            }
+        });
+
+        androidx.appcompat.app.AlertDialog alert = builder.create();
+        alert.show();
+
+    }//logout
 }
 

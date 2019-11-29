@@ -9,82 +9,93 @@
     android:layout_height="match_parent"
     android:layout_marginTop="20dp">
 
-<RelativeLayout
-    android:id="@+id/timeLine"
-    android:layout_width="match_parent"
-    android:layout_height="80dp"
-    android:layout_marginTop="20dp">
-
-    <View
-        android:id="@+id/separator2"
-        android:layout_width="350dp"
-        android:layout_height="3dip"
-        android:layout_centerInParent="true"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="25dp"
-        android:alpha=".3"
-        android:background="#A0A0A0" />
-
-    <LinearLayout
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_alignParentLeft="true"
-        android:layout_centerInParent="true"
-        android:layout_marginLeft="20dp"
-        android:background="@drawable/circle_withou_border">
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_centerInParent="true"
-        android:layout_marginLeft="20dp"
-        android:background="@drawable/circle_withou_border"
-        >
-
-
-
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentRight="true"
-        android:layout_centerInParent="true"
-        android:layout_marginRight="20dp"
-        android:backgroundTint="@color/orange_hak"
-        android:background="@drawable/circle" >
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="3"
-        android:textColor="#fff"
-        android:textSize="25dp"
-        android:textStyle="bold" />
-    </LinearLayout>
-
-
-
-</RelativeLayout>
-
 
     <TextView
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="right"
+        android:textAlignment="center"
         android:text="اكتمل"
-        android:layout_marginRight="30dp"
         android:textColor="@color/gray_hak2"
-        android:textSize="14dp"
+        android:textSize="18dp"
         android:id="@+id/title"
         android:textStyle="bold" />
+
+
+    <RelativeLayout
+        android:id="@+id/timeLine"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="80dp"
+        android:layout_marginTop="20dp">
+
+        <View
+            android:id="@+id/separator2"
+            android:layout_width="360dp"
+            android:layout_height="3dip"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="25dp"
+            android:alpha=".3"
+            android:background="#A0A0A0" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+
+            >
+            <LinearLayout
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerInParent="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/circle_withou_border"
+               />
+
+
+
+
+            <LinearLayout
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerInParent="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="130dp"
+                android:background="@drawable/circle_withou_border" />
+
+            <LinearLayout
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerInParent="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="130dp"
+                android:background="@drawable/circle_withou_border" />
+
+            <LinearLayout
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/circle"
+                android:backgroundTint="@color/orange_hak">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="4"
+                    android:textColor="#fff"
+                    android:textSize="25dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+
 
     <pl.droidsonroids.gif.GifImageView
         android:layout_width="wrap_content"
@@ -101,7 +112,7 @@
         android:gravity="center"
         android:text="تم الرفع بنجاح"
         android:textSize="20dp"
-        android:visibility="gone"
+        android:visibility="invisible"
         android:layout_centerInParent="true"/>
 
     <TextView
@@ -110,8 +121,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_below="@+id/done"
-        android:visibility="gone"
-
+        android:visibility="invisible"
         android:layout_marginTop="20dp"
         android:text="سيتم مراجعة قصتك، وسيتم إعلامك فور نشرها"
         android:textSize="18dp"
@@ -127,6 +137,19 @@
         android:tint="@color/orange_hak2"
         android:layout_below="@id/title"
         />
+
+    <Button
+        android:id="@+id/stories"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/discriprion"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="35dp"
+        android:background="@drawable/shape_subscribe"
+        android:backgroundTint="#DB9645"
+        android:visibility="invisible"
+        android:text="اذهب إلى قصصي المرفوعة"
+        android:textColor="#fff"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
 

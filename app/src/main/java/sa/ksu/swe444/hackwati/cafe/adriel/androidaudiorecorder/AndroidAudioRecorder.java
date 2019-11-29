@@ -7,10 +7,10 @@ import android.os.Environment;
 
 import androidx.fragment.app.Fragment;
 
-import cafe.adriel.androidaudiorecorder.AudioRecorderActivity;
-import cafe.adriel.androidaudiorecorder.model.AudioChannel;
-import cafe.adriel.androidaudiorecorder.model.AudioSampleRate;
-import cafe.adriel.androidaudiorecorder.model.AudioSource;
+import sa.ksu.swe444.hackwati.cafe.adriel.androidaudiorecorder.model.AudioChannel;
+import sa.ksu.swe444.hackwati.cafe.adriel.androidaudiorecorder.model.AudioSampleRate;
+import sa.ksu.swe444.hackwati.cafe.adriel.androidaudiorecorder.model.AudioSource;
+
 
 public class AndroidAudioRecorder {
 
@@ -29,7 +29,7 @@ public class AndroidAudioRecorder {
     private AudioSource source = AudioSource.MIC;
     private AudioChannel channel = AudioChannel.STEREO;
     private AudioSampleRate sampleRate = AudioSampleRate.HZ_44100;
-    private int color = Color.parseColor("#546E7A");
+    private int color = Color.parseColor("#ffffff");
     private int requestCode = 0;
     private boolean autoStart = false;
     private boolean keepDisplayOn = false;
