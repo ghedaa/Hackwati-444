@@ -73,6 +73,7 @@
             android:label="@string/app_name" />
         <activity android:name=".Login" />
         <activity android:name=".MainActivity" />
+        <activity android:name=".uploaded_stories.UserUploadedStories" />
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
