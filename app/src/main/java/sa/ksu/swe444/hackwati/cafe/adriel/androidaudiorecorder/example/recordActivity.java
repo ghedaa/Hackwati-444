@@ -103,7 +103,7 @@ public class recordActivity extends AppCompatActivity {
 
     private void selectAudio() {
         Intent intent=new Intent();
-        intent.setType("audio/3gp");
+        intent.setType("audio/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent,99);
     }
@@ -128,7 +128,8 @@ public class recordActivity extends AppCompatActivity {
         else if(requestCode==99&&resultCode==RESULT_OK&&data!=null){
             audioFatimah=data.getData();
 
-            String fatimah=audioFatimah.getPath()+"/recorded_audio.3gp";
+
+            String fatimah=audioFatimah.getPath()+"/recorded_audio.*";
             Log.d("here","click"+fatimah);
             Intent intent = new Intent(recordActivity.this,recordStoryInfo.class);
             intent.putExtra("FatimahAudio",audioFatimah);
