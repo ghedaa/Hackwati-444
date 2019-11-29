@@ -2,6 +2,7 @@ package sa.ksu.swe444.hackwati.explor;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -19,15 +20,16 @@ import sa.ksu.swe444.hackwati.MainActivity;
 import sa.ksu.swe444.hackwati.R;
 import sa.ksu.swe444.hackwati.cafe.adriel.androidaudiorecorder.example.recordActivity;
 
-public class ExploreActivity extends AppCompatActivity {
+public class ExploreActivity extends AppCompatActivity implements PopularStories.FirstFragmentListener {
 
     private fragmentadapter adapter;
     private fragmentadapter adapter2;
     private ViewPager viewPager;
     private ViewPager viewPager2;
-    private AllStories allStories;
-    private PopularStories popularStories;
+     AllStories allStories;
+     PopularStories popularStories;
     public BottomNavigationView navView;
+    public String title;
 
 
 
@@ -35,6 +37,9 @@ public class ExploreActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_explore);
+
+
+
 
 
 
@@ -48,12 +53,19 @@ public class ExploreActivity extends AppCompatActivity {
 
         allStories=new AllStories();
         popularStories=new PopularStories();
+
+        //Step 10
+        popularStories.setListener(this);
+
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         viewPager2= (ViewPager) findViewById(R.id.viewPager2);
+
         adapter = new fragmentadapter(getSupportFragmentManager());
         adapter2=new  fragmentadapter(getSupportFragmentManager());
+
         adapter2.addFragment(allStories);
         adapter.addFragment(popularStories);
+
         viewPager.setAdapter(adapter);
         viewPager2.setAdapter(adapter2);
 
@@ -81,5 +93,12 @@ public class ExploreActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+    // step9
+    @Override
+    public void onClassificationItemSelected1(String name) {
+        Log.d("here ","onClick on ExploreActivity"+name);
+
+        allStories.setName(name);
     }
 }
