@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,6 +64,7 @@ public class EditProfile extends AppCompatActivity {
     private String imgPath;
     Uri contentURI;
     private File imgFile;
+    private ProgressBar progressBar;
 
 
 
@@ -93,23 +95,28 @@ public class EditProfile extends AppCompatActivity {
         save = findViewById(R.id.edit_profile);
         mAuth = FirebaseAuth.getInstance();
         storageRef = storage.getReference();
+        progressBar = findViewById(R.id.progress_bar);
+        progressBar.setVisibility(View.GONE);
 
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // save changes
+                progressBar.setVisibility(View.VISIBLE);
                 String n = name.getText().toString();
                 String b = bio.getText().toString();
                 editName(n);
                 editBio(b);
                 uploadImageWithUri();
-                Toast.makeText(EditProfile.this, "تم حفظ التعديلات بنجاح", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(EditProfile.this, UserProfileActivity.class));
 
             }
         });
 
         retriveUserData();
+
+
     }// onCreate
 
 
@@ -199,12 +206,12 @@ public class EditProfile extends AppCompatActivity {
         showPhotoOptionsDialog();
     }//end of openCameraChooser()
     private void showPhotoOptionsDialog() {
-        final CharSequence[] items = {"الصور"};
+        final CharSequence[] items = {"Gallery"};
         AlertDialog.Builder builder = new AlertDialog.Builder(EditProfile.this);
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int item) {
-                if (items[item].equals("الصور")) {
+                if (items[item].equals("Gallery")) {
                     galleryIntent();
                 }//end if else
             }//end onClick()
@@ -250,7 +257,6 @@ public class EditProfile extends AppCompatActivity {
 
 
                         DocumentReference updateRef = firebaseFirestore.collection("users").document(userUid);
-                        Toast.makeText(EditProfile.this, "تم رفع الصورة", Toast.LENGTH_SHORT).show();
 
                         // reset the thumbnail" field
                         updateRef
@@ -278,20 +284,16 @@ public class EditProfile extends AppCompatActivity {
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                   // Toast.makeText(getBaseContext(), "Upload successful", Toast.LENGTH_SHORT).show();
-                    Log.d("","Upload successful");
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                 //   Toast.makeText(getBaseContext(), "Upload Failed -> " + e, Toast.LENGTH_SHORT).show();
-                    Log.d("","Upload Failed -> ");
-
                 }
             });
         } else {
-            Toast.makeText(getBaseContext(), "اختر صوره", Toast.LENGTH_SHORT).show();
         }
+        progressBar.setVisibility(View.GONE);
+
     }
 
     private void persistImage(Bitmap bitmap) {
@@ -331,7 +333,7 @@ public class EditProfile extends AppCompatActivity {
 
                 } catch (IOException e) {
                     e.printStackTrace();
-                    Toast.makeText(getBaseContext(), "خطأ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), "Failed!", Toast.LENGTH_SHORT).show();
                 }// end catch
             }//end if statement
 

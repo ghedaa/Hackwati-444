@@ -149,7 +149,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
             case R.id.loginbutton_login:
 
-
+                progressBar.setVisibility(View.VISIBLE);
                 signIn();
 
                 break;
@@ -383,6 +383,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     });
 
         }
+        progressBar.setVisibility(View.GONE);
+
 
     }//end of signIn
 

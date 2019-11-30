@@ -23,6 +23,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -82,6 +83,8 @@ public class recordStoryInfo extends AppCompatActivity implements View.OnClickLi
     private File imgFile;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference ref;
+    private ProgressBar progressBar;
+
 
 
     private static final String LOG_TAG = "AudioRecordTest";
@@ -121,18 +124,15 @@ public class recordStoryInfo extends AppCompatActivity implements View.OnClickLi
 
             uploadedAudio=intent.getExtras().getString("FatimahAudio");
            // if(intent.getExtras().getString("isFull").equals("true"))
-
           fileName=uploadedAudio;
-
-
+          progressBar = findViewById(R.id.progress_bar);
+          progressBar.setVisibility(View.GONE);
 
         }
 
         //fileName = Environment.getExternalStorageDirectory().getPath() + "/recorded_audio.3gp";
         Log.d(TAG, "hello n"+AUDIO_FILE_PATH);
         fileName = AUDIO_FILE_PATH;
-
-        Log.d(getClass().getSimpleName(), "queen "+fileName); Log.d(getClass().getSimpleName(), "queen "+AUDIO_FILE_PATH);
 
         storyDiscription = findViewById(R.id.pp);
         storyTitle = findViewById(R.id.name);
@@ -156,6 +156,8 @@ public class recordStoryInfo extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onClick(View view) {
               if(verificationBeforeUploadingStory()) {
+                  progressBar.setVisibility(View.VISIBLE);
+
                   storyId = storyTitleToStoryId();
                   uploadAudioToDraft();
                   uploadImageWithUriToDraft();
@@ -179,8 +181,10 @@ public class recordStoryInfo extends AppCompatActivity implements View.OnClickLi
                     storyId = storyTitleToStoryId();
                     uploadAudio();
                     uploadImageWithUri();
+                    progressBar.setVisibility(View.VISIBLE);
 
-                  //  startActivity(new Intent(recordStoryInfo.this,recordComplitaion.class));
+
+                    //  startActivity(new Intent(recordStoryInfo.this,recordComplitaion.class));
 
                 }
 
@@ -274,17 +278,24 @@ public class recordStoryInfo extends AppCompatActivity implements View.OnClickLi
             });
 
         }
+        progressBar.setVisibility(View.GONE);
+
     }
 
     private void uploadAudioToDraft() {
 
         StorageMetadata metadata = new StorageMetadata.Builder()
-                .setContentType("audio/3gp")
+                .setContentType("audio/*")
                 .build();
-
+        Intent intent = getIntent();
+        if (intent.getExtras() != null){
+            fileName = intent.getExtras().getString("uploadedURI", fileName);
+        }
         String userId = mAuth.getCurrentUser().getUid();
         final StorageReference filepath = storageRef.child(userId).child(storyId).child("audio.3gp");
         Uri uri = Uri.fromFile(new File(fileName));
+        // if audio is uploaded
+
         final UploadTask uploadTask = filepath.putFile(uri, metadata);
 
         uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -436,7 +447,14 @@ return isValid;
 
 
     public void uploadAudio() {
+        Intent intent = getIntent();
+        if (intent.getExtras() != null) {
 
+            uploadedAudio = intent.getExtras().getString("FatimahAudio");
+        }
+        if (intent.getExtras() != null){
+            fileName = intent.getExtras().getString("uploadedURI", fileName);
+        }
         StorageMetadata metadata = new StorageMetadata.Builder()
                 .setContentType("audio/*")
                 .build();
@@ -594,6 +612,8 @@ return isValid;
             });
 
         }
+        progressBar.setVisibility(View.GONE);
+
     }
 
     private void addImgToCollectionStories() {

@@ -26,7 +26,8 @@
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:background="@drawable/icon_shape_circuler_two"
+        android:background="@drawable/icon_shape_botum"
+        android:backgroundTint="@color/yellow_hak"
         android:fitsSystemWindows="true"
         android:theme="@style/AppTheme.AppBarOverlay"
         app:elevation="0dp">
@@ -78,8 +79,7 @@
                         android:ems="5"
                         android:text=" المتابعين"
                         android:textAlignment="center"
-                        android:textColor="@color/pink_hak2"
-                        android:textStyle="bold"
+                        android:textColor="#94B9B8"
                         android:textSize="12dp" />
 
                     <TextView
@@ -90,9 +90,8 @@
                         android:layout_centerInParent="true"
                         android:ems="5"
                         android:hint="0"
-                        android:textColor="@color/white_hak"
                         android:textAlignment="center"
-                        android:textSize="18dp"
+                        android:textSize="20dp"
                         android:textStyle="bold" />
                 </RelativeLayout>
 
@@ -110,9 +109,8 @@
                         android:layout_centerInParent="true"
                         android:ems="5"
                         android:text=" المتابعون"
-                        android:textColor="@color/pink_hak2"
-                        android:textStyle="bold"
                         android:textAlignment="center"
+                        android:textColor="#94B9B8"
                         android:textSize="12dp" />
 
                     <TextView
@@ -144,8 +142,7 @@
                         android:layout_alignParentBottom="true"
                         android:layout_centerInParent="true"
                         android:textAlignment="center"
-                        android:textColor="@color/pink_hak2"
-                        android:textStyle="bold"
+                        android:textColor="#94B9B8"
                         android:textSize="12dp" />
 
                     <TextView
@@ -174,10 +171,9 @@
                 android:layout_below="@+id/userImg"
                 android:textAlignment="center"
                 android:layout_centerInParent="true"
-                android:textColor="@color/white_hak"
                 android:layout_marginTop="5dp"
                 android:hint="اسم المستخدم"
-                android:textSize="16dp" />
+                android:textSize="14dp" />
 
 <RelativeLayout
     android:id="@+id/tabs"
@@ -198,7 +194,7 @@
                 app:tabPaddingEnd="16dp"
                 app:tabPaddingStart="16dp"
                 app:tabRippleColor="@null"
-                app:tabSelectedTextColor="#F0BCC2"
+                app:tabSelectedTextColor="@color/colorPrimaryDark"
                 app:tabTextAppearance="@style/TabTextAppearance"
                />
         </RelativeLayout>
@@ -209,6 +205,22 @@
 
 
     </com.google.android.material.appbar.AppBarLayout>
+
+   <!-- <com.google.android.material.bottomnavigation.BottomNavigationView
+
+        android:id="@+id/nav_view"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:background="?android:attr/windowBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/bottom_nav_menu">
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>-->
 
     <include layout="@layout/nav_bottom_design"></include>
 
