@@ -11,10 +11,10 @@
         android:left="0dp"
         android:right="0dp"
         android:top="0dp" />
-    <stroke
-        android:width="0dp" />
+
+
     <gradient
-        android:startColor="#2196f3"
-        android:endColor= "#2196f3"
+        android:startColor="@color/blue_hak"
+        android:endColor= "#A8DDCC"
         android:angle="90" />
 </shape>

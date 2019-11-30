@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
+
     android:fitsSystemWindows="true">
     <!--  android:layout_height="584dp"-->
     <FrameLayout
@@ -14,10 +15,11 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 
+
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
 
         <ImageView
             android:id="@+id/horn"
@@ -28,17 +30,19 @@
             android:src="@drawable/bug"
             android:tint="#9C27B0" />
 
+
         <RelativeLayout
             android:id="@+id/head"
             android:layout_width="500dp"
 
             android:layout_height="match_parent"
             android:layout_marginTop="41dp"
-            android:background="@drawable/circle_big"
-            android:backgroundTint="@color/blue_hak">
+            android:background="@drawable/circle_big">
+
 
             <ImageView
-                android:layout_width="100dp"
+                android:id="@+id/eyes"
+                android:layout_width="120dp"
                 android:layout_height="100dp"
                 android:layout_alignParentTop="true"
                 android:layout_centerInParent="true"
@@ -50,36 +54,24 @@
 
         <RelativeLayout
             android:layout_width="390dp"
-            android:background="@drawable/circle_big"
-            android:backgroundTint="#EBEBEB"
+            android:layout_height="500dp"
             android:layout_alignParentBottom="true"
-            android:alpha=".7"
             android:layout_centerHorizontal="true"
-            android:layout_height="500dp"/>
+            android:alpha=".7"
+            android:background="@drawable/circle_big"
+            android:backgroundTint="#EBEBEB" />
 
-    </RelativeLayout>
-
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="560dp"
-        android:layout_marginTop="70dp"
-        android:orientation="vertical">
-
-        <androidx.viewpager.widget.ViewPager
-            android:layout_marginTop="50dp"
-            android:id="@+id/viewPager"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            />
-
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/viewPager2"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            />
+            android:layout_marginTop="130dp"
+            android:text="اكتشف"
+            android:textStyle="bold"
+            android:textColor="#9C27B0"
+            android:textAlignment="center"
+            android:textSize="20dp" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
     <androidx.appcompat.widget.SearchView
@@ -88,9 +80,28 @@
         android:layout_height="wrap_content"
         android:backgroundTint="#9C27B0"
         android:iconifiedByDefault="true"
-
         android:queryHint="ابحث عن قصة"></androidx.appcompat.widget.SearchView>
 
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginTop="130dp" />
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPager2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-30dp"
+            android:layout_marginLeft="29dp"
+            android:layout_marginRight="20dp"/>
+
+    </LinearLayout>
 
     <!--
         <com.google.android.material.bottomnavigation.BottomNavigationView
