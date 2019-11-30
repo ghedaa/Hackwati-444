@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/htab_maincontent"
     android:layout_width="match_parent"
@@ -18,10 +19,9 @@
 
 
     <RelativeLayout
-        android:layout_width="390dp"
-        android:layout_height="708dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_marginTop="0dp"
         android:background="@drawable/icon_shape"
         android:backgroundTint="#ffff"
         android:gravity="center"
@@ -30,14 +30,15 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
-            android:layout_width="200dp"
-            android:layout_height="678dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
-            android:layout_marginLeft="11dp"
-            android:layout_marginTop="-40dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="-20dp"
             android:layout_marginRight="15dp"
+            android:layout_marginBottom="90dp"
             android:foregroundGravity="center"
             android:padding="10dp">
 

@@ -342,6 +342,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                                     executeLogin();
                                     //  startActivity(new Intent(Login.this, MainActivity.class));
                                 } else {
+                                    executeLogin();
+
                                     showDialogWithOkButton("تحقق من الرابط المرسل على بريدك لإكمال عملية تسجيل الدخول ");
                                 }
 

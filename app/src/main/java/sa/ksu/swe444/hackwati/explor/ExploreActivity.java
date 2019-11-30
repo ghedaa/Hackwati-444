@@ -34,7 +34,6 @@ public class ExploreActivity extends AppCompatActivity implements PopularStories
     public BottomNavigationView navView;
     public String title;
     SearchView editsearch;
-    exploreactivityListener listener;
 
 
 
@@ -111,22 +110,12 @@ public class ExploreActivity extends AppCompatActivity implements PopularStories
     @Override
     public boolean onQueryTextSubmit(String query) {
 
-        Intent intent=new Intent(ExploreActivity.this,AllStories.class);
-        intent.putExtra("SearchText",query);
-        Log.d("g","query submitted");
 
       allStories.setTitle(query);
       Log.d("","Search Explore");
         return false;
     }
-    public void setListener(exploreactivityListener listener){
-        this.listener=listener;
-    }
-    //step1
-    public interface exploreactivityListener{
-        void onSearchItemClick(String name);
 
-    }
     @Override
     public boolean onQueryTextChange(String newText) {
         return false;
