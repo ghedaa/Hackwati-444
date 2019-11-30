@@ -369,16 +369,14 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                                     // end og getting token by fatimah
 
 
-                                    executeLogin();
+                              //      executeLogin();
                                     // startActivity(new Intent(Login.this, MainActivity.class));
                                 }
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w(TAG, "signInWithEmail:failure", task.getException());
-                                Toast.makeText(Login.this, "لم تنجح عملية التسجيل مع قوقل",
-                                        Toast.LENGTH_SHORT).show();
+
                                 showDialogWithOkButton("البريد الإلكتروني أو كلمة المرور غير صحيحة");
-                                // updateUI(null);
                             }
 
                         }
@@ -443,21 +441,18 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                                 executeLogin();
                                 startActivity(new Intent(Login.this, MainActivity.class));
                             } else {
-                               /* Toast.makeText(Login.this, "email not verified",
-                                        Toast.LENGTH_SHORT).show();*/
+
+                               Toast.makeText(Login.this, "الايميل غير صالح",
+                                        Toast.LENGTH_SHORT).show();
                                 showDialogWithOkButton("البريد الإلكتروني غير صالح");
                             }
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            // Snackbar.make(findViewById(R.id.main_layout), "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
-                            //updateUI(null);
+
                             showDialogWithOkButton("الرجاء ادخال المعلومات");
                         }
 
-                        // [START_EXCLUDE]
-                        // hideProgressDialog();
-                        // [END_EXCLUDE]
                     }
                 });
     } // [END auth_with_google]
