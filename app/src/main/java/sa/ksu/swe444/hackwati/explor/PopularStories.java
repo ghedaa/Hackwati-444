@@ -71,19 +71,21 @@ public class PopularStories extends Fragment implements ClassificationAdapter.Cl
     }
 
     private void setClassifications() {
-        Classifications classifications= new Classifications("جميع القصص",  R.drawable.animalsclassification );
+        int[] drawable = {R.drawable.ic_menu_black_24dp, R.drawable.ic_power_settings_new_black_24dp, R.drawable.defult_thumbnail, R.drawable.ic_search_black_24dp, R.drawable.ic_mail,R.drawable.adventureclassification};// gray is some thing else
+
+        Classifications classifications= new Classifications("جميع القصص",   R.drawable.bookss );
         classificationsList.add(classifications);
-        classifications= new Classifications("الأكثر شهرة",  R.drawable.animalsclassification );
+        classifications= new Classifications("الأكثر شهرة",  R.drawable.starr );
         classificationsList.add(classifications);
-        classifications= new Classifications("قصص مغامرات",  R.drawable.animalsclassification );
+        classifications= new Classifications("قصص مغامرات",  R.drawable.adventureclassification );
         classificationsList.add(classifications);
-        classifications= new Classifications("قصص خيال علمي",  R.drawable.animalsclassification );
+        classifications= new Classifications("قصص خيال علمي",  R.drawable.alien );
         classificationsList.add(classifications);
-        classifications= new Classifications("قصص سيرة",  R.drawable.animalsclassification );
+        classifications= new Classifications("قصص تاريخيه",  R.drawable.historical);
         classificationsList.add(classifications);
-        classifications= new Classifications("قصص أنبياء",  R.drawable.animalsclassification );
+        classifications= new Classifications("قصص أنبياء",  R.drawable.prophets );
         classificationsList.add(classifications);
-        classifications= new Classifications("قصص حيوانات",  R.drawable.animalsclassification );
+        classifications= new Classifications("قصص حيوانات",  R.drawable.babyanimal );
         classificationsList.add(classifications);
         adapter.notifyDataSetChanged();
 

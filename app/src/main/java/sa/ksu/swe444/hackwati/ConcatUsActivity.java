@@ -20,6 +20,7 @@ public class ConcatUsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_concat_us);
 
+
         mEditTextTo = findViewById(R.id.edit_text_to);
         mEditTextSubject=findViewById(R.id.edit_text_subject);
         mEditTextMessage = findViewById(R.id.edit_text_message);

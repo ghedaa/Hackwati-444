@@ -104,6 +104,8 @@ public class EditProfile extends AppCompatActivity {
                 editName(n);
                 editBio(b);
                 uploadImageWithUri();
+                Toast.makeText(EditProfile.this, "تم حفظ التعديلات بنجاح", Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -197,12 +199,12 @@ public class EditProfile extends AppCompatActivity {
         showPhotoOptionsDialog();
     }//end of openCameraChooser()
     private void showPhotoOptionsDialog() {
-        final CharSequence[] items = {"Gallery"};
+        final CharSequence[] items = {"الصور"};
         AlertDialog.Builder builder = new AlertDialog.Builder(EditProfile.this);
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int item) {
-                if (items[item].equals("Gallery")) {
+                if (items[item].equals("الصور")) {
                     galleryIntent();
                 }//end if else
             }//end onClick()
@@ -276,16 +278,19 @@ public class EditProfile extends AppCompatActivity {
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(getBaseContext(), "Upload successful", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getBaseContext(), "Upload successful", Toast.LENGTH_SHORT).show();
+                    Log.d("","Upload successful");
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(getBaseContext(), "Upload Failed -> " + e, Toast.LENGTH_SHORT).show();
+                 //   Toast.makeText(getBaseContext(), "Upload Failed -> " + e, Toast.LENGTH_SHORT).show();
+                    Log.d("","Upload Failed -> ");
+
                 }
             });
         } else {
-            Toast.makeText(getBaseContext(), "Select an image", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), "اختر صوره", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -326,7 +331,7 @@ public class EditProfile extends AppCompatActivity {
 
                 } catch (IOException e) {
                     e.printStackTrace();
-                    Toast.makeText(getBaseContext(), "Failed!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), "خطأ", Toast.LENGTH_SHORT).show();
                 }// end catch
             }//end if statement
 
