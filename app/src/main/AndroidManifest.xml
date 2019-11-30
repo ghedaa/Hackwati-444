@@ -50,7 +50,8 @@
             android:name=".InnerStoryActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".cafe.adriel.androidaudiorecorder.AudioRecorderActivity" />
-        <activity android:name=".explor.ExploreActivity" />
+        <activity android:name=".explor.ExploreActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".ConcatUsActivity" />
         <activity android:name=".SplashActivity">
             <intent-filter>
@@ -64,7 +65,8 @@
         <activity
             android:name=".cafe.adriel.androidaudiorecorder.example.recordActivity"
             android:parentActivityName=".cafe.adriel.androidaudiorecorder.example.recordActivity" />
-        <activity android:name=".cafe.adriel.androidaudiorecorder.example.recordStoryInfo" />
+        <activity android:name=".cafe.adriel.androidaudiorecorder.example.recordStoryInfo"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".user_profile_activity.UserProfileActivity"
             android:parentActivityName=".MainActivity" />
