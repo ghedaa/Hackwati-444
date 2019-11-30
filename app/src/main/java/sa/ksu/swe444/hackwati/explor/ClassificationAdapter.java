@@ -88,7 +88,7 @@ public class ClassificationAdapter extends RecyclerView.Adapter<ClassificationAd
         Classifications classifications = classificationsList.get(position);
 
         holder.title.setText(classifications.getClassificationTitle());
-        Glide.with(mContext).load(classifications.getClassificationPic()+"").into(holder.image);
+        Glide.with(mContext).load(classifications.getClassificationPic()).into(holder.image);
 
     }
 

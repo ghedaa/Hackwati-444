@@ -132,7 +132,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d(TAG, "createUserWithEmail:success");
-                                Toast.makeText(SignUp.this, "createUserWithEmail:success",
+                                Toast.makeText(SignUp.this, "تم التسجيل بنجاح",
                                         Toast.LENGTH_SHORT).show();
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 //send email by email to verify user account
@@ -145,9 +145,8 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                              /*  Toast.makeText(SignUp.this, "Authentication failed register.",
-                                        Toast.LENGTH_SHORT).show();*/
-                              showDialogWithOkButton("تحقق من البيانات المدخلة");
+
+                              showDialogWithOkButton("لم ينجح التسجيل تحقق من البيانات المدخلة");
                                 //updateUI(null);
                             }
 
