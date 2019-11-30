@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    app:layout_collapseMode="pin"
+    android:windowSoftInputMode="adjustPan"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/icon_shape_circuler_three"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:elevation="0dp"
+        android:layout_gravity="bottom"
+        android:layout_alignParentBottom="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:itemTextColor="@drawable/bottom_nav_color"
+        android:windowSoftInputMode="adjustPan"
+        app:itemIconTint="@drawable/bottom_nav_color"
+        app:menu="@menu/bottom_nav_menu"/>
+
+
+    <ImageView
+        android:id="@+id/iv_record"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:padding="15dp"
+        app:layout_collapseMode="pin"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="bottom"
+        android:src="@drawable/record_without"
+        android:backgroundTint="#ECECEC"
+        android:windowSoftInputMode="adjustPan"
+        android:tint="#505050"
+        android:background="@drawable/circle_withou_border"
+        app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="@string/bottom_sheet_behavior"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+</RelativeLayout>

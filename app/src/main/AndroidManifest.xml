@@ -24,38 +24,34 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".about_Us"></activity>
-        <activity android:name=".search" />
+        <activity android:name=".search"></activity>
         <activity
             android:name=".cafe.adriel.androidaudiorecorder.example.recordComplitaion"
             android:parentActivityName=".MainActivity" />
         <activity android:name=".uploaded_stories.ListenToUserStory" />
-        <activity
-            android:name=".uploaded_stories.UserUploadedStories"
-            android:parentActivityName=".UserProfile">
-            <intent-filter>
-                <action android:name="fatimah.firebase.TARGETNOTIFICATION" />
 
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".explor.ClassificationAdapter"></activity>
+        <activity android:name=".explor.AllStories"></activity>
+        <activity android:name=".explor.PopularStories"></activity>
+
         <activity
             android:name=".SubscribersListActivity"
-            android:parentActivityName=".UserProfile" />
+        />
         <activity
             android:name=".SubscribedListActivity"
-            android:parentActivityName=".UserProfile" />
+        />
         <activity android:name=".Draft.ListenToStoryDraft" />
         <activity
             android:name=".Draft.ViewDraft"
-            android:parentActivityName=".UserProfile" />
+         />
         <activity android:name=".StoryActivity" />
-        <activity android:name=".SignUp" />
+        <activity android:name=".SignUp" /> <activity android:name=".user_profile_activity.EditProfile" />
         <activity
             android:name=".InnerStoryActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".cafe.adriel.androidaudiorecorder.AudioRecorderActivity" />
-        <activity android:name=".explor.ExploreActivity" />
+        <activity android:name=".explor.ExploreActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".ConcatUsActivity" />
         <activity android:name=".SplashActivity">
             <intent-filter>
@@ -69,7 +65,8 @@
         <activity
             android:name=".cafe.adriel.androidaudiorecorder.example.recordActivity"
             android:parentActivityName=".cafe.adriel.androidaudiorecorder.example.recordActivity" />
-        <activity android:name=".cafe.adriel.androidaudiorecorder.example.recordStoryInfo" />
+        <activity android:name=".cafe.adriel.androidaudiorecorder.example.recordStoryInfo"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".user_profile_activity.UserProfileActivity"
             android:parentActivityName=".MainActivity" />
@@ -78,6 +75,7 @@
             android:label="@string/app_name" />
         <activity android:name=".Login" />
         <activity android:name=".MainActivity" />
+        <activity android:name=".uploaded_stories.UserUploadedStories" />
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"

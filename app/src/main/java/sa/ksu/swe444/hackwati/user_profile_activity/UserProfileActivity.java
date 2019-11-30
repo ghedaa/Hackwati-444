@@ -54,7 +54,6 @@ public class UserProfileActivity extends AppCompatActivity {
     public FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     Button subscribe;
     String userUid;
-    public BottomNavigationView navView;
 
 
     ///
