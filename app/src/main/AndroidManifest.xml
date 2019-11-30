@@ -3,6 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="sa.ksu.swe444.hackwati">
 
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:name=".font.CustomFontApp"
         android:allowBackup="true"
@@ -12,27 +24,28 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".user_profile_activity.EditProfile"></activity>
-        <activity android:name=".search" />
+        <activity android:name=".search"></activity>
         <activity
             android:name=".cafe.adriel.androidaudiorecorder.example.recordComplitaion"
             android:parentActivityName=".MainActivity" />
         <activity android:name=".uploaded_stories.ListenToUserStory" />
-        <activity android:name=".explor.ClassificationAdapter" />
-        <activity android:name=".explor.AllStories" />
-        <activity android:name=".explor.PopularStories" />
+
+        <activity android:name=".explor.ClassificationAdapter"></activity>
+        <activity android:name=".explor.AllStories"></activity>
+        <activity android:name=".explor.PopularStories"></activity>
+
         <activity
             android:name=".SubscribersListActivity"
-            android:parentActivityName=".user_profile_activity.UserProfileActivity" />
+        />
         <activity
             android:name=".SubscribedListActivity"
-            android:parentActivityName=".user_profile_activity.UserProfileActivity" />
+        />
         <activity android:name=".Draft.ListenToStoryDraft" />
         <activity
             android:name=".Draft.ViewDraft"
-            android:parentActivityName=".user_profile_activity.UserProfileActivity" />
+         />
         <activity android:name=".StoryActivity" />
-        <activity android:name=".SignUp" />
+        <activity android:name=".SignUp" /> <activity android:name=".user_profile_activity.EditProfile" />
         <activity
             android:name=".InnerStoryActivity"
             android:screenOrientation="portrait" />
@@ -66,17 +79,5 @@
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/default_notification_channel_id" />
     </application>
-
-    <uses-feature
-        android:glEsVersion="0x00020000"
-        android:required="true" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
 </manifest>

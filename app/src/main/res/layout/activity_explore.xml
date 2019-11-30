@@ -72,6 +72,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 
+<!--
     <com.google.android.material.bottomnavigation.BottomNavigationView
 
         android:id="@+id/nav_explore_view"
@@ -89,6 +90,9 @@
         >
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
+-->
+
+    <include layout="@layout/nav_bottom_design"></include>
 
 
 

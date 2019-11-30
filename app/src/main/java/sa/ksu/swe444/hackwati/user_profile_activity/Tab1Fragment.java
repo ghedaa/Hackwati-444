@@ -73,7 +73,6 @@ public class Tab1Fragment extends Fragment {
     private Button uploadImg;
     private String imgPath;
     private ImageView edit1, img, edit2;
-    private Button draft;
     TextView userinfo;
 
     private static final String TAG = "Tab1Fragment";
@@ -106,15 +105,7 @@ public class Tab1Fragment extends Fragment {
         img = v.findViewById(R.id.userImg);
         userNameText = v.findViewById(R.id.nameSignUpHin);
         emailText = v.findViewById(R.id.emailSignUpHin);
-        draft = v.findViewById(R.id.draft_page);
-        draft.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), ViewDraft.class);
-                intent.putExtra(Constants.Keys.DRAFT, true);
-                startActivity(intent);
-            }
-        });
+
 
 
 
