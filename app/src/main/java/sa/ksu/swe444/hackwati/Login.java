@@ -76,9 +76,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // save the user loggong by fatimah
 
-        //end by fatimah
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
@@ -98,7 +96,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     if (verify) {
                         executeLogin();
 
-                      //  startActivity(new Intent(Login.this, MainActivity.class));
                     }
 
                 }
@@ -108,7 +105,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         loginBtn.setOnClickListener(this);
         createAccount.setOnClickListener(this);
-        loginGoogleBtn.setOnClickListener(this);
         forgetPassword.setOnClickListener(this);
 
         progressBar.setVisibility(View.GONE);
@@ -122,7 +118,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         login_email = findViewById(R.id.email_login);
         login_password = findViewById(R.id.password_login);
         loginBtn = findViewById(R.id.loginbutton_login);
-        loginGoogleBtn = findViewById(R.id.regBtnGoogle);
         createAccount = findViewById(R.id.createAccount);
         forgetPassword = findViewById(R.id.forgetText);
         progressBar = findViewById(R.id.progress_bar);
@@ -137,8 +132,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         mGoogleSignInClient.silentSignIn().addOnCompleteListener(new OnCompleteListener<GoogleSignInAccount>() {
             @Override
             public void onComplete(@NonNull Task<GoogleSignInAccount> task) {
-              // String name = task.getResult().getDisplayName();
-              // String email = task.getResult().getEmail();
+               String name = task.getResult().getDisplayName();
+               String email = task.getResult().getEmail();
             }
         });
 
@@ -157,14 +152,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
 
                 signIn();
-                // save user in myshared by fatimah
 
-                // ended by fatimah
                 break;
-            case R.id.regBtnGoogle:
-                Log.e("TAG", "google clicked");
-                googleSignIn();
-                break;
+           // case R.id.regBtnGoogle:
+              //  Log.e("TAG", "google clicked");
+               // googleSignIn();
+             //   break;
             case R.id.createAccount:
                 Intent intent = new Intent(Login.this, SignUp.class);
                 startActivity(intent);
@@ -383,7 +376,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w(TAG, "signInWithEmail:failure", task.getException());
-                               Toast.makeText(Login.this, "Authentication failed google.",
+                               Toast.makeText(Login.this, "لم تنجح عملية التسجيل مع قوقل",
                                       Toast.LENGTH_SHORT).show();
                                 showDialogWithOkButton("البريد الإلكتروني أو كلمة المرور غير صحيحة");
                                 // updateUI(null);
@@ -427,9 +420,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
                 Log.w(TAG, "Google sign in failed", e);
-                // [START_EXCLUDE]
-                //updateUI(null);
-                // [END_EXCLUDE]
+
             }
         }
     }
@@ -439,9 +430,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     // [START auth_with_google]
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
-        // [START_EXCLUDE silent]
-        // showProgressDialog();
-        // [END_EXCLUDE]
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
@@ -479,7 +467,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         AlertDialog.Builder builder = new AlertDialog.Builder(Login.this);
         builder.setMessage(msg)
                 .setCancelable(false)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                .setPositiveButton("حسنا", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         //do things
                     }
@@ -490,8 +478,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     public void executeLogin() {
 
         MySharedPreference.putBoolean(this, "IS_LOGIN", true);
-
-
         Intent i = new Intent(this, MainActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

@@ -9,7 +9,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="501dp"
+        android:layout_height="450dp"
         android:layout_marginTop="40dp">
 
         <RelativeLayout
@@ -36,7 +36,7 @@
         <RelativeLayout
             android:id="@+id/bigBox"
             android:layout_width="match_parent"
-            android:layout_height="367dp"
+            android:layout_height="320dp"
             android:layout_below="@id/relTab"
             android:background="@drawable/box_shape_reg"
             >
@@ -60,7 +60,7 @@
                 android:id="@+id/forgetText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/regBtnGoogle"
+                android:layout_below="@id/loginbutton_login"
                 android:layout_centerInParent="true"
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
@@ -69,13 +69,7 @@
                 android:textColor="#3C3C3C" />
 
 
-            <com.google.android.gms.common.SignInButton
-                android:id="@+id/regBtnGoogle"
-                android:layout_width="270dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/loginbutton_login"
-                android:layout_centerInParent="true"
-                android:layout_marginTop="18dp" />
+
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/pass"
