@@ -49,9 +49,8 @@ public class UserProfileActivity extends AppCompatActivity {
     private Tab2Fragment tab2Fragment;
     private Tab3Fragment tab3Fragment;
     private Tab4Fragment tab4Fragment;
-    private String userStoryId;
-    private ImageView userImg;
-    private TextView userName;
+    public BottomNavigationView navView;
+
     public FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     Button subscribe;
     String userUid;
@@ -81,9 +80,55 @@ public class UserProfileActivity extends AppCompatActivity {
 */
 
 
+
+
+        navView = findViewById(R.id.nav_view);
+        navView.setSelectedItemId(R.id.navigation_subscription);
+        navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                switch (item.getItemId()) {
+
+                    case R.id.navigation_record:
+                        startActivity(new Intent(UserProfileActivity.this, recordActivity.class));
+                        // navView.setSelectedItemId(R.id.navigation_record);
+                        //  navView.getMenu().getItem(R.id.navigation_record).setChecked(true);
+                        break;
+
+                    case R.id.navigation_subscription:
+                        startActivity(new Intent(UserProfileActivity.this, MainActivity.class));
+                        //navView.setSelectedItemId(R.id.navigation_subscription);
+
+                        break;
+
+                    case R.id.navigation_explore:
+                        startActivity(new Intent(UserProfileActivity.this, ExploreActivity.class));
+                        //   navView.setSelectedItemId(R.id.navigation_explore);
+
+                        break;
+
+                }// end of switch
+
+                return true;
+            }
+        });
+
+
+
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         adapter = new TabAdapter(getSupportFragmentManager());
+
+
+        int defaultValue = 0;
+        Intent intent = getIntent();
+        if (intent.getExtras() != null) {
+            int page = getIntent().getIntExtra("One", defaultValue);
+            if (page == 2) {
+                viewPager.setCurrentItem(2);
+            }
+        }
 
 
         Bundle bundle = new Bundle();
@@ -93,6 +138,7 @@ public class UserProfileActivity extends AppCompatActivity {
         tab1Fragment = new Tab1Fragment();
         tab1Fragment.setArguments(bundle);
         adapter.addFragment(tab1Fragment, "معلوماتي");
+
 
         tab2Fragment = new Tab2Fragment();
         tab2Fragment.setArguments(bundle);
@@ -299,6 +345,8 @@ public class UserProfileActivity extends AppCompatActivity {
                     }
                 });
     }// Subscribers
+
+
 
 }
 

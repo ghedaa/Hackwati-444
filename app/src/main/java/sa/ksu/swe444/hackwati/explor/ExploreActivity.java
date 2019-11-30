@@ -28,8 +28,8 @@ public class ExploreActivity extends AppCompatActivity implements PopularStories
     private fragmentadapter adapter2;
     private ViewPager viewPager;
     private ViewPager viewPager2;
-     AllStories allStories;
-     PopularStories popularStories;
+    AllStories allStories;
+    PopularStories popularStories;
     public BottomNavigationView navView;
     public String title;
     SearchView editsearch;
