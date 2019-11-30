@@ -73,19 +73,19 @@ public class PopularStories extends Fragment implements ClassificationAdapter.Cl
     private void setClassifications() {
         int[] drawable = {R.drawable.ic_menu_black_24dp, R.drawable.ic_power_settings_new_black_24dp, R.drawable.defult_thumbnail, R.drawable.ic_search_black_24dp, R.drawable.ic_mail,R.drawable.adventureclassification};// gray is some thing else
 
-        Classifications classifications= new Classifications("جميع القصص",   R.drawable.bookss );
+        Classifications classifications= new Classifications("جميع القصص",   R.drawable.bookshelf );
         classificationsList.add(classifications);
-        classifications= new Classifications("الأكثر شهرة",  R.drawable.starr );
+        classifications= new Classifications("الأكثر شهرة",  R.drawable.starrr );
         classificationsList.add(classifications);
-        classifications= new Classifications("قصص مغامرات",  R.drawable.adventureclassification );
+        classifications= new Classifications("قصص مغامرات",  R.drawable.mountain_peak );
         classificationsList.add(classifications);
-        classifications= new Classifications("قصص خيال علمي",  R.drawable.alien );
+        classifications= new Classifications("قصص خيال علمي",  R.drawable.ufo );
         classificationsList.add(classifications);
-        classifications= new Classifications("قصص تاريخية",  R.drawable.historical);
+        classifications= new Classifications("قصص تاريخيه",  R.drawable.history);
         classificationsList.add(classifications);
-        classifications= new Classifications("قصص أنبياء",  R.drawable.prophets );
+        classifications= new Classifications("قصص أنبياء",  R.drawable.mosque );
         classificationsList.add(classifications);
-        classifications= new Classifications("قصص حيوانات",  R.drawable.babyanimal );
+        classifications= new Classifications("قصص حيوانات",  R.drawable.clownfish );
         classificationsList.add(classifications);
         adapter.notifyDataSetChanged();
 
