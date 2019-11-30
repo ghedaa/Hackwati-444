@@ -42,7 +42,6 @@ public class SubscribedListActivity extends AppCompatActivity{
     private String userUid;
     private TextView emptyUsers;
     Button subscribe;
-    public BottomNavigationView navView;
 
 
 
@@ -76,36 +75,6 @@ public class SubscribedListActivity extends AppCompatActivity{
 
         retrieveSubscribedUsers();
 
-        navView = findViewById(R.id.nav_view);
-        navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-                switch (item.getItemId()) {
-
-                    case R.id.navigation_record:
-                        startActivity(new Intent(SubscribedListActivity.this, recordActivity.class));
-                        // navView.setSelectedItemId(R.id.navigation_record);
-                        //  navView.getMenu().getItem(R.id.navigation_record).setChecked(true);
-                        break;
-
-                    case R.id.navigation_subscription:
-                        startActivity(new Intent(SubscribedListActivity.this, MainActivity.class));
-                        //navView.setSelectedItemId(R.id.navigation_subscription);
-
-                        break;
-
-                    case R.id.navigation_explore:
-                        startActivity(new Intent(SubscribedListActivity.this, ExploreActivity.class));
-                        //   navView.setSelectedItemId(R.id.navigation_explore);
-
-                        break;
-
-                }// end of switch
-
-                return true;
-            }
-        });
 
 
     }//onCreate

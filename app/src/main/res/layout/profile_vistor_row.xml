@@ -12,6 +12,9 @@
     <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
+        android:layout_gravity="center"
+
+        android:layout_margin="5dp"
         android:layout_height="match_parent">
 
         <RelativeLayout
@@ -35,7 +38,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="25dp"
                 android:text="اسم المستخدم :"
-                android:textColor="#94B9B8"
+                android:textColor="@color/pink_hak2"
                 android:textSize="18dp"
                 android:textStyle="bold" />
 
@@ -60,7 +63,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="25dp"
                 android:text="البريد الإلكتروني: "
-                android:textColor="#94B9B8"
+                android:textColor="@color/pink_hak2"
                 android:textSize="18dp"
                 android:textStyle="bold" />
 
@@ -83,7 +86,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="25dp"
                 android:text="النبذة:   "
-                android:textColor="#94B9B8"
+                android:textColor="@color/pink_hak2"
                 android:textSize="18dp"
                 android:textStyle="bold" />
 
@@ -137,7 +140,8 @@
             android:layout_centerInParent="true"
             android:layout_height="wrap_content"
             android:background="@drawable/shape"
-            android:backgroundTint="@color/red_btn_bg_color"
+            android:textColor="@color/white_hak"
+            android:backgroundTint="@color/pink_hak2"
             android:text="تعديل الملف الشخصي" />
 
     </RelativeLayout>

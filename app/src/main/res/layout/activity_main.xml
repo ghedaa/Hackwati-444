@@ -17,6 +17,33 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 
+    <RelativeLayout
+        android:layout_width="390dp"
+        android:layout_height="708dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="0dp"
+        android:background="@drawable/icon_shape"
+        android:backgroundTint="#ffff"
+        android:gravity="center"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="200dp"
+            android:layout_height="678dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="11dp"
+            android:layout_marginTop="-40dp"
+            android:layout_marginRight="15dp"
+            android:foregroundGravity="center"
+            android:padding="10dp">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </RelativeLayout>
 
 
 
@@ -30,7 +57,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="160dp"
+        android:layout_height="100dp"
         android:background="@drawable/icon_shape_circuler"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
@@ -46,15 +73,15 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
 
-           <!-- <ImageView
-                android:id="@+id/header"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:background="@drawable/rsz_heder_final"
-                android:fitsSystemWindows="true"
-                android:scaleType="centerCrop"
-                app:layout_collapseMode="parallax" />-->
+            <!-- <ImageView
+                 android:id="@+id/header"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:layout_gravity="center"
+                 android:background="@drawable/rsz_heder_final"
+                 android:fitsSystemWindows="true"
+                 android:scaleType="centerCrop"
+                 app:layout_collapseMode="parallax" />-->
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -67,10 +94,10 @@
                     android:id="@+id/userName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="30dp"
                     android:layout_marginRight="10dp"
                     android:layout_toLeftOf="@+id/Hi"
-android:layout_alignParentTop="true"
-                    android:layout_marginTop="30dp"
 
                     android:text="  "
                     android:textColor="#FFFEF1"
@@ -82,10 +109,10 @@ android:layout_alignParentTop="true"
                     android:id="@+id/Hi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
+                    android:layout_alignParentTop="true"
 
-android:layout_alignParentTop="true"
                     android:layout_centerInParent="true"
+                    android:layout_marginTop="30dp"
                     android:layout_marginRight="100dp"
                     android:text="مرحبا"
                     android:textColor="#FFFFFF"
@@ -110,8 +137,8 @@ android:layout_alignParentTop="true"
                 android:id="@+id/anim_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                android:background="@drawable/icon_shape_circuler"
                 app:layout_collapseMode="pin"
-                android:backgroundTint="@color/yellow_hak"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
 
@@ -127,82 +154,17 @@ android:layout_alignParentTop="true"
                     app:aebIsSelectionMode="false"
                     app:aebMainButtonSizeDp="45dp"
                     app:aebRippleEffect="true"
-                    app:elevation="0dp"
                     app:aebStartAngleDegree="180"
-                    app:aebSubButtonSizeDp="35dp" />
+                    app:aebSubButtonSizeDp="35dp"
+                    app:elevation="0dp" />
 
 
-        </androidx.appcompat.widget.Toolbar>
+            </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
 
     </com.google.android.material.appbar.AppBarLayout>
-    <RelativeLayout
-        android:layout_width="390dp"
-        android:layout_height="708dp"
-        android:layout_marginTop="-120dp"
-        android:layout_gravity="center"
-        android:background="@drawable/icon_shape"
-        android:backgroundTint="#ffff"
-        android:gravity="center"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
-            android:layout_width="200dp"
-            android:layout_height="678dp"
-            android:layout_marginTop="-40dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="11dp"
-            android:layout_marginRight="15dp"
-            android:foregroundGravity="center"
-            android:padding="10dp">
-
-        </androidx.recyclerview.widget.RecyclerView>
-
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:layout_constraintStart_toStartOf="parent"
-        android:background="@drawable/icon_shape_circuler_three"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:elevation="0dp"
-        android:layout_gravity="bottom"
-        android:layout_alignParentBottom="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:itemTextColor="@drawable/bottom_nav_color"
-        app:itemIconTint="@drawable/bottom_nav_color"
-        app:menu="@menu/bottom_nav_menu"/>
-
-
-    <ImageView
-        android:id="@+id/iv_record"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:padding="15dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="bottom"
-        android:src="@drawable/record_without"
-        android:backgroundTint="#ECECEC"
-        android:tint="#505050"
-        android:background="@drawable/circle_withou_border"
-        app:layout_constraintStart_toStartOf="parent"
-        android:contentDescription="@string/bottom_sheet_behavior"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
-
-    </RelativeLayout>
-
+    <include layout="@layout/nav_bottom_design"></include>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

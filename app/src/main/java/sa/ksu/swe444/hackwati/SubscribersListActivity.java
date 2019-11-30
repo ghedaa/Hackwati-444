@@ -41,7 +41,6 @@ public class SubscribersListActivity extends AppCompatActivity {
     public FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     private String userUid;
     private TextView emptyUsers;
-    public BottomNavigationView navView;
 
     private static final String TAG = "SubscribersListActivity";
 
@@ -76,36 +75,7 @@ public class SubscribersListActivity extends AppCompatActivity {
 
         retrieveSubscribedUsers();
 
-        navView = findViewById(R.id.nav_view);
-        navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-                switch (item.getItemId()) {
-
-                    case R.id.navigation_record:
-                        startActivity(new Intent(SubscribersListActivity.this, recordActivity.class));
-                        // navView.setSelectedItemId(R.id.navigation_record);
-                        //  navView.getMenu().getItem(R.id.navigation_record).setChecked(true);
-                        break;
-
-                    case R.id.navigation_subscription:
-                        startActivity(new Intent(SubscribersListActivity.this, MainActivity.class));
-                        //navView.setSelectedItemId(R.id.navigation_subscription);
-
-                        break;
-
-                    case R.id.navigation_explore:
-                        startActivity(new Intent(SubscribersListActivity.this, ExploreActivity.class));
-                        //   navView.setSelectedItemId(R.id.navigation_explore);
-
-                        break;
-
-                }// end of switch
-
-                return true;
-            }
-        });
 
     }//onCreate
 

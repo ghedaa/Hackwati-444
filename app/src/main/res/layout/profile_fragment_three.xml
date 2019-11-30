@@ -14,7 +14,8 @@
         android:id="@+id/empty"
         android:text=""/>
 
-    <include layout="@layout/content"></include>
+    <include layout="@layout/content"
+        />
 
 
 </RelativeLayout>
