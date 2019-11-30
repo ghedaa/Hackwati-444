@@ -116,6 +116,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
         // User INFO
         img = findViewById(R.id.userImg);
+        img.setOnClickListener(null);
         userNameText = findViewById(R.id.nameSignUpHin);
         subscriberno = findViewById(R.id.subscriberno);
         subscribedno = findViewById(R.id.subscribedno);
