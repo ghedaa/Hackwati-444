@@ -196,7 +196,7 @@ public class recordActivity extends AppCompatActivity {
         AndroidAudioRecorder.with(this)
                 // Required
                 .setFilePath(AUDIO_FILE_PATH)
-                .setColor(ContextCompat.getColor(this, R.color.green_hak))
+                .setColor(ContextCompat.getColor(this, R.color.white_hak))
                 .setRequestCode(REQUEST_RECORD_AUDIO)
 
                 // Optional

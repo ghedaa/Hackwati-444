@@ -15,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -73,7 +74,7 @@ public class AudioRecorderActivity extends AppCompatActivity
     private VisualizerHandler visualizerHandler;
 
     private Timer timer;
-    private ImageButton saveMenuItem,backBtn;
+    private Button saveMenuItem,backBtn;
     private int recorderSecondsElapsed;
     private int playerSecondsElapsed;
     private boolean isRecording;
@@ -197,7 +198,7 @@ public class AudioRecorderActivity extends AppCompatActivity
             playView.setColorFilter(Color.BLACK);
         }
 
-        saveMenuItem = (ImageButton) findViewById(R.id.action_save);
+        saveMenuItem = (Button) findViewById(R.id.action_save);
         saveMenuItem.setOnClickListener(this);
 
 
@@ -355,7 +356,7 @@ public class AudioRecorderActivity extends AppCompatActivity
         restartView.setVisibility(View.INVISIBLE);
         playView.setVisibility(View.INVISIBLE);
         recordView.setImageResource(R.drawable.aar_ic_rec);
-        timerView.setText("٠٠:٠٠:٠٠");
+        timerView.setText("00:00:00");
         recorderSecondsElapsed = 0;
         playerSecondsElapsed = 0;
     }
@@ -374,7 +375,7 @@ public class AudioRecorderActivity extends AppCompatActivity
         visualizerView.linkTo(visualizerHandler);
 
         if(recorder == null) {
-            timerView.setText("٠٠:٠٠:٠٠");
+            timerView.setText("00:00:00");
 
             recorder = OmRecorder.wav(
                     new PullTransport.Default(Util.getMic(source, channel, sampleRate), AudioRecorderActivity.this),
@@ -440,7 +441,7 @@ public class AudioRecorderActivity extends AppCompatActivity
                 }
             });
 
-            timerView.setText("٠٠:٠٠:٠٠");
+            timerView.setText("00:00:00");
             statusView.setText("تشغيل");
             statusView.setVisibility(View.VISIBLE);
             playView.setImageResource(R.drawable.aar_ic_stop);

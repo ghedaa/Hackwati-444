@@ -375,7 +375,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
                             if (userName != null) {
-                                userNameText.setText(userName);
+                                userNameText.setText(userName+"   مرحبًا   ");
 
 
                             }
