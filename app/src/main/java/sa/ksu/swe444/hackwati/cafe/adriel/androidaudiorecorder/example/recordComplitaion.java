@@ -16,7 +16,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import sa.ksu.swe444.hackwati.MainActivity;
 import sa.ksu.swe444.hackwati.R;
 import sa.ksu.swe444.hackwati.explor.ExploreActivity;
-import sa.ksu.swe444.hackwati.uploaded_stories.UserUploadedStories;
 import sa.ksu.swe444.hackwati.user_profile_activity.UserProfileActivity;
 
 public class recordComplitaion extends AppCompatActivity {
@@ -66,7 +65,7 @@ public class recordComplitaion extends AppCompatActivity {
         stories.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int page = 2;
+                int page = 3;
                 Intent intent = new Intent(recordComplitaion.this, UserProfileActivity.class);
                 intent.putExtra("One", page);// One is your argument
                 startActivity(intent);

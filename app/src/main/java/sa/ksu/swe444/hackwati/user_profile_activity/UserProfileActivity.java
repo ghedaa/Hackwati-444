@@ -54,10 +54,7 @@ public class UserProfileActivity extends AppCompatActivity {
     public FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     Button subscribe;
     String userUid;
-    public BottomNavigationView navView;
 
-
-    ///
     private TextView  storyno, subscribed, subscriber, subscriberno, stories, userNameText, subscribedno;
     private CircularImageView img;
 
@@ -78,9 +75,6 @@ public class UserProfileActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(false);
 */
-
-
-
 
         navView = findViewById(R.id.nav_view);
         navView.setSelectedItemId(R.id.navigation_subscription);

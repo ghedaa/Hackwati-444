@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,6 +64,7 @@ public class EditProfile extends AppCompatActivity {
     private String imgPath;
     Uri contentURI;
     private File imgFile;
+    private ProgressBar progressBar;
 
 
 
@@ -93,21 +95,28 @@ public class EditProfile extends AppCompatActivity {
         save = findViewById(R.id.edit_profile);
         mAuth = FirebaseAuth.getInstance();
         storageRef = storage.getReference();
+        progressBar = findViewById(R.id.progress_bar);
+        progressBar.setVisibility(View.GONE);
 
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // save changes
+                progressBar.setVisibility(View.VISIBLE);
                 String n = name.getText().toString();
                 String b = bio.getText().toString();
                 editName(n);
                 editBio(b);
                 uploadImageWithUri();
+                startActivity(new Intent(EditProfile.this, UserProfileActivity.class));
+
             }
         });
 
         retriveUserData();
+
+
     }// onCreate
 
 
@@ -248,7 +257,6 @@ public class EditProfile extends AppCompatActivity {
 
 
                         DocumentReference updateRef = firebaseFirestore.collection("users").document(userUid);
-                        Toast.makeText(EditProfile.this, "تم رفع الصورة", Toast.LENGTH_SHORT).show();
 
                         // reset the thumbnail" field
                         updateRef
@@ -276,17 +284,16 @@ public class EditProfile extends AppCompatActivity {
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(getBaseContext(), "Upload successful", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(getBaseContext(), "Upload Failed -> " + e, Toast.LENGTH_SHORT).show();
                 }
             });
         } else {
-            Toast.makeText(getBaseContext(), "Select an image", Toast.LENGTH_SHORT).show();
         }
+        progressBar.setVisibility(View.GONE);
+
     }
 
     private void persistImage(Bitmap bitmap) {
