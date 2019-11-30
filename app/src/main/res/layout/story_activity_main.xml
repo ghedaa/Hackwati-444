@@ -50,16 +50,7 @@
 
                 />
 
-            <ImageButton
-                android:id="@+id/btnAddToList"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:background="#fff"
-                android:src="@drawable/ic_favorite_black_24dp"
-                android:tint="#979797"
-                android:clickable="true"
 
-                android:contentDescription="اضف للقائمة" />
 
         </RelativeLayout>
 
@@ -76,6 +67,7 @@
                 android:id="@+id/relTab"
                 android:layout_width="146dp"
                 android:layout_height="44dp"
+                android:elevation="9dp"
                 android:background="@drawable/icon_shape"
                 android:backgroundTint="@color/yellow_hak">
 
@@ -93,6 +85,27 @@
 
             </RelativeLayout>
 
+            <RelativeLayout
+                android:id="@+id/relTab2"
+                android:layout_width="80dp"
+                android:layout_height="44dp"
+                android:layout_toLeftOf="@id/relTab"
+                android:alpha=".8"
+                android:background="@drawable/icon_shape"
+                android:backgroundTint="@color/orange_hak">
+
+                <ImageButton
+                    android:id="@+id/btnAddToList"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_favorite_black_24dp"
+                    android:tint="#979797"
+                    android:clickable="true"
+
+                    android:contentDescription="اضف للقائمة" />
+
+            </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/info"
                 android:layout_width="380dp"
@@ -216,50 +229,6 @@
         </RelativeLayout>
 
 
-        <!--
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="290dp"
-                android:gravity="center"
-                >
-
-                <ImageButton
-                    android:id="@+id/btnShare"
-                    android:layout_width="93dp"
-                    android:layout_height="36dp"
-                    android:layout_margin="10dp"
-                    android:layout_marginTop="22dp"
-                    android:background="@drawable/shape"
-                    android:clickable="true"
-                    android:contentDescription="شارك"
-                    android:src="@drawable/ic_share_black_24dp"
-                    android:tint="@color/lightBlue" />
-
-                <ImageButton
-                    android:id="@+id/btnAddToList"
-                    android:layout_width="93dp"
-                    android:layout_height="36dp"
-                    android:layout_margin="10dp"
-                    android:layout_marginTop="22dp"
-                    android:background="@drawable/shape"
-                    android:clickable="true"
-                    android:contentDescription="اضف للقائمة" />
-
-                <ImageButton
-                    android:id="@+id/btnDown"
-                    android:layout_width="93dp"
-                    android:layout_height="36dp"
-                    android:layout_margin="10dp"
-                    android:layout_marginTop="22dp"
-                    android:background="@drawable/shape"
-                    android:clickable="true"
-                    android:contentDescription="تحميل"
-                    android:tint="@color/lightBlue" />
-
-            </LinearLayout>
-        -->
-
 
     </RelativeLayout>
 
@@ -275,8 +244,9 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:layout_gravity="center"
-            android:background="@drawable/icon_shape_botum"
-            android:backgroundTint="@color/yellow_hak"
+            android:background="@drawable/icon_shape_circuler"
+            android:backgroundTint="@color/orange_hak"
+            android:alpha=".6"
             android:gravity="center"
             app:title="   "
             app:titleTextColor="#4D3C13"
