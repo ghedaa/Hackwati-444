@@ -140,8 +140,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         final AllAngleExpandableButton button = (AllAngleExpandableButton) findViewById(R.id.button_expandable_110_250);
         final List<ButtonData> buttonDatas = new ArrayList<>();
-        int[] drawable = {R.drawable.ic_menu_black_24dp, R.drawable.ic_power_settings_new_black_24dp, R.drawable.defult_thumbnail, R.drawable.ic_search_black_24dp, R.drawable.ic_mail};// gray is some thing else
-        int[] color = {R.color.yellow_hak, R.color.gray_hak, R.color.gray_hak, R.color.gray_hak, R.color.gray_hak};
+        int[] drawable = {R.drawable.ic_menu_black_24dp, R.drawable.ic_power_settings_new_black_24dp, R.drawable.ic_account__24dp, R.drawable.ic_error_exclamation_outline_black_24dp, R.drawable.ic_mail};// gray is some thing else
+        int[] color = {R.color.yellow_hak, R.color.av_orange, R.color.blue_hak, R.color.pink_hak, R.color.green_hak2};
         for (int i = 0; i < 5; i++) {
             ButtonData buttonData;
             if (i == 0) {
@@ -197,6 +197,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         startActivity(new Intent(MainActivity.this, UserProfileActivity.class));
                         break;
                     case 3:
+                        startActivity(new Intent(MainActivity.this, about_Us.class));
+
                         break;
                     case 4:
                         startActivity(new Intent(MainActivity.this, ConcatUsActivity.class));

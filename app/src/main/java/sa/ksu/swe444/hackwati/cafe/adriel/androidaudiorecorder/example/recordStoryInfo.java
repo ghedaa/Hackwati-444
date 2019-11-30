@@ -141,7 +141,7 @@ public class recordStoryInfo extends AppCompatActivity {
         list.add("نوع القصة");
         list.add("قصص مغامرات");
         list.add("قصص أنبياء");
-        list.add("قصص سيرة");
+        list.add("قصص تاريخية");
         list.add("قصص حيوانات");
         list.add("قصص خيال علمي");
 
@@ -397,14 +397,14 @@ return isValid;
     }//end of openCameraChooser()
 
     private void showPhotoOptionsDialog() {
-        final CharSequence[] items = {"Gallery"};
+        final CharSequence[] items = {"الصور"};
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int item) {
                 if (items[item].equals("Camera")) {
                     cameraIntent();
-                } else if (items[item].equals("Gallery")) {
+                } else if (items[item].equals("الصور")) {
                     galleryIntent();
                 }//end if else
             }//end onClick()

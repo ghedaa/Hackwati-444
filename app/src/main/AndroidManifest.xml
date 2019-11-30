@@ -76,6 +76,7 @@
         <activity android:name=".Login" />
         <activity android:name=".MainActivity" />
         <activity android:name=".uploaded_stories.UserUploadedStories" />
+        <activity android:name=".about_Us"></activity>
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"

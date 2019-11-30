@@ -75,7 +75,7 @@ public class AdminActivity extends AppCompatActivity {
 
         installButton110to250();
 
-        userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        //userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         initRecyclerView();
 

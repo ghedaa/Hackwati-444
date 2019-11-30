@@ -111,7 +111,7 @@
                 android:backgroundTint="#F8F8F8"
                 android:ems="10"
                 android:gravity="left"
-                android:hint="    gpojposj "
+                android:hint="تكلم عن نفسك"
                 android:textAlignment="center"
                 android:textSize="18dp" />
 
