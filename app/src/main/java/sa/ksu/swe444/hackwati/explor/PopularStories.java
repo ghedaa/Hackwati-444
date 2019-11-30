@@ -71,7 +71,6 @@ public class PopularStories extends Fragment implements ClassificationAdapter.Cl
     }
 
     private void setClassifications() {
-        int[] drawable = {R.drawable.ic_menu_black_24dp, R.drawable.ic_power_settings_new_black_24dp, R.drawable.defult_thumbnail, R.drawable.ic_search_black_24dp, R.drawable.ic_mail,R.drawable.adventureclassification};// gray is some thing else
 
         Classifications classifications= new Classifications("جميع القصص",   R.drawable.bookshelf );
         classificationsList.add(classifications);
