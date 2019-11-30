@@ -14,18 +14,15 @@ public class about_Us extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about__us);
 
-        Button buttonContact = findViewById(R.id.contact_button;
+        Button buttonContact = findViewById(R.id.contact_button);
         buttonContact.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
 
-
-                Intent intent = new Intent(this, ConcatUsActivity.class);
+                Intent intent = new Intent(about_Us.this ,ConcatUsActivity.class);
                 startActivity(intent);
-
-
-
-
             }
         });
     }
 }
+
