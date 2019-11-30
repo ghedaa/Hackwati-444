@@ -2,6 +2,7 @@ package sa.ksu.swe444.hackwati.cafe.adriel.androidaudiorecorder.example;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -18,11 +20,13 @@ import sa.ksu.swe444.hackwati.R;
 import sa.ksu.swe444.hackwati.explor.ExploreActivity;
 import sa.ksu.swe444.hackwati.user_profile_activity.UserProfileActivity;
 
-public class recordComplitaion extends AppCompatActivity {
+public class recordComplitaion extends AppCompatActivity implements View.OnClickListener {
 
     public BottomNavigationView navView;
     TextView done,discriprion;
     Button stories;
+    private ImageView recordNav;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,8 +78,12 @@ public class recordComplitaion extends AppCompatActivity {
 
 
 
+
         //NavView
-        navView = findViewById(R.id.navigation_record);
+        recordNav = findViewById(R.id.iv_record);
+        recordNav.setColorFilter(ContextCompat.getColor(recordComplitaion.this, R.color.blue_hak2));
+
+        navView = findViewById(R.id.nav_view);
         navView.setSelectedItemId(R.id.navigation_record);
         navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -98,6 +106,7 @@ public class recordComplitaion extends AppCompatActivity {
         });
 
 
+
     }
 
 
@@ -110,5 +119,12 @@ public class recordComplitaion extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.iv_record:
+                startActivity(new Intent(recordComplitaion.this, recordActivity.class));
 
+        }
+    }
 }

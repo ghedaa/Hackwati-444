@@ -39,7 +39,10 @@ public class AllStories extends Fragment {
     public FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     private static final String TAG = "AllStories";
 
+    String intent;
+    boolean searchb;
     String title;
+    String search;
 
 
 
@@ -49,7 +52,9 @@ public class AllStories extends Fragment {
         recyclerView = view.findViewById(R.id.recycler_view);
         title=null;
         initRecyclerView();
+        searchb=false;
         return view;
+
     }
 
     public void setName(String name){
@@ -57,6 +62,13 @@ public class AllStories extends Fragment {
 
         title=name;
         retrieveSubscribedUsers();
+    }
+    public void setTitle(String name){
+        search=name;
+        searchb=true;
+        if(search!=null)
+        retrieveSubscribedUsers();
+
     }
 
     private void initRecyclerView() {
@@ -78,7 +90,7 @@ public class AllStories extends Fragment {
     public void retrieveSubscribedUsers() {
         Log.d(TAG, "All stories time" + Timestamp.now().toDate().toString());
 
-        if (title == null||title=="جميع القصص"){
+        if ((title == null||title=="جميع القصص")&&searchb==false){
             Log.d(TAG, "title is null");
 
             firebaseFirestore.collection("publishedStories")
@@ -114,7 +126,7 @@ public class AllStories extends Fragment {
                         }
                     });
     }
-        else if(title=="الأكثر شهرة"){
+        else if(title=="الأكثر شهرة"&&searchb==false){
             firebaseFirestore.collection("publishedStories")
                     .orderBy("rate")
                     .get()
@@ -147,6 +159,47 @@ public class AllStories extends Fragment {
                             }
                         }
                     });
+        }else if(search!=null && searchb==true){
+            firebaseFirestore.collection("publishedStories")
+                    .whereEqualTo("title",search)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                itemList.clear();
+                                adapter.notifyDataSetChanged();
+                                List<Item> newitemList = new ArrayList<>();
+                                Log.d("","Search all");
+
+
+
+                                try{
+
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+
+                                        String title = (String) document.get("title");
+                                        String userId = (String) document.get("userId");
+                                        String storyId = (String) document.getId();
+                                        String userName = "";
+                                        String pic = (String) document.get("pic");
+                                        String sound = (String) document.get("sound");
+
+                                        Log.d(TAG, document.getId() + " => " + document.getData());
+                                        Item item = new Item(true, storyId, title, pic, sound, userId, "", "");
+                                        newitemList.add(item);
+                                        itemList.addAll(newitemList);
+                                        adapter.notifyDataSetChanged();
+
+                                    }}catch (Exception e){
+                                    e.printStackTrace();
+                                }
+                            } else {
+                                Log.d(TAG, "Error getting documents: ", task.getException());
+                            }
+                        }
+                    });
+            searchb=false;
         }
                 else {
             Log.d(TAG, "onClick title is not null");

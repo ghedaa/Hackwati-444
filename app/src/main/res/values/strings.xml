@@ -5,4 +5,6 @@
     <string name="title_notifications">Notifications</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="default_notification_channel_id">Tvac_CH_01</string>
+
+    <string name="Hakawati">حكواتي تطبيق لكتب الأطفال الصوتية، يشجع الأطفال على القراءة والإلقاء من خلال تسجيل أصواتهم ومشاركتها مع الآخرين والاستماع لقصص الأطفال الآخرين</string>
 </resources>

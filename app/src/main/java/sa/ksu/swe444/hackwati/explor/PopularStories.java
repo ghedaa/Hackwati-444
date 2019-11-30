@@ -71,19 +71,20 @@ public class PopularStories extends Fragment implements ClassificationAdapter.Cl
     }
 
     private void setClassifications() {
-        Classifications classifications= new Classifications("جميع القصص",  R.drawable.animalsclassification );
+
+        Classifications classifications= new Classifications("جميع القصص",   R.drawable.bookshelf );
         classificationsList.add(classifications);
-        classifications= new Classifications("الأكثر شهرة",  R.drawable.animalsclassification );
+        classifications= new Classifications("الأكثر شهرة",  R.drawable.starrr );
         classificationsList.add(classifications);
-        classifications= new Classifications("قصص مغامرات",  R.drawable.animalsclassification );
+        classifications= new Classifications("قصص مغامرات",  R.drawable.mountain_peak );
         classificationsList.add(classifications);
-        classifications= new Classifications("قصص خيال علمي",  R.drawable.animalsclassification );
+        classifications= new Classifications("قصص خيال علمي",  R.drawable.ufo );
         classificationsList.add(classifications);
-        classifications= new Classifications("قصص سيرة",  R.drawable.animalsclassification );
+        classifications= new Classifications("قصص تاريخيه",  R.drawable.history);
         classificationsList.add(classifications);
-        classifications= new Classifications("قصص أنبياء",  R.drawable.animalsclassification );
+        classifications= new Classifications("قصص أنبياء",  R.drawable.mosque );
         classificationsList.add(classifications);
-        classifications= new Classifications("قصص حيوانات",  R.drawable.animalsclassification );
+        classifications= new Classifications("قصص حيوانات",  R.drawable.clownfish );
         classificationsList.add(classifications);
         adapter.notifyDataSetChanged();
 

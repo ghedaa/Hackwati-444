@@ -155,7 +155,7 @@
             android:id="@+id/edit_profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/draft_page"
+            android:layout_below="@id/infotext"
             android:backgroundTint="@color/red_btn_bg_color"
             android:text="حفظ التعديلات" />
 

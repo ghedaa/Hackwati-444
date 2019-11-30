@@ -20,25 +20,11 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
+
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp">
 
 
-            <Button
-                android:id="@+id/draft_page"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/infotext"
-                android:backgroundTint="@color/lightYellow"
-                android:text="مسودات" />
-
-            <Button
-                android:id="@+id/edit_profile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/draft_page"
-                android:backgroundTint="@color/red_btn_bg_color"
-                android:text="تعديل الملف الشخصي" />
 
 
             <TextView
@@ -59,8 +45,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/relImg"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="110dp"
+                android:layout_toLeftOf="@id/emailSignUp"
+                android:layout_marginRight="10dp"
                 android:hint="اسم المستخدم"
                 android:textSize="18dp" />
 
@@ -73,7 +59,7 @@
                 android:layout_below="@+id/nameSignUp"
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="25dp"
-                android:text="الايميل: "
+                android:text="البريد الإلكتروني: "
                 android:textColor="#94B9B8"
                 android:textSize="18dp"
                 android:textStyle="bold" />
@@ -82,8 +68,9 @@
                 android:id="@+id/emailSignUpHin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/emailSignUp"
+                android:layout_marginRight="10dp"
                 android:layout_below="@+id/nameSignUpHin"
-                android:layout_centerHorizontal="true"
                 android:layout_marginTop="25dp"
                 android:hint="البريد الالكتروني"
                 android:textSize="18dp" />
@@ -115,22 +102,23 @@
 
             <TextView
                 android:id="@+id/infotext"
-                android:layout_width="match_parent"
+                android:layout_width="350dp"
+                android:layout_centerInParent="true"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/infoSignUp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/box_shape"
-                android:backgroundTint="#F5F5F5"
+                android:backgroundTint="#F8F8F8"
                 android:ems="10"
                 android:gravity="left"
-                android:hint="    gpojposj "
+                android:hint="تكلم عن نفسك"
                 android:textAlignment="center"
                 android:textSize="18dp" />
 
         </RelativeLayout>
 
 
-        <View
+   <!--     <View
             android:id="@+id/separator"
             android:layout_width="fill_parent"
             android:layout_height="1dip"
@@ -138,7 +126,19 @@
             android:layout_centerVertical="true"
             android:layout_marginTop="25dp"
             android:background="#A0A0A0"
-            tools:ignore="NotSibling" />
+            tools:ignore="NotSibling" />-->
+
+
+        <Button
+            android:id="@+id/edit_profile"
+            android:layout_width="200dp"
+            android:layout_below="@id/rel1"
+            android:layout_marginTop="20dp"
+            android:layout_centerInParent="true"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape"
+            android:backgroundTint="@color/red_btn_bg_color"
+            android:text="تعديل الملف الشخصي" />
 
     </RelativeLayout>
 

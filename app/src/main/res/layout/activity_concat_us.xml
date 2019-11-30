@@ -85,7 +85,6 @@
             android:textColor="#5F5F5F" />
 
     </RelativeLayout>
-    <include layout="@layout/toolbar_main" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

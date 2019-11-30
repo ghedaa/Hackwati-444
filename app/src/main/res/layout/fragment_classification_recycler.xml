@@ -6,10 +6,6 @@
     android:orientation="vertical"
     >
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="التصنيفات"
-        android:textSize="20dp"/>
+
 <include layout="@layout/content"></include>
 </LinearLayout>

@@ -12,10 +12,12 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_margin="20dp"
-        android:layout_height="616dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_height="490dp"
         android:layout_gravity="center"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="100dp"
         android:gravity="center"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:ignore="MissingConstraints">

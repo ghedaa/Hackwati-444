@@ -30,6 +30,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.Continuation;
@@ -69,7 +70,7 @@ import sa.ksu.swe444.hackwati.explor.ExploreActivity;
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
 
-public class recordStoryInfo extends AppCompatActivity {
+public class recordStoryInfo extends AppCompatActivity implements View.OnClickListener {
 
     private View view;
     private EditText storyTitle;
@@ -102,6 +103,7 @@ public class recordStoryInfo extends AppCompatActivity {
     String id;
     String docId;
     int random;
+    private ImageView recordNav;
     String storyId;
     private Button saveToDraft;
     private Spinner spinner;
@@ -141,7 +143,7 @@ public class recordStoryInfo extends AppCompatActivity {
         list.add("نوع القصة");
         list.add("قصص مغامرات");
         list.add("قصص أنبياء");
-        list.add("قصص سيرة");
+        list.add("قصص تاريخية");
         list.add("قصص حيوانات");
         list.add("قصص خيال علمي");
 
@@ -207,7 +209,11 @@ public class recordStoryInfo extends AppCompatActivity {
 
 
     public void bottomNavigation() {
-        navView = findViewById(R.id.nav_view_rec);
+        //NavView
+        recordNav = findViewById(R.id.iv_record);
+        recordNav.setColorFilter(ContextCompat.getColor(recordStoryInfo.this, R.color.blue_hak2));
+
+        navView = findViewById(R.id.nav_view);
         navView.setSelectedItemId(R.id.navigation_record);
         navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -225,10 +231,13 @@ public class recordStoryInfo extends AppCompatActivity {
                         showDialogWithOkButton("هل تريد حقاً ترك القصة؟",  new Intent(recordStoryInfo.this, ExploreActivity.class));
                         break;
 
+
                 }// end of switch
                 return true;
             }
         });
+
+
     }
 
 
@@ -408,14 +417,14 @@ return isValid;
     }//end of openCameraChooser()
 
     private void showPhotoOptionsDialog() {
-        final CharSequence[] items = {"Gallery"};
+        final CharSequence[] items = {"الصور"};
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int item) {
                 if (items[item].equals("Camera")) {
                     cameraIntent();
-                } else if (items[item].equals("Gallery")) {
+                } else if (items[item].equals("الصور")) {
                     galleryIntent();
                 }//end if else
             }//end onClick()
@@ -769,5 +778,13 @@ return isValid;
 
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.iv_record:
+                startActivity(new Intent(recordStoryInfo.this, recordActivity.class));
+
+        }
+    }
 
 }

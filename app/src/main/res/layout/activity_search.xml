@@ -7,18 +7,32 @@
     tools:context=".search">
 
 
-    <RelativeLayout
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="?attr/actionBarSize"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:background="@drawable/icon_shape_botum"
+        android:backgroundTint="@color/yellow_hak"
+        app:title=""
+        app:titleTextColor="#4D3C13"/>
+
     <TextView
         android:id="@+id/searchText"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="500dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginBottom="200dp"
         android:gravity="center"
-        android:textSize="20dp" />
-    <include layout="@layout/content"></include>
+        android:textSize="20dp"
+        ></TextView>
 
-    </RelativeLayout>
 
+    <include layout="@layout/content"
+
+        ></include>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

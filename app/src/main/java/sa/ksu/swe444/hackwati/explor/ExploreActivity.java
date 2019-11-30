@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,7 +23,7 @@ import sa.ksu.swe444.hackwati.R;
 import sa.ksu.swe444.hackwati.cafe.adriel.androidaudiorecorder.example.recordActivity;
 import sa.ksu.swe444.hackwati.search;
 
-public class ExploreActivity extends AppCompatActivity implements PopularStories.FirstFragmentListener, SearchView.OnQueryTextListener {
+public class ExploreActivity extends AppCompatActivity implements PopularStories.FirstFragmentListener, SearchView.OnQueryTextListener, View.OnClickListener {
 
     private fragmentadapter adapter;
     private fragmentadapter adapter2;
@@ -33,6 +34,8 @@ public class ExploreActivity extends AppCompatActivity implements PopularStories
     public BottomNavigationView navView;
     public String title;
     SearchView editsearch;
+    exploreactivityListener listener;
+
 
 
 
@@ -46,12 +49,9 @@ public class ExploreActivity extends AppCompatActivity implements PopularStories
 
 
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("اكتشف");
 
 
-        navView = findViewById(R.id.nav_explore_view);
+        navView = findViewById(R.id.nav_view);
         navView.setSelectedItemId(R.id.navigation_explore);
 
         allStories=new AllStories();
@@ -111,16 +111,33 @@ public class ExploreActivity extends AppCompatActivity implements PopularStories
     @Override
     public boolean onQueryTextSubmit(String query) {
 
-        Intent intent=new Intent(ExploreActivity.this, search.class);
+        Intent intent=new Intent(ExploreActivity.this,AllStories.class);
         intent.putExtra("SearchText",query);
         Log.d("g","query submitted");
-        startActivity(intent);
 
+      allStories.setTitle(query);
+      Log.d("","Search Explore");
+        return false;
+    }
+    public void setListener(exploreactivityListener listener){
+        this.listener=listener;
+    }
+    //step1
+    public interface exploreactivityListener{
+        void onSearchItemClick(String name);
+
+    }
+    @Override
+    public boolean onQueryTextChange(String newText) {
         return false;
     }
 
     @Override
-    public boolean onQueryTextChange(String newText) {
-        return false;
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.iv_record:
+                startActivity(new Intent(ExploreActivity.this, recordActivity.class));
+
+        }
     }
 }

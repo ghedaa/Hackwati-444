@@ -40,7 +40,7 @@ import sa.ksu.swe444.hackwati.cafe.adriel.androidaudiorecorder.example.recordAct
 import sa.ksu.swe444.hackwati.explor.ExploreActivity;
 
 
-public class UserProfileActivity extends AppCompatActivity {
+public class UserProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TabAdapter adapter;
     private TabLayout tabLayout;
@@ -55,6 +55,8 @@ public class UserProfileActivity extends AppCompatActivity {
     Button subscribe;
     String userUid;
 
+
+    ///
     private TextView  storyno, subscribed, subscriber, subscriberno, stories, userNameText, subscribedno;
     private CircularImageView img;
 
@@ -75,6 +77,9 @@ public class UserProfileActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(false);
 */
+
+
+
 
         navView = findViewById(R.id.nav_view);
         navView.setSelectedItemId(R.id.navigation_subscription);
@@ -340,7 +345,14 @@ public class UserProfileActivity extends AppCompatActivity {
                 });
     }// Subscribers
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.iv_record:
+                startActivity(new Intent(UserProfileActivity.this, recordActivity.class));
 
+        }
+    }
 
 }
 

@@ -132,10 +132,17 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d(TAG, "createUserWithEmail:success");
-                                Toast.makeText(SignUp.this, "createUserWithEmail:success",
+                                Toast.makeText(SignUp.this, "تم التسجيل بنجاح",
                                         Toast.LENGTH_SHORT).show();
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 //send email by email to verify user account
+                                FirebaseAuth.getInstance().getCurrentUser().sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.d("","vrify email");
+                                    }
+                                });
+                                //end veee
 
                                 createUserCollection();
                        startActivity(new Intent(SignUp.this, Login.class));
@@ -145,9 +152,8 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                              /*  Toast.makeText(SignUp.this, "Authentication failed register.",
-                                        Toast.LENGTH_SHORT).show();*/
-                              showDialogWithOkButton("تحقق من البيانات المدخلة");
+
+                              showDialogWithOkButton("لم ينجح التسجيل تحقق من البيانات المدخلة");
                                 //updateUI(null);
                             }
 
@@ -177,7 +183,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         AlertDialog.Builder builder = new AlertDialog.Builder(SignUp.this);
         builder.setMessage(msg)
                 .setCancelable(false)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                .setPositiveButton("حسنا", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         //do things
                     }
@@ -217,7 +223,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(SignUp.this, "user added", Toast.LENGTH_SHORT).show();
+                      //  Toast.makeText(SignUp.this, "user added", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

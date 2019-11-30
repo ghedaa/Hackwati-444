@@ -398,7 +398,7 @@ public class AdminStoryActivity extends AppCompatActivity implements View.OnClic
                                                 });
 
 
-                                        Toast.makeText(AdminStoryActivity.this, "story publish", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(AdminStoryActivity.this, "تم قبول القصه", Toast.LENGTH_SHORT).show();
                                         startActivity(new Intent(AdminStoryActivity.this, AdminActivity.class));
                                     }
                                 })
@@ -512,7 +512,7 @@ public class AdminStoryActivity extends AppCompatActivity implements View.OnClic
                                                 });
 
 
-                                        Toast.makeText(AdminStoryActivity.this, "story publish", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(AdminStoryActivity.this, "تم رفض القصة", Toast.LENGTH_SHORT).show();
                                         startActivity(new Intent(AdminStoryActivity.this, AdminActivity.class));
                                     }
                                 })
