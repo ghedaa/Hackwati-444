@@ -139,7 +139,7 @@ public class StoryActivity extends AppCompatActivity implements View.OnClickList
         storyDuration = mediaPlayer.getDuration();
         mediaPlayer.release();
         /*convert millis to appropriate time*/
-         format = String.format("%d دقيقة, %d ثانية",
+        format = String.format("%d دقيقة, %d ثانية",
                 TimeUnit.MILLISECONDS.toMinutes(storyDuration),
                 TimeUnit.MILLISECONDS.toSeconds(storyDuration) -
                         TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(storyDuration))  );
@@ -215,7 +215,7 @@ public class StoryActivity extends AppCompatActivity implements View.OnClickList
 
                         List<String> favoriteList = (List<String>) document.get("favorite");
                         if(favoriteList.contains(storyId)){
-                           favoritesFlag.setText("1");
+                            favoritesFlag.setText("1");
                             btnAddToList.setColorFilter(ContextCompat.getColor(StoryActivity.this, R.color.pink_hak), android.graphics.PorterDuff.Mode.SRC_IN);
 
                         }
@@ -296,7 +296,7 @@ public class StoryActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.btnAddToList:
                 if(favoritesFlag.getText().equals("0"))
-                addToFavoritesList();
+                    addToFavoritesList();
                 else if (favoritesFlag.getText().equals("1"))
                     removeFromFavoritesList();
 
@@ -310,7 +310,7 @@ public class StoryActivity extends AppCompatActivity implements View.OnClickList
             @SuppressLint("ResourceAsColor")
             @Override
             public void onSuccess(Void aVoid) {
-         favoritesFlag.setText("0");
+                favoritesFlag.setText("0");
                 btnAddToList.setColorFilter(ContextCompat.getColor(StoryActivity.this, R.color.gray_hak), android.graphics.PorterDuff.Mode.SRC_IN);
 
             }
@@ -418,11 +418,11 @@ public class StoryActivity extends AppCompatActivity implements View.OnClickList
                             ratingBar.setEnabled(false);
                         }
 
-                       else {
-                           Float Rate=rate1/rateCounter;
-                        ratingBar.setRating(Rate);
-                        ratingBar.setEnabled(false);
-                       }
+                        else {
+                            Float Rate=rate1/rateCounter;
+                            ratingBar.setRating(Rate);
+                            ratingBar.setEnabled(false);
+                        }
 
 
                     }
