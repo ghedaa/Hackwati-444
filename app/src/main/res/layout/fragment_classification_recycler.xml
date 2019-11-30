@@ -7,9 +7,10 @@
     >
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="التصنيفات"
-        android:textSize="20dp"/>
+        android:layout_marginRight="20dp"
+        android:textSize="16dp"/>
 <include layout="@layout/content"></include>
 </LinearLayout>

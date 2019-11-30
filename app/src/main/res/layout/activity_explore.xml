@@ -8,22 +8,70 @@
     android:fitsSystemWindows="true">
     <!--  android:layout_height="584dp"-->
 
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/horn"
+        android:layout_width="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_alignParentTop="true"
+        android:layout_height="50dp"
+        android:tint="@color/orange_hak"
+        android:src="@drawable/bug"/>
+    <RelativeLayout
+        android:id="@+id/head"
+        android:layout_marginTop="41dp"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:background="@drawable/icon_shape_circuler_explor"
+        >
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_centerInParent="true"
+            android:layout_alignParentTop="true"
+            android:layout_height="100dp"
+            android:src="@drawable/eyes"/>
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:iconifiedByDefault="true"
+            android:queryHint="ابحث عن قصة" >
+        </androidx.appcompat.widget.SearchView>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/head"
+
+        android:background="@drawable/square_shape"
+        />
+</RelativeLayout>
+
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="560dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="100dp"
         android:orientation="vertical">
 
+
+
         <androidx.viewpager.widget.ViewPager
-            android:layout_marginTop="50dp"
             android:id="@+id/viewPager"
+            android:layout_margin="10dp"
+            android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             />
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPager2"
+            android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
@@ -31,14 +79,13 @@
     </LinearLayout>
 
 
-    <com.google.android.material.appbar.AppBarLayout
+  <!--  <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/icon_shape_botum"
         android:backgroundTint="@color/yellow_hak"
         android:theme="@style/AppTheme.AppBarOverlay">
 
-        <androidx.appcompat.widget.Toolbar
+        &lt;!&ndash;<androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
@@ -47,23 +94,26 @@
             android:background="@drawable/icon_shape_botum"
             android:backgroundTint="@color/yellow_hak"
             app:title=""
-            app:titleTextColor="#4D3C13"/>
-
-
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:iconifiedByDefault="true"
-            android:queryHint="ابحث عن قصة" >
-
-
-
-        </androidx.appcompat.widget.SearchView>
+            app:titleTextColor="#4D3C13"
+            >
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:iconifiedByDefault="true"
+                android:queryHint="ابحث عن قصة" >
 
 
 
-    </com.google.android.material.appbar.AppBarLayout>
+            </androidx.appcompat.widget.SearchView>
+
+        </androidx.appcompat.widget.Toolbar>
+&ndash;&gt;
+
+
+
+
+    </com.google.android.material.appbar.AppBarLayout>-->
 
     <FrameLayout
         android:id="@+id/frame_container"

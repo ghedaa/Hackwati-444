@@ -47,9 +47,9 @@ public class ExploreActivity extends AppCompatActivity implements PopularStories
 
 
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+       /* Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("اكتشف");
+        getSupportActionBar().setTitle("اكتشف");*/
 
 
         navView = findViewById(R.id.nav_view);

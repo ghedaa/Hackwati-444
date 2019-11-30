@@ -11,8 +11,13 @@
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="11dp"
+        android:layout_marginRight="15dp"
+        android:foregroundGravity="center"
+        android:padding="10dp">
 
     </androidx.recyclerview.widget.RecyclerView>
 </RelativeLayout>
