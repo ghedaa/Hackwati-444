@@ -98,19 +98,24 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_below="@id/title"
-        android:layout_centerInParent="true"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="125dp"        android:src="@drawable/circle_gif"
+        android:layout_marginLeft="125dp"
+        android:src="@drawable/circle_gif"
         android:tint="@color/pink_hak2" />
 
-        <ImageButton
+        <Button
             android:id="@+id/action_save"
-            android:layout_width="wrap_content"
-            android:padding="20dp"
-            android:layout_below="@+id/timeBox"
+            android:layout_width="80dp"
+            android:layout_below="@+id/animals"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/aar_ic_check"
+            android:backgroundTint="@color/pink_hak2"
+            android:background="@drawable/box_shape"
+
+            android:text="التالي"
             android:visibility="invisible"/>
+
 <!--
     <ImageButton
         android:id="@+id/backBtn"
@@ -157,10 +162,13 @@
 
 
     <LinearLayout
-        android:layout_marginTop="-20dp"
+        android:id="@+id/animals"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/timeBox"
+        android:layout_marginTop="30dp"
         android:orientation="horizontal"
       >
 
@@ -170,14 +178,14 @@
             android:layout_height="50dp"
             android:layout_below="@+id/recording"
             app:srcCompat="@drawable/ic_lion"
-            android:background="@drawable/circle"
+            android:background="@drawable/circle_withou_border"
             android:layout_margin="5dp"/>
 
         <ImageButton
             android:id="@+id/record_monkey"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/circle"
+            android:background="@drawable/circle_withou_border"
             android:layout_below="@+id/recording"
             app:srcCompat="@drawable/ic_monkey"
             android:layout_margin="5dp"/>
@@ -187,7 +195,7 @@
             android:id="@+id/record_bird"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/circle"
+            android:background="@drawable/circle_withou_border"
             android:layout_below="@+id/recording"
             app:srcCompat="@drawable/ic_owl"
             android:layout_margin="5dp"/>
@@ -196,7 +204,7 @@
             android:id="@+id/record_dog"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/circle"
+            android:background="@drawable/circle_withou_border"
             android:layout_below="@+id/recording"
             app:srcCompat="@drawable/ic_dog"
             android:layout_margin="5dp"/>
