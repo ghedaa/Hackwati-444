@@ -69,16 +69,13 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.user_profile_activity_main);
 
         userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        //"0gsAM4f2eqfppuCtWFex8kmmMHB2";
-        //
 
-       /* Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(false);
-*/
-
-
 
 
         navView = findViewById(R.id.nav_view);
@@ -353,6 +350,23 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
 
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch ( item.getItemId() ) {
+            case android.R.id.home:
+                super.onBackPressed();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
 
 }
 

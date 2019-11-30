@@ -9,12 +9,20 @@
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="@drawable/icon_shape_botum"
-        android:backgroundTint="@color/yellow_hak"
+        android:background="@drawable/icon_shape_circuler_two"
         android:fitsSystemWindows="true"
         android:theme="@style/AppTheme.AppBarOverlay"
         app:elevation="0dp"/>
 
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="تعديل اللف الشخصي "
+        android:textColor="@color/pink_hak2"
+        android:layout_marginTop="15dp"
+        android:textAlignment="center"
+        android:textSize="14dp" />
     <RelativeLayout
         android:id="@+id/relImg"
         android:layout_width="105dp"
@@ -38,7 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="+ "
-            android:textColor="#94B9B8"
+            android:textColor="@color/pink_hak2"
             android:textSize="70dp" />
 
     </RelativeLayout>
@@ -66,7 +74,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="25dp"
                 android:text="اسم المستخدم :"
-                android:textColor="#94B9B8"
+                android:textColor="@color/pink_hak2"
                 android:textSize="18dp"
                 android:textStyle="bold" />
 
@@ -99,7 +107,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginTop="25dp"
             android:text="الايميل: "
-            android:textColor="#94B9B8"
+            android:textColor="@color/pink_hak2"
             android:textSize="18dp"
             android:textStyle="bold" />
 
@@ -125,7 +133,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginTop="25dp"
             android:text="النبذة:   "
-            android:textColor="#94B9B8"
+            android:textColor="@color/pink_hak2"
             android:textSize="18dp"
             android:textStyle="bold" />
     <LinearLayout
@@ -153,10 +161,13 @@
 
         <Button
             android:id="@+id/edit_profile"
-            android:layout_width="match_parent"
+            android:layout_width="200dp"
+            android:layout_marginTop="20dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/infotext"
-            android:backgroundTint="@color/red_btn_bg_color"
+            android:background="@drawable/shape"
+            android:layout_gravity="center"
+            android:textColor="@color/white_hak"
+            android:backgroundTint="@color/pink_hak2"
             android:text="حفظ التعديلات" />
 
     </LinearLayout>
@@ -170,19 +181,5 @@
         android:layout_alignParentBottom="true"
        />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
 
-        android:id="@+id/nav_view"
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="bottom"
-        android:background="?android:attr/windowBackground"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/bottom_nav_menu">
-
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
 </RelativeLayout>
