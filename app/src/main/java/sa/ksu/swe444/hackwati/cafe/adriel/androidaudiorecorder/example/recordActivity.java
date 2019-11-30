@@ -69,7 +69,7 @@ public class recordActivity extends AppCompatActivity {
 
         Util.requestPermission(this, Manifest.permission.RECORD_AUDIO);
         Util.requestPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-
+/*
         //NavView
         navView = findViewById(R.id.navigation_record);
         navView.setSelectedItemId(R.id.navigation_record);
@@ -92,7 +92,7 @@ public class recordActivity extends AppCompatActivity {
                 return true;
             }
         });
-
+*/
         //Buttons:
 
         shining = findViewById(R.id.shining);
@@ -148,11 +148,6 @@ public class recordActivity extends AppCompatActivity {
                 intent.putExtra("uploadedURI"  , path);
                 Toast.makeText(getBaseContext(), "audio"+path, Toast.LENGTH_LONG).show();
                 startActivity(intent);
-                // play audio file using MediaPlayer
-                MediaPlayer mediaPlayer = new MediaPlayer();
-                mediaPlayer.setDataSource(path);
-                mediaPlayer.prepare();
-                mediaPlayer.start();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -223,17 +218,6 @@ public class recordActivity extends AppCompatActivity {
 
 
 
-    private String getRealPathFromURI(Uri contentUri) {
-
-        String[] proj = { MediaStore.Audio.Media.RELATIVE_PATH };
-        CursorLoader loader = new CursorLoader(getBaseContext(), contentUri, proj, null, null, null);
-        Cursor cursor = loader.loadInBackground();
-        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.RELATIVE_PATH);
-        cursor.moveToFirst();
-        String result = cursor.getString(column_index);
-        cursor.close();
-        return result;
-    }
 
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
