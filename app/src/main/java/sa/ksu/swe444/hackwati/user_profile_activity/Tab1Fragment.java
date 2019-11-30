@@ -73,7 +73,6 @@ public class Tab1Fragment extends Fragment {
     private Button uploadImg;
     private String imgPath;
     private ImageView edit1, img, edit2;
-    private Button draft;
     TextView userinfo;
 
     private static final String TAG = "Tab1Fragment";
@@ -82,6 +81,8 @@ public class Tab1Fragment extends Fragment {
     StorageReference storageRef;
     FirebaseStorage storage = FirebaseStorage.getInstance();
     private String userStoryId;
+    private Button editProfile ;
+
 
 
     private TextView userNameText, emailText, subscribedno;
@@ -104,22 +105,8 @@ public class Tab1Fragment extends Fragment {
         img = v.findViewById(R.id.userImg);
         userNameText = v.findViewById(R.id.nameSignUpHin);
         emailText = v.findViewById(R.id.emailSignUpHin);
-        draft = v.findViewById(R.id.draft_page);
-        draft.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), ViewDraft.class);
-                intent.putExtra(Constants.Keys.DRAFT, true);
-                startActivity(intent);
-            }
-        });
-        stories = v.findViewById(R.id.story);
-       stories.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getContext(), UserUploadedStories.class));
-            }
-        });
+
+
 
 
         userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -127,65 +114,30 @@ public class Tab1Fragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
 
         relImg = v.findViewById(R.id.plus);
-        subscriberno = v.findViewById(R.id.subscriberno);
-        subscribedno = v.findViewById(R.id.subscribedno);
-        subscribed = v.findViewById(R.id.subscribed);
-        subscribed.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getContext(), SubscribedListActivity.class));
-            }
-        });
+
         storyno = v.findViewById(R.id.storyno);
 
-        relImg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                openCameraChooser();
-               // uploadImageWithUri();
-
-            }
-        });
 
 
-        edit1 = v.findViewById(R.id.edit1);
-        edit1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showDialogWithTextInput("تعديل اسم المستخدم");
-            }
-        });
 
 
-        subscriber = v.findViewById(R.id.subscriber);
-        subscriber.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getContext(), SubscribersListActivity.class));
-            }
-        });
 
         info = v.findViewById(R.id.infotext);
 
-        edit2 = v.findViewById(R.id.edit2);
-        edit2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                edituserInfo("تعديل النبذة");
-            }
-        });
+
 
         retriveUserData();
         countStories();
         Subscribers();
-        log_out = v.findViewById(R.id.logout_profile);
-        log_out.setOnClickListener(new View.OnClickListener() {
+
+        editProfile= v.findViewById(R.id.edit_profile);
+        editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                logout();
+                startActivity(new Intent(getContext(), EditProfile.class));
             }
         });
+
 
         return v;
     }// onCreate()
@@ -209,11 +161,9 @@ public class Tab1Fragment extends Fragment {
                             userNameText.setText(userName);
                             emailText.setText(email);
 
-                            Glide.with(getContext())
-                                    .load(thumbnail + "")
-                                    .into(img);
 
-                            subscribedno.setText(list.size() + "");
+                          //  subscribedno.setText(list.size() + "");
+                            //todo : number of following
 
                             info.setText(infoU);
 
@@ -443,8 +393,6 @@ public class Tab1Fragment extends Fragment {
                 .setCancelable(false)
                 .setPositiveButton("تأكييد", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogBox, int id) {
-                        // ToDo get user input here
-
 
                         DocumentReference washingtonRef = firebaseFirestore.collection("users").document(userUid);
                         washingtonRef
@@ -520,7 +468,8 @@ public class Tab1Fragment extends Fragment {
                                                                     for(int i =0 ; i<sum.length ; i++){
                                                                         storyNum+=sum[i];
                                                                     }
-                                                                    storyno.setText(storyNum + " ");
+                                                                    //storyno.setText(storyNum + " ");
+                                                                    //todo : set number of stories
                                                                 }
                                                             }
                                                         });
@@ -550,7 +499,9 @@ public class Tab1Fragment extends Fragment {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 counter++;
                             }
-                            subscriberno.setText(counter + "");
+                            //subscriberno.setText(counter + "");
+                            //todo : set number of subscribers
+
                         }
                     }
                 });

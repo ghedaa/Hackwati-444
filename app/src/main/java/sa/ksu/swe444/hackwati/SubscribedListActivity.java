@@ -170,6 +170,19 @@ public class SubscribedListActivity extends AppCompatActivity{
         }//end for loop
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch ( item.getItemId() ) {
+            case android.R.id.home:
+                super.onBackPressed();
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 }

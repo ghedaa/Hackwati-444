@@ -44,7 +44,7 @@ import sa.ksu.swe444.hackwati.explor.ExploreActivity;
 import sa.ksu.swe444.hackwati.user_profile_activity.UserProfileActivity;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private RecyclerView recyclerView;
     private storyAdapter adapter;
@@ -220,6 +220,15 @@ public class MainActivity extends AppCompatActivity {
         Resources r = getResources();
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }//end dpToPx
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.iv_record:
+                startActivity(new Intent(MainActivity.this, recordActivity.class));
+
+        }
+    }
 
     public static class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
 

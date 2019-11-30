@@ -30,9 +30,7 @@
         android:backgroundTint="@color/yellow_hak"
         android:fitsSystemWindows="true"
         android:theme="@style/AppTheme.AppBarOverlay"
-        app:elevation="0dp"
-
-        >
+        app:elevation="0dp">
 
 
 

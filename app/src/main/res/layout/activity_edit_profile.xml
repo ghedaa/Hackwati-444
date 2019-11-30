@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".user_profile_activity.EditProfile">
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@drawable/icon_shape_botum"
+        android:backgroundTint="@color/yellow_hak"
+        android:fitsSystemWindows="true"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:elevation="0dp"/>
+
+    <RelativeLayout
+        android:id="@+id/relImg"
+        android:layout_width="105dp"
+        android:layout_height="73dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        tools:ignore="MissingConstraints">
+
+
+        <ImageView
+            android:id="@+id/userImg"
+            android:layout_width="105dp"
+            android:layout_height="73dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:alpha=".6"
+            android:src="@drawable/defult_thumbnail" />
+
+        <TextView
+            android:id="@+id/plus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+ "
+            android:textColor="#94B9B8"
+            android:textSize="70dp" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_margin="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/editText"
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/relImg">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layoutDirection="rtl"
+            android:id="@+id/name"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/nameSignUp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/relImg"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="25dp"
+                android:text="اسم المستخدم :"
+                android:textColor="#94B9B8"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/nameSignUpHin"
+                android:layout_marginTop="25dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/relImg"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:hint="اسم المستخدم"
+                android:textSize="18dp" />
+
+
+        </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/email"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/emailSignUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nameSignUp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="25dp"
+            android:text="الايميل: "
+            android:textColor="#94B9B8"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/emailSignUpHin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nameSignUpHin"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="60dp"
+            android:layout_marginRight="80dp"
+            android:hint="البريد الالكتروني"
+            android:textSize="18dp" />
+
+    </LinearLayout>
+        <TextView
+            android:id="@+id/infoSignUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/emailSignUp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="25dp"
+            android:text="النبذة:   "
+            android:textColor="#94B9B8"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bio"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal">
+
+
+        <EditText
+            android:id="@+id/infotext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/infoSignUp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/box_shape"
+            android:backgroundTint="#F5F5F5"
+            android:ems="10"
+            android:gravity="left"
+            android:textAlignment="center"
+            android:textSize="18dp" />
+    </LinearLayout>
+
+
+        <Button
+            android:id="@+id/edit_profile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/infotext"
+            android:backgroundTint="@color/red_btn_bg_color"
+            android:text="حفظ التعديلات" />
+
+    </LinearLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+
+        android:id="@+id/nav_view"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:background="?android:attr/windowBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/bottom_nav_menu">
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+</RelativeLayout>

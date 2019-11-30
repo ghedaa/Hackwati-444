@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,14 +23,14 @@ import sa.ksu.swe444.hackwati.R;
 import sa.ksu.swe444.hackwati.cafe.adriel.androidaudiorecorder.example.recordActivity;
 import sa.ksu.swe444.hackwati.search;
 
-public class ExploreActivity extends AppCompatActivity implements PopularStories.FirstFragmentListener, SearchView.OnQueryTextListener {
+public class ExploreActivity extends AppCompatActivity implements PopularStories.FirstFragmentListener, SearchView.OnQueryTextListener, View.OnClickListener {
 
     private fragmentadapter adapter;
     private fragmentadapter adapter2;
     private ViewPager viewPager;
     private ViewPager viewPager2;
-     AllStories allStories;
-     PopularStories popularStories;
+    AllStories allStories;
+    PopularStories popularStories;
     public BottomNavigationView navView;
     public String title;
     SearchView editsearch;
@@ -51,7 +52,7 @@ public class ExploreActivity extends AppCompatActivity implements PopularStories
         getSupportActionBar().setTitle("اكتشف");
 
 
-        navView = findViewById(R.id.nav_explore_view);
+        navView = findViewById(R.id.nav_view);
         navView.setSelectedItemId(R.id.navigation_explore);
 
         allStories=new AllStories();
@@ -122,5 +123,14 @@ public class ExploreActivity extends AppCompatActivity implements PopularStories
     @Override
     public boolean onQueryTextChange(String newText) {
         return false;
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.iv_record:
+                startActivity(new Intent(ExploreActivity.this, recordActivity.class));
+
+        }
     }
 }
