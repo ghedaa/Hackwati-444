@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -34,7 +35,7 @@ import sa.ksu.swe444.hackwati.explor.ExploreActivity;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
-public class recordActivity extends AppCompatActivity {
+public class recordActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int REQUEST_RECORD_AUDIO = 0;
     private static final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
     private static final String AUDIO_FILE_PATH =
@@ -44,6 +45,7 @@ public class recordActivity extends AppCompatActivity {
     public BottomNavigationView navView;
     private GifImageView shining;
     private Uri audioFatimah;
+    private ImageView recordNav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +61,10 @@ public class recordActivity extends AppCompatActivity {
         Util.requestPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
         //NavView
-        navView = findViewById(R.id.navigation_record);
+        recordNav = findViewById(R.id.iv_record);
+        recordNav.setColorFilter(ContextCompat.getColor(recordActivity.this, R.color.blue_hak2));
+
+        navView = findViewById(R.id.nav_view);
         navView.setSelectedItemId(R.id.navigation_record);
         navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -159,7 +164,7 @@ public class recordActivity extends AppCompatActivity {
         AndroidAudioRecorder.with(this)
                 // Required
                 .setFilePath(AUDIO_FILE_PATH)
-                .setColor(ContextCompat.getColor(this, R.color.green_hak))
+                .setColor(ContextCompat.getColor(this, R.color.white_hak))
                 .setRequestCode(REQUEST_RECORD_AUDIO)
 
                 // Optional
@@ -177,5 +182,14 @@ public class recordActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.iv_record:
+                startActivity(new Intent(recordActivity.this, recordActivity.class));
+
+        }
     }
 }

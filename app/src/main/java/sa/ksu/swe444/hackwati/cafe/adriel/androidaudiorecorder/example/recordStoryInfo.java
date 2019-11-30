@@ -29,6 +29,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.Continuation;
@@ -68,7 +69,7 @@ import sa.ksu.swe444.hackwati.explor.ExploreActivity;
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
 
-public class recordStoryInfo extends AppCompatActivity {
+public class recordStoryInfo extends AppCompatActivity implements View.OnClickListener {
 
     private View view;
     private EditText storyTitle;
@@ -99,6 +100,7 @@ public class recordStoryInfo extends AppCompatActivity {
     String id;
     String docId;
     int random;
+    private ImageView recordNav;
     String storyId;
     private Button saveToDraft;
     private Spinner spinner;
@@ -203,7 +205,11 @@ public class recordStoryInfo extends AppCompatActivity {
 
 
     public void bottomNavigation() {
-        navView = findViewById(R.id.nav_view_rec);
+        //NavView
+        recordNav = findViewById(R.id.iv_record);
+        recordNav.setColorFilter(ContextCompat.getColor(recordStoryInfo.this, R.color.blue_hak2));
+
+        navView = findViewById(R.id.nav_view);
         navView.setSelectedItemId(R.id.navigation_record);
         navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -221,10 +227,13 @@ public class recordStoryInfo extends AppCompatActivity {
                         showDialogWithOkButton("هل تريد حقاً ترك القصة؟",  new Intent(recordStoryInfo.this, ExploreActivity.class));
                         break;
 
+
                 }// end of switch
                 return true;
             }
         });
+
+
     }
 
 
@@ -749,5 +758,13 @@ return isValid;
 
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.iv_record:
+                startActivity(new Intent(recordStoryInfo.this, recordActivity.class));
+
+        }
+    }
 
 }

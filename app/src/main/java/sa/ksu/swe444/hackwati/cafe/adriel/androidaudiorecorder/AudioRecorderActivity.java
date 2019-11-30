@@ -57,6 +57,7 @@ public class AudioRecorderActivity extends AppCompatActivity
     private boolean autoStart;
     private boolean keepDisplayOn;
     public BottomNavigationView navView;
+    private ImageView recordNav;
 
     private ImageButton dog;
     private ImageButton monkey;
@@ -199,11 +200,13 @@ public class AudioRecorderActivity extends AppCompatActivity
         saveMenuItem = (ImageButton) findViewById(R.id.action_save);
         saveMenuItem.setOnClickListener(this);
 
-     //   backBtn = (ImageButton) findViewById(R.id.backBtn);
-     //   backBtn.setOnClickListener(this);
+
 
         //NavView
-        navView = findViewById(R.id.navigation_record);
+        recordNav = findViewById(R.id.iv_record);
+        recordNav.setColorFilter(ContextCompat.getColor(AudioRecorderActivity.this, R.color.blue_hak2));
+
+        navView = findViewById(R.id.nav_view);
         navView.setSelectedItemId(R.id.navigation_record);
         navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -211,7 +214,6 @@ public class AudioRecorderActivity extends AppCompatActivity
                 switch (item.getItemId()) {
 
                     case R.id.navigation_record:
-                        startActivity(new Intent(AudioRecorderActivity.this, recordActivity.class));
                         break;
                     case R.id.navigation_subscription:
                         showDialogWithOkButton("هل تريد حقاً إلغاء التسجيل؟",  new Intent(AudioRecorderActivity.this, MainActivity.class));
@@ -224,6 +226,9 @@ public class AudioRecorderActivity extends AppCompatActivity
                 return true;
             }
         });
+
+
+     
     }
 
     @Override
@@ -270,27 +275,6 @@ public class AudioRecorderActivity extends AppCompatActivity
 
 
 
-   /* @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.aar_audio_recorder, menu);
-        saveMenuItem = menu.findItem(R.id.action_save);
-        saveMenuItem.setIcon(ContextCompat.getDrawable(this, R.drawable.aar_ic_check));
-        saveMenuItem.setEnabled(true);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-
-         inflater = getMenuInflater();
-        inflater.inflate(R.menu.aar_audio_recorder, menu);
-        saveMenuItem = menu.findItem(R.id.action_save);
-        Log.d("MenuItem", saveMenuItem.toString());
-        saveMenuItem.setIcon(ContextCompat.getDrawable(this, R.drawable.aar_ic_check));
-        return super.onPrepareOptionsMenu(menu);
-    }
-*/
 
     @Override
     public void onClick(View view) {
@@ -298,7 +282,8 @@ public class AudioRecorderActivity extends AppCompatActivity
             case R.id.action_save:
                 selectAudio();
                 break;
-
+            case R.id.iv_record:
+                startActivity(new Intent(AudioRecorderActivity.this, recordActivity.class));
             //    case R.id.backBtn:
             //    onBackPressed();
              //   break;
@@ -370,7 +355,7 @@ public class AudioRecorderActivity extends AppCompatActivity
         restartView.setVisibility(View.INVISIBLE);
         playView.setVisibility(View.INVISIBLE);
         recordView.setImageResource(R.drawable.aar_ic_rec);
-        timerView.setText("00:00:00");
+        timerView.setText("٠٠:٠٠:٠٠");
         recorderSecondsElapsed = 0;
         playerSecondsElapsed = 0;
     }
@@ -389,7 +374,7 @@ public class AudioRecorderActivity extends AppCompatActivity
         visualizerView.linkTo(visualizerHandler);
 
         if(recorder == null) {
-            timerView.setText("00:00:00");
+            timerView.setText("٠٠:٠٠:٠٠");
 
             recorder = OmRecorder.wav(
                     new PullTransport.Default(Util.getMic(source, channel, sampleRate), AudioRecorderActivity.this),
@@ -455,7 +440,7 @@ public class AudioRecorderActivity extends AppCompatActivity
                 }
             });
 
-            timerView.setText("00:00:00");
+            timerView.setText("٠٠:٠٠:٠٠");
             statusView.setText("تشغيل");
             statusView.setVisibility(View.VISIBLE);
             playView.setImageResource(R.drawable.aar_ic_stop);
