@@ -41,7 +41,7 @@ public class SwipeToDeleteCallback extends ItemTouchHelper.SimpleCallback {
     }
 
     @SuppressLint("ResourceAsColor")
-    public SwipeToDeleteCallback(UploadedStoriesAdapter adapter, CoordinatorLayout coordinatorLayout) {
+    public SwipeToDeleteCallback(UploadedStoriesAdapter adapter) {
         super(0,ItemTouchHelper.LEFT );
         mAdapter = adapter;
         icon = ContextCompat.getDrawable(mAdapter.getContext(),
@@ -104,7 +104,7 @@ public class SwipeToDeleteCallback extends ItemTouchHelper.SimpleCallback {
         final androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(mAdapter.getContext());
         builder.setMessage(msg)
                 .setCancelable(false)
-                .setPositiveButton("حسناً", new DialogInterface.OnClickListener() {
+                .setPositiveButton("متأكد", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         //int position = mAdapter.getAdapterPosition();
                         mAdapter.deleteItem(position);

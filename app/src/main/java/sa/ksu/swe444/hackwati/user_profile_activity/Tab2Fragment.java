@@ -16,6 +16,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -37,6 +38,7 @@ import sa.ksu.swe444.hackwati.Item;
 import sa.ksu.swe444.hackwati.MainActivity;
 import sa.ksu.swe444.hackwati.R;
 import sa.ksu.swe444.hackwati.storyAdapter;
+import sa.ksu.swe444.hackwati.uploaded_stories.SwipeToDeleteCallback;
 import sa.ksu.swe444.hackwati.uploaded_stories.UploadedStoriesAdapter;
 import sa.ksu.swe444.hackwati.uploaded_stories.UserUploadedStories;
 import sa.ksu.swe444.hackwati.uploaded_stories.story;
@@ -62,7 +64,6 @@ public class Tab2Fragment extends Fragment {
 
         userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-
         status = view.findViewById(R.id.subscribeBtn);
         emptyUsers = view.findViewById(R.id.emptyUsers);
         recyclerView = view.findViewById(R.id.recycleView);
@@ -74,12 +75,14 @@ public class Tab2Fragment extends Fragment {
 
         mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
+        ItemTouchHelper itemTouchHelper = new
+                ItemTouchHelper(new SwipeToDeleteCallback(mAdapter));
+        itemTouchHelper.attachToRecyclerView(recyclerView);
         recyclerView.setAdapter(mAdapter);
         retrievePublishedStories();
         retrieveRejectedStories();
         retrieveUnderProcessingStories();
-        //installButton110to250();
-        //bottomNavigation();
+
 
         return view;
     }//end onCreate()

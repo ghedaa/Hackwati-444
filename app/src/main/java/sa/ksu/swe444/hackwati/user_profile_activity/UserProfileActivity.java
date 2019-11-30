@@ -54,10 +54,13 @@ public class UserProfileActivity extends AppCompatActivity {
     public FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     Button subscribe;
     String userUid;
+    public BottomNavigationView navView;
+
 
     ///
     private TextView  storyno, subscribed, subscriber, subscriberno, stories, userNameText, subscribedno;
     private CircularImageView img;
+
 
 
 
@@ -182,7 +185,48 @@ public class UserProfileActivity extends AppCompatActivity {
         countStories();
         Subscribers();
 
-    }
+
+        // this code below to disable swapping between Tabs
+        viewPager.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                    return true;
+            }
+
+        });
+
+        navView = findViewById(R.id.nav_view);
+        navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                switch (item.getItemId()) {
+
+                    case R.id.navigation_record:
+                        startActivity(new Intent(UserProfileActivity.this, recordActivity.class));
+                        // navView.setSelectedItemId(R.id.navigation_record);
+                        //  navView.getMenu().getItem(R.id.navigation_record).setChecked(true);
+                        break;
+
+                    case R.id.navigation_subscription:
+                        startActivity(new Intent(UserProfileActivity.this, MainActivity.class));
+                        //navView.setSelectedItemId(R.id.navigation_subscription);
+
+                        break;
+
+                    case R.id.navigation_explore:
+                        startActivity(new Intent(UserProfileActivity.this, ExploreActivity.class));
+                        //   navView.setSelectedItemId(R.id.navigation_explore);
+
+                        break;
+
+                }// end of switch
+
+                return true;
+            }
+        });
+
+    }//onCreate()
 
     public void retriveUserData() {
         DocumentReference docRef = firebaseFirestore.collection("users").document(userUid);
@@ -299,7 +343,7 @@ public class UserProfileActivity extends AppCompatActivity {
                         }
                     }
                 });
-    }
+    }// Subscribers
 
 
 
