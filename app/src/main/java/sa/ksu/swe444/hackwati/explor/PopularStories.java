@@ -81,7 +81,7 @@ public class PopularStories extends Fragment implements ClassificationAdapter.Cl
         classificationsList.add(classifications);
         classifications= new Classifications("قصص خيال علمي",  R.drawable.alien );
         classificationsList.add(classifications);
-        classifications= new Classifications("قصص تاريخيه",  R.drawable.historical);
+        classifications= new Classifications("قصص تاريخية",  R.drawable.historical);
         classificationsList.add(classifications);
         classifications= new Classifications("قصص أنبياء",  R.drawable.prophets );
         classificationsList.add(classifications);

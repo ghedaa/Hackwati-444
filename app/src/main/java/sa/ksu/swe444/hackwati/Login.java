@@ -44,8 +44,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import static sa.ksu.swe444.hackwati.Constants.Keys.USER_EMAIL;
-import static sa.ksu.swe444.hackwati.Constants.Keys.USER_PASS;
+
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
 
@@ -108,7 +107,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         forgetPassword.setOnClickListener(this);
 
         progressBar.setVisibility(View.GONE);
-       // loginGoogleBtn.setEnabled(false);
+        // loginGoogleBtn.setEnabled(false);
 
     }// end of onCreate()
 
@@ -132,8 +131,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         mGoogleSignInClient.silentSignIn().addOnCompleteListener(new OnCompleteListener<GoogleSignInAccount>() {
             @Override
             public void onComplete(@NonNull Task<GoogleSignInAccount> task) {
-               String name = task.getResult().getDisplayName();
-               String email = task.getResult().getEmail();
+         //       String name = task.getResult().getDisplayName();
+         //       String email = task.getResult().getEmail();
             }
         });
 
@@ -154,10 +153,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 signIn();
 
                 break;
-           // case R.id.regBtnGoogle:
-              //  Log.e("TAG", "google clicked");
-               // googleSignIn();
-             //   break;
+            // case R.id.regBtnGoogle:
+            //  Log.e("TAG", "google clicked");
+            // googleSignIn();
+            //   break;
             case R.id.createAccount:
                 Intent intent = new Intent(Login.this, SignUp.class);
                 startActivity(intent);
@@ -257,7 +256,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         //user.put("email",register_email.getText().toString());
         user.put("info","");
         user.put("username" , nameGoogle);
-        
+
         user.put("favorite", Arrays.asList());
         user.put("subscribedUsers", Arrays.asList());
         user.put("thumbnail","https://firebasestorage.googleapis.com/v0/b/hackwati444.appspot.com/o/Hakawati%2Fdefult_thumbnail.png?alt=media&token=be4ed812-e028-493c-a703-593e4a993c1f");
@@ -341,7 +340,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                                     });// end og getting token by fatimah
 
                                     executeLogin();
-                                  //  startActivity(new Intent(Login.this, MainActivity.class));
+                                    //  startActivity(new Intent(Login.this, MainActivity.class));
                                 } else {
                                     showDialogWithOkButton("تحقق من الرابط المرسل على بريدك لإكمال عملية تسجيل الدخول ");
                                 }
@@ -371,13 +370,13 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
 
                                     executeLogin();
-                                   // startActivity(new Intent(Login.this, MainActivity.class));
+                                    // startActivity(new Intent(Login.this, MainActivity.class));
                                 }
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w(TAG, "signInWithEmail:failure", task.getException());
-                               Toast.makeText(Login.this, "لم تنجح عملية التسجيل مع قوقل",
-                                      Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Login.this, "لم تنجح عملية التسجيل مع قوقل",
+                                        Toast.LENGTH_SHORT).show();
                                 showDialogWithOkButton("البريد الإلكتروني أو كلمة المرور غير صحيحة");
                                 // updateUI(null);
                             }
