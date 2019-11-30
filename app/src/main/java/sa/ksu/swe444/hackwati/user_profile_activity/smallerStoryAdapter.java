@@ -68,7 +68,6 @@ public class smallerStoryAdapter extends RecyclerView.Adapter<smallerStoryAdapte
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Item item = itemList.get(position);
         holder.title.setText(item.getTitle());
-        // loading album cover using Glide library
        Glide.with(mContext).load(item.getImage()).into(holder.image);
 
 
