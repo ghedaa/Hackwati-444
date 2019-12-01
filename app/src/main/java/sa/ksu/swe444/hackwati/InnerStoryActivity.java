@@ -71,6 +71,7 @@ public class InnerStoryActivity extends AppCompatActivity implements View.OnClic
     private String title;
     private String storyID;
     private String link;
+    Context context = getBaseContext();
 
     ImageView storyCover;
     private TextView titleView;
@@ -216,9 +217,11 @@ public class InnerStoryActivity extends AppCompatActivity implements View.OnClic
 
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
 
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onCompletion(MediaPlayer mp) {
-                viewRateDialog();
+                    viewRateDialog();
+
                 mediaPlayer.start();
                 mediaPlayer.pause();
                 defaultTimer();

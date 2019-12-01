@@ -92,6 +92,7 @@ public class ViewDraft extends AppCompatActivity {
         userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         initRecyclerView();
+        retrieveUserDraft();
 
 
         navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -137,7 +138,6 @@ public class ViewDraft extends AppCompatActivity {
         recyclerView.addItemDecoration(new AdminActivity.GridSpacingItemDecoration(2, dpToPx(10), true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
-        retrieveUserDraft();
 
     }
 

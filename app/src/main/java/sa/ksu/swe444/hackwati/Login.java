@@ -106,7 +106,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         createAccount.setOnClickListener(this);
         forgetPassword.setOnClickListener(this);
 
-        progressBar.setVisibility(View.GONE);
         // loginGoogleBtn.setEnabled(false);
 
     }// end of onCreate()
@@ -120,6 +119,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         createAccount = findViewById(R.id.createAccount);
         forgetPassword = findViewById(R.id.forgetText);
         progressBar = findViewById(R.id.progress_bar);
+        progressBar.setVisibility(View.GONE);
+
         // Initialize Firebase Auth
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))

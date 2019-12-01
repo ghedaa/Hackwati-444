@@ -690,7 +690,6 @@ return isValid;
                 .setCancelable(false)
                 .setPositiveButton("حسنًا", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        Toast.makeText(recordStoryInfo.this, "تم إلغاء القصة", Toast.LENGTH_SHORT).show();
                         startActivity(intent);
                     }
                 }).setNegativeButton("إلغاء", new DialogInterface.OnClickListener() {
