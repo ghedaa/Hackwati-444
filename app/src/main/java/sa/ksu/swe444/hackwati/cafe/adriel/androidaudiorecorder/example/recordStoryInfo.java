@@ -157,7 +157,6 @@ public class recordStoryInfo extends AppCompatActivity implements View.OnClickLi
             public void onClick(View view) {
               if(verificationBeforeUploadingStory()) {
                   progressBar.setVisibility(View.VISIBLE);
-
                   storyId = storyTitleToStoryId();
                   uploadAudioToDraft();
                   uploadImageWithUriToDraft();

@@ -360,6 +360,7 @@ public class AdminStoryActivity extends AppCompatActivity implements View.OnClic
                         String title = (String) document.get("title");
                         String userId = (String) document.get("userId");
                         String timestamp = document.get("timestamp").toString();
+                        String type = document.get("story_type").toString();
 
                         //1 : SEND NOTIFICATION HERE
                         sendApprovedNotifications(userId,title);
@@ -373,6 +374,7 @@ public class AdminStoryActivity extends AppCompatActivity implements View.OnClic
                         publishedStories.put("pic", pic);
                         publishedStories.put("userId", userId);
                         publishedStories.put("sound", sound);
+                        publishedStories.put("story_type", type);
                         publishedStories.put("timestamp", FieldValue.serverTimestamp());
 
 
@@ -474,8 +476,9 @@ public class AdminStoryActivity extends AppCompatActivity implements View.OnClic
                         String title = (String) document.get("title");
                         String userId = (String) document.get("userId");
                         String timestamp = (String) document.get("timestamp").toString();
+                        String type = document.get("story_type").toString();
 
-                         //1 : SEND NOTIFICATION HERE
+                        //1 : SEND NOTIFICATION HERE
 
                         sendRejectedNotifications(userId,title);
 
@@ -488,6 +491,7 @@ public class AdminStoryActivity extends AppCompatActivity implements View.OnClic
                         rejectedStories.put("userId", userId);
                         rejectedStories.put("sound", sound);
                         rejectedStories.put("timestamp", FieldValue.serverTimestamp());
+                        rejectedStories.put("story_type", type);
 
 
                         firebaseFirestore.collection("rejectedStories").document().set(rejectedStories)
