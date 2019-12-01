@@ -21,6 +21,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -56,6 +57,8 @@ public class recordActivity extends AppCompatActivity {
     public BottomNavigationView navView;
     private GifImageView shining;
     private Uri uriPath;
+    private ImageView recordNav;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,9 +72,12 @@ public class recordActivity extends AppCompatActivity {
 
         Util.requestPermission(this, Manifest.permission.RECORD_AUDIO);
         Util.requestPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-/*
+
         //NavView
-        navView = findViewById(R.id.navigation_record);
+        recordNav = findViewById(R.id.iv_record);
+        recordNav.setColorFilter(ContextCompat.getColor(recordActivity.this, R.color.blue_hak2));
+
+        navView = findViewById(R.id.nav_view);
         navView.setSelectedItemId(R.id.navigation_record);
         navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -79,7 +85,6 @@ public class recordActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
 
                     case R.id.navigation_record:
-                        startActivity(new Intent(recordActivity.this, recordActivity.class));
                         break;
                     case R.id.navigation_subscription:
                         startActivity(new Intent(recordActivity.this, MainActivity.class));
@@ -92,7 +97,8 @@ public class recordActivity extends AppCompatActivity {
                 return true;
             }
         });
-*/
+
+
         //Buttons:
 
         shining = findViewById(R.id.shining);

@@ -6,16 +6,54 @@
     android:id="@+id/htab_maincontent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#C6E9E9"
+    android:background="#eee"
     android:fitsSystemWindows="true">
     <!--  android:layout_height="584dp"-->
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/icon_shape_botum"
+        android:backgroundTint="@color/pink_hak2"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@drawable/icon_shape_botum"
+            android:layout_gravity="center"
+            android:gravity="center"
+
+            android:backgroundTint="#7C7C7C"
+            app:title=" "
+            app:titleTextColor="@color/white_hak"
+
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/power"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="20dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_power_settings_new_black_24dp"
+                />
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
     <RelativeLayout
-        android:layout_width="390dp"
+        android:layout_width="300dp"
         android:layout_height="708dp"
         android:layout_gravity="center"
         android:background="@drawable/icon_shape"
         android:backgroundTint="#ffff"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="10dp"
 
         android:gravity="center"
 
@@ -31,7 +69,7 @@
 
             android:layout_centerInParent="true"
             android:layout_marginLeft="10dp"
-android:layout_marginTop="70dp"
+android:layout_marginTop="30dp"
             android:layout_marginRight="11dp"
             android:foregroundGravity="center"
             android:padding="10dp"
@@ -48,8 +86,6 @@ android:layout_marginTop="70dp"
         android:gravity="center"
         android:text="" />
 
-    <include
-        android:id="@+id/toole"
-        layout="@layout/toolbar_main" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
