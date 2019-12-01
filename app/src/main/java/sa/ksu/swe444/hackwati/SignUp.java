@@ -136,13 +136,13 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                                         Toast.LENGTH_SHORT).show();
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 //send email by email to verify user account
-                          /*      FirebaseAuth.getInstance().getCurrentUser().sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                FirebaseAuth.getInstance().getCurrentUser().sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
                                         Log.d("","vrify email");
                                     }
                                 });
-                                //end veee*/
+                                //end veee
 
                                 createUserCollection();
                        startActivity(new Intent(SignUp.this, Login.class));
