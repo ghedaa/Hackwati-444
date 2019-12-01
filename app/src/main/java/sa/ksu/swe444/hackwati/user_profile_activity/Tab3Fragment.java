@@ -100,7 +100,7 @@ public class Tab3Fragment extends Fragment {
                     if (document.exists()) {
 
                         final List<String> list = (List<String>) document.get("favorite");
-                        if (list == null) {
+                        if (list == null||list.size()==0) {
                             emptyStories.setText("لا يوجد قصص مفضلة");
                         } else { // has SubscribedUsers
 

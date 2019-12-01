@@ -34,6 +34,7 @@
     <RelativeLayout
         android:layout_width="355dp"
         android:layout_height="616dp"
+        android:layout_marginTop="-200dp"
         android:layout_gravity="center"
         android:gravity="center"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"

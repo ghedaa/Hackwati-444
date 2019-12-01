@@ -135,9 +135,10 @@
                     android:scaleY=".5" />
 
                 <RelativeLayout
+                    android:id="@+id/buttns"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/discrebtion"
+                    android:layout_below="@id/rating_label"
                     android:layout_centerInParent="true">
 
 
@@ -164,7 +165,33 @@
 
 
                 </RelativeLayout>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@+id/buttns"
+    >
+    <TextView
+        android:id="@+id/summ"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rating"
+        android:layout_marginTop="20dp"
+        android:background="#F7F7F7"
+        android:gravity="center"
+        android:text="ملخص القصة:"
+        android:textSize="18dp" />
 
+    <TextView
+        android:id="@+id/discrebtion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/summ"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:text="العنوان"
+        android:textAlignment="center"
+        android:textSize="14dp" />
+</RelativeLayout>
 
                 <TextView
                     android:id="@+id/date"
@@ -191,27 +218,7 @@
                     android:text="التقيم"
                     android:textSize="14dp" />
 
-                <TextView
-                    android:id="@+id/summ"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/rating"
-                    android:layout_marginTop="20dp"
-                    android:background="#F7F7F7"
-                    android:gravity="center"
-                    android:text="ملخص القصة:"
-                    android:textSize="18dp" />
 
-                <TextView
-                    android:id="@+id/discrebtion"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/summ"
-                    android:layout_centerInParent="true"
-                    android:gravity="center"
-                    android:text="العنوان"
-                    android:textAlignment="center"
-                    android:textSize="14dp" />
 
                 <TextView
                     android:id="@+id/channelname"

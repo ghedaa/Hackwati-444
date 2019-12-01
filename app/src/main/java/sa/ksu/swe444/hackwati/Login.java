@@ -342,8 +342,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                                     executeLogin();
                                     //  startActivity(new Intent(Login.this, MainActivity.class));
                                 } else {
-                                    executeLogin();
-
                                     showDialogWithOkButton("تحقق من الرابط المرسل على بريدك لإكمال عملية تسجيل الدخول ");
                                 }
 
@@ -478,7 +476,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             Log.d(TAG, "admin"+userID);
             MySharedPreference.putBoolean(this, "IS_LOGIN", false);
             startActivity(new Intent(Login.this, AdminActivity.class));
-            finish();
 
         }
         else {

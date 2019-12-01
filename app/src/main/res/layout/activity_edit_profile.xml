@@ -12,7 +12,24 @@
         android:background="@drawable/icon_shape_circuler_two"
         android:fitsSystemWindows="true"
         android:theme="@style/AppTheme.AppBarOverlay"
-        app:elevation="0dp"/>
+        app:elevation="0dp">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@drawable/icon_shape_botum"
+            android:layout_gravity="center"
+            android:gravity="center"
+
+            android:backgroundTint="@color/pink_hak"
+            app:title=" "
+            app:titleTextColor="@color/white_hak"
+
+            />
+    </com.google.android.material.appbar.AppBarLayout>
+
+
 
     <TextView
         android:id="@+id/title"
