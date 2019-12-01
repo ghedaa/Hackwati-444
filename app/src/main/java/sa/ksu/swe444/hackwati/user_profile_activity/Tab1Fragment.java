@@ -391,7 +391,7 @@ public class Tab1Fragment extends Fragment {
         userInputDialogEditText.setText(title);
         alertDialogBuilderUserInput
                 .setCancelable(false)
-                .setPositiveButton("تأكييد", new DialogInterface.OnClickListener() {
+                .setPositiveButton("تأكيد", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogBox, int id) {
 
                         DocumentReference washingtonRef = firebaseFirestore.collection("users").document(userUid);
