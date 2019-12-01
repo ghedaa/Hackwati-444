@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/htab_maincontent"
     android:layout_width="match_parent"
@@ -13,10 +14,12 @@
 
 
     <RelativeLayout
-        android:layout_width="390dp"
-        android:layout_height="708dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-50dp"
+        android:layout_marginBottom="150dp"
+
         android:layout_gravity="center"
-        android:layout_marginTop="0dp"
         android:background="@drawable/icon_shape"
         android:backgroundTint="#ffff"
         android:gravity="center"
@@ -25,14 +28,15 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
-            android:layout_width="200dp"
-            android:layout_height="678dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
-            android:layout_marginLeft="11dp"
-            android:layout_marginTop="-40dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="-300dp"
             android:layout_marginRight="15dp"
+            android:layout_marginBottom="300dp"
             android:foregroundGravity="center"
             android:padding="10dp">
 
@@ -52,7 +56,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/icon_shape_circuler"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
@@ -61,7 +65,7 @@
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
             app:contentScrim="#FAD41B"
             app:expandedTitleMarginStart="0dp"
@@ -73,13 +77,13 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="160dp"
+                android:layout_height="80dp"
                 android:layout_gravity="bottom" />
 
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="100dp"
                 android:layout_gravity="top"
                 android:fitsSystemWindows="true" />
 
@@ -87,7 +91,7 @@
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/anim_toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
+                android:layout_height="50dp"
                 android:background="@drawable/icon_shape_circuler"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
@@ -118,7 +122,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="dd  "
+                android:text=""
                 android:textColor="#FFFEF1"
                 app:layout_collapseMode="pin"
                 android:textSize="16dp"

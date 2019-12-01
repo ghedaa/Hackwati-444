@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_margin="20dp"
-    android:layout_gravity="center"
-    android:gravity="center"
+    android:layout_height="match_parent"
     >
+    <androidx.recyclerview.widget.RecyclerView
 
-<include layout="@layout/content"></include>
-</LinearLayout>
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="35dp"
+        android:foregroundGravity="center"
+        android:padding="10dp">
+
+    </androidx.recyclerview.widget.RecyclerView>
+</RelativeLayout>
