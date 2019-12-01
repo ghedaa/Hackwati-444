@@ -35,9 +35,10 @@ import sa.ksu.swe444.hackwati.storyAdapter;
 public class Tab4Fragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private storyAdapter adapter;
+    private draftAdap adapter;
     private List<Item> itemList;
     private TextView emptyStories;
+
 
 
     public FirebaseAuth mAuth;
@@ -74,48 +75,48 @@ public class Tab4Fragment extends Fragment {
 
     private void initRecyclerView() {
         itemList = new ArrayList<>();
-        adapter = new storyAdapter(getActivity(), itemList);
+        adapter = new draftAdap(getActivity(), itemList);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.addItemDecoration(new MainActivity.GridSpacingItemDecoration(10, dpToPx(10), false));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
-        retrieveUserStories();
+        retrieveUserDraft();
     }
 
-    private void retrieveUserStories() {
-        firebaseFirestore.collection("publishedStories")
-                .whereEqualTo("userId", userUid)// <-- This line
+
+    public void retrieveUserDraft() {
+        firebaseFirestore.collection("draft")
+                .whereEqualTo("userId", mAuth.getUid())
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
-                    public void onComplete(@NonNull final Task<QuerySnapshot> task) {
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
+                            List<DocumentSnapshot> myListOfDocuments = task.getResult().getDocuments();
 
-
-
-                            for (DocumentSnapshot document : task.getResult()) {
+                            for (DocumentSnapshot document : myListOfDocuments) {
 
 
                                 document.getData();
+                                String description = (String) document.get("description");
+                                String pic = (String) document.get("pic");
+                                String rate = (String) document.get("rate");
+                                String sound = (String) document.get("sound");
                                 String title = (String) document.get("title");
                                 String userId = (String) document.get("userId");
                                 String storyId = (String) document.getId();
-                                String userName = "";
-                                String pic = (String) document.get("pic");
-                                String sound = (String) document.get("sound");
 
-                                Item item = new Item(true,storyId, title, pic,sound, userId, "", "");
+                                Item item = new Item(storyId, title, pic,userId, sound);
                                 itemList.add(item);
                                 adapter.notifyDataSetChanged();
 
-                            }
 
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
+                            }
                         }
                     }
                 });
+
     }
 
 

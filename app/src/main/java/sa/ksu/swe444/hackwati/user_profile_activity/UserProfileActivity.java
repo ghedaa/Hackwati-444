@@ -130,6 +130,11 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
         Bundle bundle = new Bundle();
         bundle.putString("userUid", userUid);
 
+        Bundle draftBundle = new Bundle();
+        draftBundle.putString("userUid", userUid);
+        draftBundle.putBoolean("draft", true);
+
+
 
         tab1Fragment = new Tab1Fragment();
         tab1Fragment.setArguments(bundle);
@@ -146,10 +151,8 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
         adapter.addFragment(tab3Fragment, "مفضلتي");
 
         tab4Fragment = new Tab4Fragment();
-        tab4Fragment.setArguments(bundle);
+        tab4Fragment.setArguments(draftBundle);
         adapter.addFragment(tab4Fragment, "مسوداتي");
-
-
 
 
         viewPager.setAdapter(adapter);
@@ -224,7 +227,6 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
         });
 
     }//onCreate()
-
     public void retriveUserData() {
         DocumentReference docRef = firebaseFirestore.collection("users").document(userUid);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {

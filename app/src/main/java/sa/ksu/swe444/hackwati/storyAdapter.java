@@ -3,6 +3,7 @@ package sa.ksu.swe444.hackwati;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,6 +81,7 @@ public class storyAdapter extends RecyclerView.Adapter<storyAdapter.MyViewHolder
                             intent.putExtra(Constants.Keys.STORY_AUDIO,clickedStory.getSound() );
                             intent.putExtra(Constants.Keys.STORY_COVER ,clickedStory.getImage());
                         context.startActivity(intent);
+
                         }else if(draft){
                             Intent intent = new Intent(context, ListenToStoryDraft.class);
                             intent.putExtra(Constants.Keys.STORY_ID, storyId);
@@ -87,7 +89,6 @@ public class storyAdapter extends RecyclerView.Adapter<storyAdapter.MyViewHolder
                             intent.putExtra(Constants.Keys.STORY_AUDIO,clickedStory.getSound() );
                             intent.putExtra(Constants.Keys.STORY_COVER ,clickedStory.getImage());
                             intent.putExtra(Constants.Keys.STORY_TITLE ,clickedStory.getTitle());
-
                             context.startActivity(intent);
                         }
                         else{
