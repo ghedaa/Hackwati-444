@@ -48,7 +48,8 @@ import sa.ksu.swe444.hackwati.cafe.adriel.androidaudiorecorder.model.AudioSource
 import sa.ksu.swe444.hackwati.explor.ExploreActivity;
 
 public class AudioRecorderActivity extends AppCompatActivity
-        implements PullTransport.OnAudioChunkPulledListener, MediaPlayer.OnCompletionListener ,  View.OnClickListener{
+        implements PullTransport.OnAudioChunkPulledListener, MediaPlayer.OnCompletionListener ,
+        View.OnClickListener{
 
     private String filePath;
     private AudioSource source;
@@ -68,6 +69,7 @@ public class AudioRecorderActivity extends AppCompatActivity
     private MediaPlayer playerLion;
     private MediaPlayer playerMonkey;
     private MediaPlayer playerBird;
+
 
     private MediaPlayer player;
     private Recorder recorder;
@@ -159,7 +161,7 @@ public class AudioRecorderActivity extends AppCompatActivity
             }
         });
         monkey = (ImageButton) findViewById(R.id.record_monkey);
-        playerMonkey = MediaPlayer.create(this, R.raw.rmonkeycolobus);
+        playerMonkey = MediaPlayer.create(this, R.raw.monkey);
         monkey.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
