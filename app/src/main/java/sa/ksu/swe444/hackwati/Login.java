@@ -343,8 +343,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                                     executeLogin();
                                     //  startActivity(new Intent(Login.this, MainActivity.class));
                                 } else {
-                                    executeLogin();
-
                                     showDialogWithOkButton("تحقق من الرابط المرسل على بريدك لإكمال عملية تسجيل الدخول ");
                                 }
 
@@ -354,7 +352,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                                         || mAuth.getCurrentUser().getUid() == "DUbp3gH497gydI7fJodUfRz9A2K3") {
                                     Log.d(TAG, "admin"+userID);
                                     executeLogin();
-                                    startActivity(new Intent(Login.this, AdminActivity.class));
                                 }
                                 else {
                                     //Token ID
@@ -444,7 +441,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                             FirebaseUser user = mAuth.getCurrentUser();
                             if (mAuth.getCurrentUser().isEmailVerified()) {
                                 executeLogin();
-                                startActivity(new Intent(Login.this, MainActivity.class));
                             } else {
 
                                Toast.makeText(Login.this, "الايميل غير صالح",
@@ -476,13 +472,21 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     }
     public void executeLogin() {
 
-        MySharedPreference.putBoolean(this, "IS_LOGIN", true);
-        Intent i = new Intent(this, MainActivity.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(i);
-        finish();
+        if (mAuth.getCurrentUser().getUid().equalsIgnoreCase("DUbp3gH497gydI7fJodUfRz9A2K3")
+                || mAuth.getCurrentUser().getUid() == "DUbp3gH497gydI7fJodUfRz9A2K3") {
+            Log.d(TAG, "admin"+userID);
+            MySharedPreference.putBoolean(this, "IS_LOGIN", false);
+            startActivity(new Intent(Login.this, AdminActivity.class));
 
+        }
+        else {
+            MySharedPreference.putBoolean(this, "IS_LOGIN", true);
+            Intent i = new Intent(this, MainActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(i);
+            finish();
+        }
 
     }
 

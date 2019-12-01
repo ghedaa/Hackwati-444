@@ -11,6 +11,7 @@ import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,7 +57,8 @@ public class AdminActivity extends AppCompatActivity {
     public View item;
     private TextView emptyStories;
     private String userUid;
-    private Button goToStory;
+    private ImageButton power;
+
     public FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     private static final String TAG = "AdminActivity";
 
@@ -73,9 +75,47 @@ public class AdminActivity extends AppCompatActivity {
         toolbarMain = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbarMain);
 
-        installButton110to250();
 
-        //userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("الصفحة الرئيسية");
+
+
+        power = findViewById(R.id.power);
+        power.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(AdminActivity.this);
+                builder.setMessage("هل أنت متأكد من أنك تريد تسجيل الخروج؟")
+                        .setCancelable(false)
+                        .setPositiveButton("أنا متأكد", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                                FirebaseAuth.getInstance().signOut();
+                                MySharedPreference.clearData(AdminActivity.this);
+
+                                startActivity(new Intent(AdminActivity.this, SplashActivity.class));
+
+                            }
+
+                        });
+                builder.setNeutralButton("إلغاء", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+
+                });
+
+                AlertDialog alert = builder.create();
+                alert.show();
+
+
+            }
+        });
+
+
+
 
         initRecyclerView();
 
@@ -96,79 +136,7 @@ public class AdminActivity extends AppCompatActivity {
 
 
 
-    private void installButton110to250() {
 
-
-        final AllAngleExpandableButton button = findViewById(R.id.button_expandable_110_250);
-        final List<ButtonData> buttonDatas = new ArrayList<>();
-        int[] drawable = {R.drawable.defult_thumbnail, R.drawable.ic_power_settings_new_black_24dp, R.drawable.ic_search_black_24dp};// gray is some thing else
-        int[] color = {R.color.colorAccent, R.color.colorAccent, R.color.colorAccent, R.color.colorAccent};
-        for (int i = 0; i < 3; i++) {
-            ButtonData buttonData;
-            if (i == 0) {
-                buttonData = ButtonData.buildIconButton(this, drawable[i], 7);
-            } else {
-                buttonData = ButtonData.buildIconButton(this, drawable[i], 0);
-            }
-            buttonData.setBackgroundColorId(this, color[i]);
-            buttonDatas.add(buttonData);
-        }
-        button.setButtonDatas(buttonDatas);
-        setListener(button);
-    }
-
-    private void setListener(final AllAngleExpandableButton button) {
-        button.setButtonEventListener(new ButtonEventListener() {
-            @Override
-            public void onButtonClicked(int index) {
-                switch (index) {
-                    case 1:
-
-
-                        AlertDialog.Builder builder = new AlertDialog.Builder(AdminActivity.this);
-                        builder.setMessage("هل أنت متأكد من أنك تريد تسجيل الخروج؟")
-                                .setCancelable(false)
-                                .setPositiveButton("أنا متأكد", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-
-                                        FirebaseAuth.getInstance().signOut();
-                                        MySharedPreference.clearData(AdminActivity.this);
-
-                                        startActivity(new Intent(AdminActivity.this, SplashActivity.class));
-
-                                    }
-
-                                });
-                        builder.setNeutralButton("إلغاء", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-
-                            }
-
-                        });
-
-                        AlertDialog alert = builder.create();
-                        alert.show();
-
-
-
-                        break;
-                    case 2:
-                        break;
-
-                }
-            }
-
-            @Override
-            public void onExpand() {
-
-
-            }
-
-            @Override
-            public void onCollapse() {
-            }
-        });
-    }
 
 
     private int dpToPx(int dp) {
